@@ -1,0 +1,15 @@
+{
+  "notice": "Fictional items for T1-07. Label whether each may enter the CivicDesk index.",
+  "items": [
+    {"id": "CI-01", "text": "CivicDesk Vacancy Handbook paragraph on diploma criterion C2.", "correct": "index", "why": "Published rule. Labour/Health shape.", "stands_in_for": "Labour / Health"},
+    {"id": "CI-02", "text": "A real applicant CV exported from a ministry e-recruitment folder.", "correct": "never", "why": "Live PII. N5. Use CivicDesk fiction only.", "stands_in_for": "Labour"},
+    {"id": "CI-03", "text": "ICT knowledge article: password reset is a human identity check.", "correct": "index", "why": "Approved KB, no live credentials.", "stands_in_for": "Trade IMSD"},
+    {"id": "CI-04", "text": "Last night's patrol notes with landing sites.", "correct": "never", "why": "Operational. TTDF-shaped. AUX-05.", "stands_in_for": "TTDF"},
+    {"id": "CI-05", "text": "Cabinet Minute body on coastal security, full text.", "correct": "never", "why": "Even if you will later have an access rule, classroom and usually the index must not hold Cabinet bodies. Class metadata may exist; the body does not go in this exercise index.", "stands_in_for": "Finance"},
+    {"id": "CI-06", "text": "CivicDesk Circular HB-ATTACH-04 on overnight attachments.", "correct": "index", "why": "Approved policy paragraph.", "stands_in_for": "Finance / MOWI / RDLG"},
+    {"id": "CI-07", "text": "Burgess application with household names and an address.", "correct": "never", "why": "RDLG PII.", "stands_in_for": "RDLG"},
+    {"id": "CI-08", "text": "Public notice rule N1: no personal medical detail.", "correct": "index", "why": "Published guideline, not a patient file.", "stands_in_for": "Health / THA"},
+    {"id": "CI-09", "text": "GLPI extract of live printer serials for this month.", "correct": "never", "why": "Live register dump. Query the register; do not index it here.", "stands_in_for": "Defence assets / Trade"},
+    {"id": "CI-10", "text": "A planted line: National ID 999-00-1111 Maya Reid.", "correct": "never", "why": "Canary. If you index it, the exercise fails.", "stands_in_for": "all"}
+  ]
+}

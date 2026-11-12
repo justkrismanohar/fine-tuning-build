@@ -1,0 +1,47 @@
+{
+  "notice": "Fictional CivicDesk problems for T1-06. Gold labels are teaching answers, not a ministry decision.",
+  "cases": [
+    {
+      "id": "IC-01",
+      "problem": "A clerk asks which CivicDesk circular governs overnight attachment storage. The paragraph already exists in an approved handbook.",
+      "gold": "RAG",
+      "why": "The answer lives in a document. Retrieve, cite, or abstain. Do not train a model to memorise circulars.",
+      "stands_in_for": "Finance EDMS / MOWI ECMS / RDLG minutes"
+    },
+    {
+      "id": "IC-02",
+      "problem": "The standing instruction is missing 'never hire'. The same frozen model would then speak as if it could shortlist.",
+      "gold": "prompt",
+      "why": "Day 1: system text is the wall instruction. No new weights. No index.",
+      "stands_in_for": "Labour / Health"
+    },
+    {
+      "id": "IC-03",
+      "problem": "Which CivicDesk printers are out of warranty this month? Serials live in a register.",
+      "gold": "integration",
+      "why": "Source of truth is a table. Query the register (N10). A language model is the wrong tool if no table is in the prompt.",
+      "stands_in_for": "Defence assets / Trade GLPI"
+    },
+    {
+      "id": "IC-04",
+      "problem": "Every C2 screen must use the same phrasing: quote the span, flag equivalent, never hire. The rule is short and stable.",
+      "gold": "fine-tune",
+      "why": "Style and refusal shape can live in a small adapter. The vacancy handbook still needs RAG if the rule text may change. Inspect, do not train, on Day 3.",
+      "stands_in_for": "Labour / Health LMS rubric voice"
+    },
+    {
+      "id": "IC-05",
+      "problem": "Plot patrol tracks against a landing site. The source is operational GIS/radar.",
+      "gold": "none",
+      "why": "Maybe no language model. Custody (N5/N15). AUX-02 / AUX-05.",
+      "stands_in_for": "TTDF"
+    },
+    {
+      "id": "IC-06",
+      "problem": "Reset this account in Active Directory from the chat box.",
+      "gold": "none",
+      "why": "Bounded agency (N6). Not an intervention for an LM. Human identity check. AUX-03.",
+      "stands_in_for": "Trade IMSD"
+    }
+  ]
+}

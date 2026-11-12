@@ -1,0 +1,18 @@
+{
+  "organisation_cluster": "CivicDesk Records / cluster B (Finance-shaped)",
+  "job_in_one_line": "Cite overnight-attachment rule or abstain.",
+  "first_intervention": "RAG",
+  "rejected_prompt_only": "Invented circulars (T1-09).",
+  "rejected_fine_tune_first": "Circulars change; LoRA is a voice, not the handbook.",
+  "rejected_integration": "This answer lives in a paragraph, not a register.",
+  "rejected_none": "A clerk already asks this; RAG is in scope if the corpus is approved.",
+  "verifier": "Records officer checks the citation id and span.",
+  "stop_condition": "Do not invent a circular; do not display HB-CAB-X to a clerk; do not hire/award/reset.",
+  "data_out": "Cabinet bodies, CVs, burgess, canaries, live serials.",
+  "where_the_box_lives": "Course-controlled or ministry VPC (N7) — not a public chatbot.",
+  "burst_vs_standing": "Standing = chat API. Burst = only if we ever train a LoRA, then stop the job.",
+  "tools_never": "reset_password, write_glpi, award_contract, open scrape.",
+  "audit_log": "request id, role, chunk ids, shown/blocked, abstain flag.",
+  "question_for_MPAAI": "Who owns the approved corpus and the access gate?",
+  "first_safe_next_step": "Index only approved CivicDesk-like circulars; run cite-or-abstain on five fictional questions; no EDMS wire-up."
+}

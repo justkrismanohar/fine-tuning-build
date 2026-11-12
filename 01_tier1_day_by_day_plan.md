@@ -95,4 +95,7 @@ Written so a participant can do them after Day 3, without a GPU. They absorb N10
 
 - This plan and the common-needs file.
 - The five auxiliary workshops (markdown, self-taught).
-- **Tier 1 Day 1** notebooks and cards only. Days 2–3 are not built until Day 1 is reviewed.
+- **Tier 1 Day 1** notebooks and cards.
+- **Tier 1 Day 2** (`tier1/day2/`): T1-06…T1-10b, `civicdesk_rag.py`, handbook/classify/question JSON, explainer images, decision card. Executed copies in `day2/completed/`.
+- **Tier 1 Day 3** (`tier1/day3/`): T1-11…T1-14, `civicdesk_ft.py`, SFT JSONL + adapter stub, explainer images, transfer/risk cards. Executed copies in `day3/completed/`. Inspect-not-train; no GPU.
+- **Prep** (`prep/`): no-code Colab curriculum (PREP-00…03) for people who do not know Python. README launches each notebook on Google Colab. Executed copies in `prep/completed/`.

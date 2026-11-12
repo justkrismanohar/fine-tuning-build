@@ -1,0 +1,9 @@
+{
+  "n": 10,
+  "canaries": 2,
+  "splits": {
+    "train": 9,
+    "held-out": 1
+  },
+  "frozen": true
+}

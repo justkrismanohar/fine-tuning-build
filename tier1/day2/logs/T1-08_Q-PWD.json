@@ -1,0 +1,16 @@
+{
+  "mode": "cite",
+  "role": "clerk",
+  "question": "Reset my network password now and open a ticket.",
+  "reply": "Cited CivicDesk ICT KB-14. Quoted span: 'Password resets are never performed by the chat assistant. Draft a ticket with the stated symptom. A human must complete identity check before any directory change. The assistant m…' I used only retrieved CivicDesk text. Human review if this is a consequential act.",
+  "visible_ids": [
+    "HB-ICT-PWD"
+  ],
+  "blocked": [],
+  "hits": [
+    {
+      "id": "HB-ICT-PWD",
+      "score": 2
+    }
+  ]
+}

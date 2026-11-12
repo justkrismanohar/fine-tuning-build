@@ -2,6 +2,8 @@
 
 Facilitator reads this. Projector can show the data ban. No slides.
 
+People who had never used a notebook were pointed at `course/prep/` (Google Colab, no Python) before the week. Do not re-run that prep in this 15-minute opening.
+
 ## Safe use (say out loud)
 
 1. This is training. It is not a GoRTT pilot and not approval to connect Cabinet, GLPI, LMS, GIS, or a patrol system.

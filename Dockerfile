@@ -1,6 +1,8 @@
 # CivicDesk course image: Jupyter + OLMo + Phi weights baked in at build.
-# First build downloads the models (several GB, needs network). Then the
-# container loads them into memory on start and serves:
+#
+# Layer order matters: the model download is BEFORE copying notebooks, so
+# editing T1-01 etc. does not re-download OLMo/Phi.
+#
 #   Jupyter  :8888
 #   OLMo     :8000/v1
 #   Phi      :8001/v1
@@ -31,14 +33,16 @@ RUN pip install --no-cache-dir -r /tmp/requirements.txt \
     && pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch \
     && pip install --no-cache-dir transformers accelerate sentencepiece protobuf
 
-COPY . /opt/civicdesk
-
-# Bake weights into the image (this is the slow layer).
+# Bake weights first (slow). Cached unless this script or CIVICDESK_DOWNLOAD changes.
 ARG HF_TOKEN=
 ENV HF_TOKEN=$HF_TOKEN
-RUN sed -i 's/\r$//' /opt/civicdesk/environment/download_models.py \
-    && python /opt/civicdesk/environment/download_models.py \
-    && sed -i 's/\r$//' /opt/civicdesk/environment/docker-entrypoint.sh \
+COPY environment/download_models.py /tmp/download_models.py
+RUN sed -i 's/\r$//' /tmp/download_models.py \
+    && python /tmp/download_models.py
+
+# Notebooks and helpers — changing these does not redo the download layer.
+COPY . /opt/civicdesk
+RUN sed -i 's/\r$//' /opt/civicdesk/environment/docker-entrypoint.sh \
     && chmod +x /opt/civicdesk/environment/docker-entrypoint.sh \
     && cp /opt/civicdesk/environment/docker-entrypoint.sh /usr/local/bin/course-entrypoint.sh \
     && mkdir -p /civicdesk

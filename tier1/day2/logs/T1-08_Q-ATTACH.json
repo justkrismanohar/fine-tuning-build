@@ -1,0 +1,21 @@
+{
+  "mode": "cite",
+  "role": "clerk",
+  "question": "What is the CivicDesk rule for storing service-request attachments overnight? Cite the handbook.",
+  "reply": "Cited CivicDesk Circular HB-ATTACH-04. Quoted span: 'Service-request attachments may be stored overnight only on the CivicDesk approved file store. They must not be copied into personal email or a public chatbot. If the store is unav…' I used only retrieved CivicDesk text. Human review if this is a consequential act.",
+  "visible_ids": [
+    "HB-ATTACH-04",
+    "HB-CLASS-01"
+  ],
+  "blocked": [],
+  "hits": [
+    {
+      "id": "HB-ATTACH-04",
+      "score": 4
+    },
+    {
+      "id": "HB-CLASS-01",
+      "score": 2
+    }
+  ]
+}

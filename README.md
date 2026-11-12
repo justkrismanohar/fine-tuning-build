@@ -20,22 +20,12 @@ This folder is packaged like a classroom image: a `Dockerfile`, an `environment/
 │   └── requirements-gpu.txt      # optional vLLM / transformers
 ├── 00_common_needs_from_eois.md
 ├── 01_tier1_day_by_day_plan.md
+├── prep/                         # no-code Colab pre-work (2–3 evenings)
 ├── auxiliary/                    # self-taught workshops (no GPU)
 └── tier1/
-    └── day1/                     # Day 1 notebooks and helpers
-        ├── T1-00_opening.md
-        ├── T1-01a_build_from_scratch.ipynb
-        ├── T1-01_first_call.ipynb
-        ├── T1-02_tokens_and_transformer.ipynb
-        ├── T1-03_slm_vs_llm.ipynb
-        ├── T1-04_openness_licences_gpu.ipynb
-        ├── T1-05_usecase_canvas.ipynb
-        ├── civicdesk_lab.py
-        ├── build_llms.py
-        ├── hf_openai_server.py
-        ├── data/
-        ├── images/
-        └── cards/
+    ├── day1/                     # start a model
+    ├── day2/                     # retrieve, cite or abstain
+    └── day3/                     # inspect a dataset and a pretend adapter
 ```
 
 
@@ -74,7 +64,19 @@ Day 1 labs. Open them in order. Each notebook has the teaching text; do not past
 | `T1-05_usecase_canvas.ipynb`         | 14:20–14:55 | Group canvas + overnight                                                                          |
 
 
-Days 2–3 notebooks are not in this folder yet. Auxiliary workshops are in `auxiliary/` and are self-taught (no GPU).
+### `tier1/day2/`
+
+Retrieve from an approved CivicDesk pile. No GPU. Open in order: T1-06 (intervention map) → T1-07 (index vs never) → T1-08 (RAG) → T1-09 (prompt vs RAG) → T1-10 (access) → T1-10b (decision card). Executed reference copies live in `day2/completed/`.
+
+### `tier1/day3/`
+
+Inspect an SFT set and a pretend adapter. Do **not** train. Open in order: T1-11 → T1-12 → T1-12b → T1-13 → T1-14. Executed copies in `day3/completed/`.
+
+### `prep/`
+
+Optional **no-code** pre-work (about 2½–3½ hours over two or three evenings). Google Colab; no Python install. Start at [`prep/README.md`](prep/README.md). People who already use notebooks can skip PREP-00.
+
+Auxiliary workshops are in `auxiliary/` and are self-taught (no GPU).
 
 ## Run with Docker
 
@@ -200,7 +202,7 @@ If it came from a ministry system, it does not go in a cell. Use the CivicDesk f
 
 ## Notes
 
-- `docker build` downloads OLMo + Phi into the image. That layer is several GB and needs Hugging Face network access. Rebuilds reuse the layer if `download_models.py` did not change.
+- `docker build` downloads OLMo + Phi into the image. That layer is several GB and needs Hugging Face network access. **Notebook-only edits do not re-download** — the weights layer sits *before* `COPY . /opt/civicdesk`. You still run `docker compose up --build`; Docker reuses `/models` and only copies the new notebooks. You re-download only if `download_models.py`, the pip lines, or the base image change.
 - Loading both models on CPU is RAM-heavy. If the container is killed on start, use `CIVICDESK_LOAD_MODELS=olmo` or raise Docker Desktop memory.
 - CPU replies are slow. That is expected. vLLM on a GPU is the faster classroom path later.
 - Stop JupyterLab with `Ctrl+C` in the terminal where it is running.

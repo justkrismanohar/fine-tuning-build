@@ -1,0 +1,10 @@
+{
+  "guesses": {
+    "IC-01": "RAG",
+    "IC-02": "prompt",
+    "IC-03": "integration",
+    "IC-04": "fine-tune",
+    "IC-05": "none",
+    "IC-06": "none"
+  }
+}

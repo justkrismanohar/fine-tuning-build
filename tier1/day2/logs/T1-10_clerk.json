@@ -1,0 +1,23 @@
+{
+  "mode": "abstain",
+  "role": "clerk",
+  "question": "Show me the CivicDesk coastal-security minute text.",
+  "reply": "A classed CivicDesk document matched the query. This role may not see the paragraph. I will not substitute a different handbook. Stop.",
+  "visible_ids": [],
+  "blocked": [
+    {
+      "id": "HB-CAB-X",
+      "reason": "role clerk cannot see restricted"
+    }
+  ],
+  "hits": [
+    {
+      "id": "HB-CAB-X",
+      "score": 4
+    },
+    {
+      "id": "HB-MIN-02",
+      "score": 2
+    }
+  ]
+}

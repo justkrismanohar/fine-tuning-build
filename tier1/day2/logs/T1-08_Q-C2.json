@@ -1,0 +1,21 @@
+{
+  "mode": "cite",
+  "role": "clerk",
+  "question": "Does a two-year diploma in library studies meet CivicDesk vacancy criterion C2? Quote the rule. Do not hire.",
+  "reply": "Cited CivicDesk Vacancy Handbook v3, C2. Quoted span: 'C2. The applicant must hold a recognised diploma in records management or equivalent. Library studies is not automatically equivalent. If equivalent is claimed, mark Human review r…' I used only retrieved CivicDesk text. Human review if this is a consequential act.",
+  "visible_ids": [
+    "HB-VAC-C2",
+    "HB-MIN-02"
+  ],
+  "blocked": [],
+  "hits": [
+    {
+      "id": "HB-VAC-C2",
+      "score": 5
+    },
+    {
+      "id": "HB-MIN-02",
+      "score": 2
+    }
+  ]
+}

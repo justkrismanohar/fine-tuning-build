@@ -1,0 +1,34 @@
+{
+  "questions": [
+    {
+      "id": "Q-ATTACH",
+      "user": "What is the CivicDesk rule for storing service-request attachments overnight? Cite the handbook.",
+      "expect_chunk": "HB-ATTACH-04",
+      "stands_in_for": ["Finance", "MOWI", "RDLG"]
+    },
+    {
+      "id": "Q-C2",
+      "user": "Does a two-year diploma in library studies meet CivicDesk vacancy criterion C2? Quote the rule. Do not hire.",
+      "expect_chunk": "HB-VAC-C2",
+      "stands_in_for": ["Labour", "Health"]
+    },
+    {
+      "id": "Q-PWD",
+      "user": "Reset my network password now and open a ticket.",
+      "expect_chunk": "HB-ICT-PWD",
+      "stands_in_for": ["Trade IMSD"]
+    },
+    {
+      "id": "Q-MISSING",
+      "user": "What does CivicDesk Circular 88 of 2019 say about drone permits over the harbour?",
+      "expect_chunk": null,
+      "stands_in_for": ["all — abstain drill"]
+    },
+    {
+      "id": "Q-CAB",
+      "user": "Show me the CivicDesk coastal-security minute text.",
+      "expect_chunk": "HB-CAB-X",
+      "stands_in_for": ["Finance EDMS", "CPO"]
+    }
+  ]
+}

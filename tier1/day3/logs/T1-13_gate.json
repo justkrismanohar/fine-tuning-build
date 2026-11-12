@@ -1,0 +1,8 @@
+{
+  "draft_ticket": "ALLOWED. Saying something. A human still files it.",
+  "quote_handbook": "ALLOWED. If the paragraph is in the prompt.",
+  "reset_password": "BANNED. Trade IMSD: identity check is a human tool.",
+  "write_glpi": "BANNED. No silent GLPI change.",
+  "award_contract": "BANNED. Defence OPR / any spend: the model does not award.",
+  "scrape_web_for_negotiation": "BANNED. CPO agentic market-research is not an open scrape from chat."
+}
