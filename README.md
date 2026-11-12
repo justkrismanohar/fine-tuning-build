@@ -1,0 +1,208 @@
+# CivicDesk SLM course notebooks
+
+Hands-on materials for **UNDP-TTO-00212** (open-source SLM/LLM training for GoRTT / MPAAI). Instruction lives in the notebooks. There is no slide deck for the labs.
+
+This folder is packaged like a classroom image: a `Dockerfile`, an `environment/` with Python deps, and the notebooks. The layout follows the same idea as the [NVIDIA DLI Fundamentals of Deep Learning course content](https://github.com/NVDLI/fundamentals-of-deep-learning/tree/main/course_content) — build once, open JupyterLab, run the labs — adapted for CivicDesk (synthetic ministry-style tickets, not MNIST).
+
+**CivicDesk only.** No real CVs, Cabinet/EDMS exports, case files, health records, burgess applications, patrol notes, passwords, or live GLPI/GIS extracts go in a cell.
+
+## Repository contents
+
+```text
+.
+├── Dockerfile
+├── docker-compose.yml
+├── environment/
+│   ├── entrypoint.sh             # local Jupyter
+│   ├── docker-entrypoint.sh      # seed notebooks, load OLMo/Phi, start lab
+│   ├── download_models.py        # used at image build to bake weights
+│   ├── requirements.txt          # Jupyter + demo path (no GPU)
+│   └── requirements-gpu.txt      # optional vLLM / transformers
+├── 00_common_needs_from_eois.md
+├── 01_tier1_day_by_day_plan.md
+├── auxiliary/                    # self-taught workshops (no GPU)
+└── tier1/
+    └── day1/                     # Day 1 notebooks and helpers
+        ├── T1-00_opening.md
+        ├── T1-01a_build_from_scratch.ipynb
+        ├── T1-01_first_call.ipynb
+        ├── T1-02_tokens_and_transformer.ipynb
+        ├── T1-03_slm_vs_llm.ipynb
+        ├── T1-04_openness_licences_gpu.ipynb
+        ├── T1-05_usecase_canvas.ipynb
+        ├── civicdesk_lab.py
+        ├── build_llms.py
+        ├── hf_openai_server.py
+        ├── data/
+        ├── images/
+        └── cards/
+```
+
+
+
+### `Dockerfile`
+
+Builds a JupyterLab environment from `python:3.11-slim`, installs PyTorch (CPU) and transformers, and **downloads OLMo and Phi into `/models` during `docker build`**. On start it loads those weights and serves:
+
+- Jupyter on `:8888`
+- OLMo on `:8000/v1`
+- Phi on `:8001/v1`
+
+In T1-01 set `BACKEND = "local"`. First build needs network and several GB of disk. Loading **both** models on CPU wants roughly 16 GB RAM for the Docker engine; to load OLMo only: `CIVICDESK_LOAD_MODELS=olmo`.
+
+### `environment/`
+
+- `requirements.txt` — JupyterLab and the packages the demo notebooks import.
+- `requirements-gpu.txt` — extra packages for `build_llms.py serve --engine vllm` on Linux+CUDA.
+- `entrypoint.sh` — JupyterLab startup script (Docker and local `sh`).
+
+
+
+### `tier1/day1/`
+
+Day 1 labs. Open them in order. Each notebook has the teaching text; do not paste ministry files.
+
+
+| File                                 | When        | What they do                                                                                      |
+| ------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------- |
+| `T1-00_opening.md`                   | 09:00–09:15 | Data ban, pre-test                                                                                |
+| `T1-01a_build_from_scratch.ipynb`    | 09:15–09:50 | Check host; fetch OLMo/Phi weights; start an OpenAI-compatible API — **or** skip and stay on demo |
+| `T1-01_first_call.ipynb`             | 09:50–10:30 | `BACKEND` + `WHICH_MODEL`; system vs user; one CivicDesk request                                  |
+| `T1-02_tokens_and_transformer.ipynb` | 10:45–12:00 | Tokens and the architecture card                                                                  |
+| `T1-03_slm_vs_llm.ipynb`             | 12:45–13:45 | OLMo vs Phi; cost card                                                                            |
+| `T1-04_openness_licences_gpu.ipynb`  | 13:45–14:20 | Model cards, licences, GPU questions                                                              |
+| `T1-05_usecase_canvas.ipynb`         | 14:20–14:55 | Group canvas + overnight                                                                          |
+
+
+Days 2–3 notebooks are not in this folder yet. Auxiliary workshops are in `auxiliary/` and are self-taught (no GPU).
+
+## Run with Docker
+
+From **this** directory (`course/`):
+
+```bash
+docker build -t civicdesk-course .
+```
+
+Start JupyterLab **and** the two model servers:
+
+```bash
+docker run --rm -it -p 8888:8888 -p 8000:8000 -p 8001:8001 civicdesk-course
+```
+
+Then open:
+
+```text
+http://localhost:8888/lab
+```
+
+The file browser root is `/civicdesk`. Open `tier1/day1/T1-01_first_call.ipynb` and set **`BACKEND = "local"`**. The container already loaded the weights that were baked in at build.
+
+Wait until the logs say `olmo is up on :8000` (and Phi on `:8001`) before you send a live call. First start can take several minutes while the models load into RAM.
+
+**Do not bind-mount** a OneDrive / “Other computers” path over `/civicdesk`. Docker Desktop often mounts that as an empty folder, which hides the notebooks that were copied into the image. Compose no longer mounts by default. If `/civicdesk` looks empty, rebuild and run **without** `-v`.
+
+To edit live, copy the `course` folder to a local disk Docker can share (for example `C:\civicdesk`) and then:
+
+```bash
+docker run --rm -it -p 8888:8888 -v "C:/civicdesk:/civicdesk" civicdesk-course
+```
+
+If that mount is still empty, the container copies the baked-in files from `/opt/civicdesk` into `/civicdesk` at start.
+
+PowerShell (no mount — use the files in the image):
+
+```powershell
+docker build -t civicdesk-course .
+docker run --rm -it -p 8888:8888 -p 8000:8000 -p 8001:8001 civicdesk-course
+```
+
+Give Docker Desktop enough memory (Settings → Resources). Both models on CPU need a large engine; OLMo-only is lighter:
+
+```powershell
+docker run --rm -it -e CIVICDESK_LOAD_MODELS=olmo -p 8888:8888 -p 8000:8000 civicdesk-course
+```
+
+If port `8888` is already in use, map another local port:
+
+```bash
+docker run --rm -it -p 8890:8888 civicdesk-course
+```
+
+Then open `http://localhost:8890/lab`.
+
+### Compose (same thing)
+
+```bash
+docker compose up --build
+```
+
+Stop with `Ctrl+C`, then `docker compose down`.
+
+## Run locally with `pip`
+
+Python 3.11+ recommended. From this directory:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r environment/requirements.txt
+```
+
+Start JupyterLab:
+
+```bash
+jupyter lab
+```
+
+or:
+
+```bash
+sh environment/entrypoint.sh
+```
+
+Jupyter prints a local URL. Open it, then open `tier1/day1/`.
+
+Windows without Docker: this pip path is the usual option. `build_llms.py check` will say if there is no NVIDIA GPU. Stay on `BACKEND='demo'` or use the course shared URL.
+
+## Live models
+
+The course image **already contains** OLMo and Phi (`/models/olmo`, `/models/phi`). You do not run `build_llms.py download` inside it unless you skipped that layer.
+
+On start the entrypoint loads those folders with `hf_openai_server.py` (CPU; GPU if the container sees CUDA). T1-01a is still there so learners can see the steps; if `/models/olmo` exists, `download` reports “already in image”.
+
+`BACKEND='demo'` still works (canned text, no model). For a real call in this image use `BACKEND='local'`.
+
+Faster GPU serve (Linux + NVIDIA + nvidia-container-toolkit), after the image is built:
+
+```bash
+docker run --rm -it --gpus all -p 8888:8888 -p 8000:8000 -p 8001:8001 civicdesk-course
+```
+
+Then in a lab terminal you can stop the CPU servers and use vLLM if you installed `environment/requirements-gpu.txt`. The classroom default in this Dockerfile is the baked HF servers, not vLLM.
+
+
+| Engine                  | Use when                                                                       |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| skip + `BACKEND='demo'` | Canned replies; no need to wait for :8000 / :8001                              |
+| `vllm`                  | Linux+CUDA, vLLM installed                                                     |
+| `docker`                | GPU + Docker, no local vLLM pip (`python build_llms.py serve --engine docker`) |
+| `hf`                    | `hf_openai_server.py`; smoke test; slow on CPU                                 |
+| `BACKEND='shared'`      | Facilitator pastes the course workspace URL                                    |
+
+
+OLMo is served on port **8000**, Phi on **8001**. Primary id: `allenai/OLMo-2-0425-1B-Instruct`. Comparison: `microsoft/Phi-4-mini-instruct`.
+
+## Data ban
+
+If it came from a ministry system, it does not go in a cell. Use the CivicDesk fiction in `tier1/day1/data/`. A planted secret in a prompt is a fail for the exercise.
+
+## Notes
+
+- `docker build` downloads OLMo + Phi into the image. That layer is several GB and needs Hugging Face network access. Rebuilds reuse the layer if `download_models.py` did not change.
+- Loading both models on CPU is RAM-heavy. If the container is killed on start, use `CIVICDESK_LOAD_MODELS=olmo` or raise Docker Desktop memory.
+- CPU replies are slow. That is expected. vLLM on a GPU is the faster classroom path later.
+- Stop JupyterLab with `Ctrl+C` in the terminal where it is running.
+- Git is not required in the room. If stuck, load `tier1/day1/completed/` for **that** notebook only and mark it as loaded from reference.
+

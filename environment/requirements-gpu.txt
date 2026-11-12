@@ -1,0 +1,11 @@
+# Optional. Install only on Linux + NVIDIA GPU (inside the container or a venv).
+# Do not pip-install this on a CPU-only laptop.
+#
+#   pip install -r environment/requirements-gpu.txt
+#
+# Then from tier1/day1:
+#   python build_llms.py serve --engine vllm
+-r requirements.txt
+vllm
+transformers
+torch

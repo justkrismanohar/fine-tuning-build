@@ -1,0 +1,13 @@
+{
+  "backend": "demo",
+  "mode": "demo",
+  "olmo": {
+    "base_url": "demo",
+    "model": "allenai/OLMo-2-0425-1B-Instruct"
+  },
+  "phi": {
+    "base_url": "demo",
+    "model": "microsoft/Phi-4-mini-instruct"
+  },
+  "fallback_to_demo": true
+}
