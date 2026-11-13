@@ -1,5 +1,19 @@
 # Prep quick card — bring to Day 1 if you want
 
+Read list: `readings.md` (Hugging Face ch. 1, OSI Open Source AI, model cards / Hub security for technical staff, OWASP + NIST for IT/policy). Python: PREP-00b is enough; Tutorial 1–4 is optional.
+
+## Python you will *see* (you do not write programs)
+
+```
+# [CHANGE]  → edit the text inside "quotes" only
+NAME = "demo"              # a label
+print(NAME)                # show it underneath
+lab.chat("a question")     # toolbox.action(input)
+form = { "field": "value" }
+```
+
+Red error: usually a missing `"`. Undo. Do not rewrite the cell.
+
 ## Data ban
 
 No real CVs, Cabinet/EDMS, case, health, burgess, patrol, passwords, live serials.

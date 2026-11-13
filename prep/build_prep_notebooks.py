@@ -186,9 +186,263 @@ print("If those words came from a real EDMS, delete them and start again.")
         md(
             """## Done
 
-Go to **PREP-01** (what a model is). [Open PREP-01 in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-01_what_a_model_is.ipynb).
+Next: **PREP-00b** — the few Python shapes you will *see* in the labs (you still do not write programs). [Open PREP-00b in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-00b_python_enough_to_follow.ipynb).
 
-If you already knew Colab, you can skip this file next time.
+If you already knew Colab, skip this file and still do 00b unless you already read Python for a living.
+"""
+        ),
+    ],
+)
+
+# ---------------------------------------------------------------------------
+# PREP-00b — minimum Python to follow a notebook
+# ---------------------------------------------------------------------------
+write(
+    "PREP-00b_python_enough_to_follow.ipynb",
+    [
+        md(
+            f"""# PREP-00b Python: enough to follow a notebook
+
+**Time:** 30–40 minutes &nbsp;|&nbsp; **Need this if:** you have never written Python (most of the room)
+
+{badge("PREP-00b_python_enough_to_follow.ipynb")}
+
+"""
+            + BANNER
+        ),
+        md(
+            """## What this is — and is not
+
+Python is the **language in the grey boxes**. Colab already speaks it. You are **not** becoming a programmer. You will not install Python. You will not write a script from a blank page.
+
+You only need to **recognise** six shapes that appear in Day 1–3, so a `# [CHANGE]` line is not a foreign language.
+
+| You will… | You will not… |
+|---|---|
+| Change a word inside `"quotes"` | Invent new functions |
+| Run a cell that says `import ...` | Understand every library |
+| Fill a labelled form `{ "owner": "..." }` | Learn data science or pandas |
+| Read a `print(...)` as “show this underneath” | Debug other people’s code |
+
+This notebook is the **whole Python requirement** for the room.
+
+Optional extra, only if this notebook felt easy: [Python Tutorial, sections 1–4](https://docs.python.org/3/tutorial/index.html) in a browser. Do not install Python. Skip section 2’s local interpreter. Stop at the end of section 4 (`if` / `for` — you will *see* them, not write them). Same ideas in workshop form: Software Carpentry [variables](https://swcarpentry.github.io/python-novice-gapminder/02-variables.html), [types](https://swcarpentry.github.io/python-novice-gapminder/03-types-conversion.html), [functions](https://swcarpentry.github.io/python-novice-gapminder/04-built-in.html). If those feel like a course, close them.
+
+Full reading list (Hugging Face, OSI, scan quality, OWASP): [readings.md](https://github.com/justkrismanohar/fine-tuning-build/blob/main/prep/readings.md).
+"""
+        ),
+        md(
+            """## 1. A comment vs a line the computer runs
+
+`#` starts a **note for humans**. Everything after `#` on that line is ignored.
+
+In this course the notes are tagged:
+
+| Tag | Meaning |
+|---|---|
+| `# [RUN]` | Click ▶. Do not edit. |
+| `# [CHANGE]` | Edit **only** the value after `=` (keep quotes). |
+| `# [OPTIONAL]` | Skip unless you are the deep-code table. Stay with the room. |
+"""
+        ),
+        code(
+            """# This line is a note. The next line runs.
+print("only this sentence should appear underneath")
+# print("this would print if you removed the # — leave it")
+"""
+        ),
+        md(
+            """## 2. Quotes mean text (a “string”)
+
+`"demo"` and `'demo'` are the same idea: a piece of text. Day 1 uses double quotes.
+
+**Keep both quote marks.** The word you change sits between them.
+
+```
+BACKEND = "demo"
+          ↑    ↑
+          do not delete these
+```
+
+Allowed words in T1-01 look like `"demo"`, `"local"`, `"shared"`, `"olmo"`, `"phi"`.
+"""
+        ),
+        code(
+            """# [CHANGE] try "local" or "shared" after you run it as "demo".
+BACKEND = "demo"
+
+print("You chose BACKEND =", BACKEND)
+print("On Day 1 this picks where the call goes. It is not OLMo vs Phi.")
+"""
+        ),
+        md(
+            """### Teaching note
+
+- A **variable** is a sticky label. `BACKEND` is the label. `"demo"` is the value.
+- Spelling matters. `backend` is not `BACKEND`.
+- No space around the name: `BACKEND = "demo"` is fine; `BACK END` is not.
+
+That is Software Carpentry “variables and assignment,” in one cell.
+"""
+        ),
+        md(
+            """## 3. `print` means “show this under the box”
+
+Parentheses `( )` mean **do this thing**. What sits inside is what you are showing.
+"""
+        ),
+        code(
+            """WHICH_MODEL = "olmo"   # [CHANGE] try "phi"
+print("Primary model in the room:", WHICH_MODEL)
+print("Two labels, two jobs: BACKEND = where; WHICH_MODEL = which weights.")
+"""
+        ),
+        md(
+            """## 4. True / False and numbers (not in quotes)
+
+`"demo"` is text. `True` is a switch. `8000` is a number. Do not put quotes around `True` or `False`.
+"""
+        ),
+        code(
+            """FALLBACK_TO_DEMO = True    # [CHANGE] try False — then put True back
+PORT = 8000
+print("If the live server is down, fall back to canned text?", FALLBACK_TO_DEMO)
+print("OLMo's door in the course image is port", PORT)
+"""
+        ),
+        md(
+            """## 5. `import` brings a toolbox the course already wrote
+
+`import civicdesk_lab as lab` means: load the helper file, and call it `lab` for short.
+
+You do **not** open that file. You **call** things on it: `lab.chat(...)`, `lab.use_backend(...)`.
+
+The next cell makes a **tiny stand-in** so this Colab page does not need extra files. In the room the stand-in is the real `civicdesk_lab.py`.
+"""
+        ),
+        code(
+            """# In Day 1 the first working line is:  import civicdesk_lab as lab
+# Here is the same shape, without that file.
+
+class _TinyLab:
+    def chat(self, user):
+        return "[demo] I cannot cite. No handbook is in this prompt. Stop."
+
+lab = _TinyLab()
+reply = lab.chat("Cite the overnight attachment rule.")
+print(reply)
+print()
+print("Read that as: toolbox named lab → action named chat → text in, text out.")
+"""
+        ),
+        md(
+            """### Teaching note
+
+A **function** (or method) is a named action. `chat` is the name. The text in quotes is the **argument** (the input). The **return** is what comes back — here, stored in `reply`.
+
+You will see `lab.use_backend("demo")` and `rag.answer_with_rag(...)`. Same shape: `name.action(something)`.
+"""
+        ),
+        md(
+            """## 6. A dictionary is a labelled form
+
+Day 1’s use-case canvas looks like this. Each `"key"` is a field name. You change the **values**, not the keys.
+"""
+        ),
+        code(
+            """# [CHANGE] fill like a paper form. Keep quotes and commas.
+canvas = {
+    "organisation": "CivicDesk Records",
+    "cluster": "B",
+    "stop_condition": "Do not hire. Do not invent a circular.",
+}
+
+print("organisation:", canvas["organisation"])
+print("cluster     :", canvas["cluster"])
+print("stop        :", canvas["stop_condition"])
+"""
+        ),
+        md(
+            """Curly braces `{ }` wrap the form. Each line is `"label": "value",` — the comma between lines matters. The last line may have a comma too.
+
+Square brackets `[ ]` on `canvas["cluster"]` mean **look up this field**.
+"""
+        ),
+        md(
+            """## 7. A list is an ordered pile
+
+Day 2 retrieves a **list** of chunks. You will not write lists. You will see them printed.
+"""
+        ),
+        code(
+            """hits = ["HB-ATTACH-04", "HB-CLASS-01"]
+print("Top chunk:", hits[0])
+print("How many :", len(hits))
+print("Python counts from zero. hits[0] is the first item.")
+"""
+        ),
+        md(
+            """## 8. Lines you run but do not edit: `if`, `for`, `def`
+
+You will **see** these. No-code people do not rewrite them.
+
+| Shape | Plain reading |
+|---|---|
+| `if BACKEND == "shared":` | If the label equals this text, do the indented lines |
+| `for k, v in canvas.items():` | For each row of the form, show it |
+| `def pretend_clerk(...):` | A recipe defined once; later cells call it by name |
+
+**Indentation** (the spaces at the start of a line) is part of the language. If you un-indent a line under `if` or `for`, the cell breaks. Undo rather than guessing.
+"""
+        ),
+        code(
+            """# [RUN] do not edit the for-line. You already filled canvas above.
+for k, v in canvas.items():
+    print(k, "=", v)
+"""
+        ),
+        code(
+            """# [RUN] a tiny if — same idea as T1-01 choosing a URL
+BACKEND = "demo"
+if BACKEND == "demo":
+    print("Canned replies. No GPU.")
+else:
+    print("Would POST to a live door.")
+"""
+        ),
+        md(
+            """## 9. When it goes red
+
+| Message starts with… | Usual cause | What you do |
+|---|---|---|
+| `SyntaxError` | A missing `"` or `,` or `}` | Undo. Put the quote back. |
+| `NameError` | Typo in a label (`backnd`) | Match the spelling in the teaching note. |
+| `KeyError` | You renamed a dictionary key | Put the original `"organisation"` key back. |
+| `IndentationError` | Spaces at the start of a line changed | Undo. Do not mix Tab and space. |
+
+You are not expected to “fix code.” Reload the notebook if it is a mess. Facilitators have `completed/` copies.
+"""
+        ),
+        code(
+            """print("If the next CHANGE cell errors, look at the table above.")
+print("The room will not ask no-code people to write a new function.")
+"""
+        ),
+        md(
+            """## 10. One page you can remember
+
+```
+# comment — humans only
+NAME = "text in quotes"     # CHANGE the text, not the name
+FLAG = True                 # no quotes
+lab.chat("a question")      # toolbox.action(input)
+form = { "field": "value" } # labelled form
+form["field"]               # look up a field
+```
+
+That is the entire Python literacy this course needs. Deep-code people may do more; they stay on the same notebooks.
+
+Go to **PREP-01**. [Open PREP-01 in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-01_what_a_model_is.ipynb).
 """
         ),
     ],
@@ -231,7 +485,7 @@ Three facts the room will repeat:
 2. **System** text is the standing instruction; **user** text is this visitor.
 3. **Open-weight** means you can host the files. It does not mean the training pile is public, and it does not mean “free of rules.”
 
-Optional 15-minute reading: [readings.md](https://github.com/justkrismanohar/fine-tuning-build/blob/main/prep/readings.md) Night 1. Not required.
+**Read (everyone):** Hugging Face [LLM Course, Chapter 1](https://huggingface.co/learn/llm-course/chapter1/1) — stop when they ask you to run *their* code. Optional picture: [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) (no need for the maths). **Open vs open-weight:** [OSI Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) — you can download weights without the training data being public. T1-04 will use that distinction.
 """
         ),
         md(
@@ -503,6 +757,8 @@ Day 1 the model had **no handbook** in the prompt, so it could invent Circular 9
 ```
 
 Optional reading: [IBM on RAG](https://www.ibm.com/think/topics/retrieval-augmented-generation) (plain language). Skip the vendor diagrams.
+
+Paper that later becomes a PDF is **not** cleaned in this notebook. If your ministry scans files, skim [Tesseract: improving output quality](https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html) (resolution, skew, image-only PDF). Do not install Tesseract. Do not upload a real page. Technical staff who already know tables may glance at [10 minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html); Day 2 is INDEX vs NEVER, not a pandas lab.
 """
         ),
         md(
@@ -759,6 +1015,10 @@ Two clocks:
 | Fail | Buying “one box for AI” with no split | Assuming a LoRA replaces hosting |
 
 An adapter is **not RAG** and **not the register**. Circulars still need retrieval. Serials still need a table.
+
+**Technical staff:** [Hugging Face model cards](https://huggingface.co/docs/hub/model-cards) and [Hub security](https://huggingface.co/docs/hub/security) — official publisher vs a community fork; pin a revision. The course already pins OLMo and Phi.
+
+**IT / policy:** skim [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) (excessive agency, sensitive disclosure) and the [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) overview. T1-13 is the classroom allowlist; AUX-04 is a DPIA sketch, not a filed assessment.
 """
         ),
         md(

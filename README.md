@@ -74,7 +74,7 @@ Inspect an SFT set and a pretend adapter. Do **not** train. Open in order: T1-11
 
 ### `prep/`
 
-Optional **no-code** pre-work (about 2½–3½ hours over two or three evenings). Google Colab; no Python install. Start at [`prep/README.md`](prep/README.md). People who already use notebooks can skip PREP-00.
+Optional **no-code** pre-work (about 3–4½ hours over two or three evenings). Google Colab; no Python install. Start at [`prep/README.md`](prep/README.md). PREP-00 is how to click Run; **PREP-00b** is the very basic Python needed to follow a `# [CHANGE]` line (not a programming course). Readings (Hugging Face ch. 1, OSI Open Source AI, optional OWASP/NIST/model cards, scan-quality awareness) are in [`prep/readings.md`](prep/readings.md). People who already use notebooks can skip PREP-00; skip 00b only if you already read Python.
 
 Auxiliary workshops are in `auxiliary/` and are self-taught (no GPU).
 
