@@ -2,6 +2,8 @@
 
 Start a model and see how it works. Instruction is in the notebooks. No slide deck.
 
+**Two tracks:** this folder is the live Docker/local path. No Docker and no GPU → the [Colab mirror](../../colab/README.md) (scripted replies, same notebooks).
+
 To spin up Jupyter for the whole course (Docker or local pip), use the parent [course README](../../README.md). From `course/`:
 
 ```text
@@ -10,6 +12,8 @@ docker run --rm -it -p 8888:8888 -v "$PWD:/civicdesk" civicdesk-course
 ```
 
 Then open `http://localhost:8888/lab` and this folder. Default `BACKEND='demo'` needs no GPU.
+
+**Facilitator:** the entrypoint copies `/opt/civicdesk` into `/civicdesk` only when `civicdesk_lab.py` is missing. A container started on an older bind-mounted checkout keeps that volume's helper and `hf_openai_server.py`, so temperature and the OLMo tokenizer will not match this image until the mount is updated or dropped.
 
 ## Order of play
 
@@ -21,7 +25,7 @@ Then open `http://localhost:8888/lab` and this folder. Default `BACKEND='demo'` 
 | `T1-02_tokens_and_transformer.ipynb` | 10:45–12:00 |
 | `T1-03_slm_vs_llm.ipynb` | 12:45–13:45 |
 | `T1-04_openness_licences_gpu.ipynb` | 13:45–14:20 |
-| `T1-05_usecase_canvas.ipynb` | 14:20–14:55 (group) + overnight |
+| `T1-05_usecase_canvas.ipynb` | 14:20–14:55 (group) worked redaction canvas + gold pairs; overnight |
 
 ## From scratch (deploy, not pre-train)
 
@@ -43,7 +47,7 @@ That writes `logs/endpoint.json`. T1-01 with `BACKEND='local'` reads it.
 | skip + `BACKEND='demo'` | No GPU; overnight review of the path |
 | `BACKEND='shared'` | Facilitator URL for the browser workspace |
 
-Windows without WSL/Docker: `check` will say so. That is expected. Stay on demo or shared.
+Windows without WSL/Docker: `check` will say so. That is expected. Stay on demo or shared. If the course container is unsuitable for this machine, follow [../../03_own_environment.md](../../03_own_environment.md).
 
 ## Backend switch (T1-01 cell)
 

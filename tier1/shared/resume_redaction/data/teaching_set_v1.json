@@ -1,0 +1,318 @@
+{
+  "fixture_version": "teaching-set-v1",
+  "split": "teaching (worked example only; not the benchmark, never training data)",
+  "provenance": "Synthetic. Written by the course author from fictional field values. Labels derived deterministically from those values, not by a model. No real person's data.",
+  "sha256": "39c0e0ea82d2ef8783bc9ffa4e145c0803a7d5b394c2af57adad65bef059e7f2",
+  "policy": {
+    "version": "T1-05-policy-v1",
+    "redact": {
+      "PERSON": "Name of the applicant, referees, or any other private individual named in the text",
+      "EMAIL": "Any email address, including spelled-out forms such as 'name dot x at y dot z'",
+      "PHONE": "Any phone number, in any format",
+      "ADDRESS": "Home or postal address (street, lot, village or town line)",
+      "DOB": "Date of birth",
+      "ID": "National ID or other personal identification number"
+    },
+    "keep": [
+      "Employer and institution names, even when they contain a family name",
+      "Job titles, duties, dates of employment, qualifications, skills, numbers about the work",
+      "Vacancy or document reference numbers"
+    ],
+    "placeholders": [
+      "[PERSON]",
+      "[EMAIL]",
+      "[PHONE]",
+      "[ADDRESS]",
+      "[DOB]",
+      "[ID]"
+    ],
+    "out_of_scope": "Photographs, scanned images, non-English text, documents over the token budget: not processed, routed to manual."
+  },
+  "docs": [
+    {
+      "id": "R01",
+      "layout": "standard headed CV",
+      "tests": "Baseline case: every identifier on its own labelled line.",
+      "text": "# Anika Ramnarine\nEmail: anika.ramnarine@example.invalid | Phone: 868-555-0142\nAddress: 14 Cedar Grove Trace, Fictionville\n\n## Experience\n- Records Officer, CivicDesk Central Registry, 2019-2025: indexed 12,000 files a year.\n\n## Education\n- BSc Information Management, University of Fictionville, 2018\n\n## Skills\nRetention schedules, EDMS indexing, spreadsheets\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Anika Ramnarine",
+          "start": 2,
+          "end": 17
+        },
+        {
+          "type": "EMAIL",
+          "text": "anika.ramnarine@example.invalid",
+          "start": 25,
+          "end": 56
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-0142",
+          "start": 66,
+          "end": 78
+        },
+        {
+          "type": "ADDRESS",
+          "text": "14 Cedar Grove Trace, Fictionville",
+          "start": 88,
+          "end": 122
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- Records Officer, CivicDesk Central Registry, 2019-2025: indexed 12,000 files a year.\n\n## Education\n- BSc Information Management, University of Fictionville, 2018\n\n## Skills\nRetention schedules, EDMS indexing, spreadsheets\n",
+      "keep": [
+        "Records Officer, CivicDesk Central Registry, 2019-2025",
+        "indexed 12,000 files a year",
+        "BSc Information Management, University of Fictionville, 2018",
+        "Retention schedules, EDMS indexing, spreadsheets"
+      ],
+      "form": {
+        "name": "Anika Ramnarine",
+        "email": "anika.ramnarine@example.invalid",
+        "phone": "868-555-0142"
+      }
+    },
+    {
+      "id": "R02",
+      "layout": "CV with date of birth, ID and a referee block",
+      "tests": "Referee contact details at the end; DOB and ID lines.",
+      "text": "# Curriculum vitae: Tevin Okonkwo-Sealy\nDate of birth: 03/07/1994\nNational ID: CD-ID-1994-0377\nEmail: tevin.os@example.org\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2017-2024: processed survey plan requests.\n\n## Referees\n- Gail Ramsaran, Former Supervisor, CivicDesk Lands Office, 868-555-0177, g.ramsaran@example.invalid\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Tevin Okonkwo-Sealy",
+          "start": 20,
+          "end": 39
+        },
+        {
+          "type": "DOB",
+          "text": "03/07/1994",
+          "start": 55,
+          "end": 65
+        },
+        {
+          "type": "ID",
+          "text": "CD-ID-1994-0377",
+          "start": 79,
+          "end": 94
+        },
+        {
+          "type": "EMAIL",
+          "text": "tevin.os@example.org",
+          "start": 102,
+          "end": 122
+        },
+        {
+          "type": "PERSON",
+          "text": "Gail Ramsaran",
+          "start": 235,
+          "end": 248
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-0177",
+          "start": 293,
+          "end": 305
+        },
+        {
+          "type": "EMAIL",
+          "text": "g.ramsaran@example.invalid",
+          "start": 307,
+          "end": 333
+        }
+      ],
+      "expected": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL]\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2017-2024: processed survey plan requests.\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Lands Office, [PHONE], [EMAIL]\n",
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2017-2024",
+        "processed survey plan requests",
+        "Former Supervisor, CivicDesk Lands Office"
+      ],
+      "form": {
+        "name": "Tevin Okonkwo-Sealy",
+        "email": "tevin.os@example.org",
+        "phone": "868-555-0190"
+      }
+    },
+    {
+      "id": "R03",
+      "layout": "short profile with the first name repeated in prose",
+      "tests": "Unfamiliar first name used alone in prose; phone with brackets and spaces.",
+      "text": "Name: Oyelaran Dookhie\nContact: (868) 555 0119 / o.dookhie@example.org\nAddress: LP 27, Branch Road, Fictionville Village\n\n## Profile\nOyelaran built the service-desk queue dashboard and reduced average queue time by 30%.\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2020-2025\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Oyelaran Dookhie",
+          "start": 6,
+          "end": 22
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 0119",
+          "start": 32,
+          "end": 46
+        },
+        {
+          "type": "EMAIL",
+          "text": "o.dookhie@example.org",
+          "start": 49,
+          "end": 70
+        },
+        {
+          "type": "ADDRESS",
+          "text": "LP 27, Branch Road, Fictionville Village",
+          "start": 80,
+          "end": 120
+        },
+        {
+          "type": "PERSON",
+          "text": "Oyelaran",
+          "start": 133,
+          "end": 141
+        }
+      ],
+      "expected": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] built the service-desk queue dashboard and reduced average queue time by 30%.\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2020-2025\n",
+      "keep": [
+        "built the service-desk queue dashboard",
+        "reduced average queue time by 30%",
+        "ICT Support Officer, CivicDesk Trade Unit, 2020-2025"
+      ],
+      "form": {
+        "name": "Oyelaran Dookhie",
+        "email": "o.dookhie@example.org",
+        "phone": "868-555-0119"
+      }
+    },
+    {
+      "id": "R04",
+      "layout": "CV where the employer carries the applicant's family name",
+      "tests": "Policy keeps employer names; a family business name is a quasi-identifier the policy owner must rule on.",
+      "text": "# Keisha Ramdass\nPhone: +1 (868) 555-0161 | Email: keisha.r@example.invalid\n\n## Experience\n- Accounts Clerk, Ramdass & Sons Hardware Ltd, 2016-2021: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2021-2025\n\n## Education\n- ACCA Applied Knowledge, 2019\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Keisha Ramdass",
+          "start": 2,
+          "end": 16
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-0161",
+          "start": 24,
+          "end": 41
+        },
+        {
+          "type": "EMAIL",
+          "text": "keisha.r@example.invalid",
+          "start": 51,
+          "end": 75
+        }
+      ],
+      "expected": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Ramdass & Sons Hardware Ltd, 2016-2021: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2021-2025\n\n## Education\n- ACCA Applied Knowledge, 2019\n",
+      "keep": [
+        "Accounts Clerk, Ramdass & Sons Hardware Ltd, 2016-2021",
+        "reconciled supplier invoices",
+        "Accounts Officer, CivicDesk Finance Unit, 2021-2025",
+        "ACCA Applied Knowledge, 2019"
+      ],
+      "form": {
+        "name": "Keisha Ramdass",
+        "email": "keisha.r@example.invalid",
+        "phone": "868-555-0161"
+      }
+    },
+    {
+      "id": "R05",
+      "layout": "informal contact line with a spelled-out email",
+      "tests": "Obfuscated email: pattern checks and exact form matching both miss it.",
+      "text": "# Rajiv Persaud\nReach me: rajiv dot persaud at example dot invalid, or 868 555 0133 (WhatsApp)\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2022-2025: keyed 300 permit forms a week.\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Rajiv Persaud",
+          "start": 2,
+          "end": 15
+        },
+        {
+          "type": "EMAIL",
+          "text": "rajiv dot persaud at example dot invalid",
+          "start": 26,
+          "end": 66
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 0133",
+          "start": 71,
+          "end": 83
+        }
+      ],
+      "expected": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2022-2025: keyed 300 permit forms a week.\n",
+      "keep": [
+        "Data Entry Clerk, CivicDesk Permits Office, 2022-2025",
+        "keyed 300 permit forms a week"
+      ],
+      "form": {
+        "name": "Rajiv Persaud",
+        "email": "rajiv.persaud@example.invalid",
+        "phone": "868-555-0133"
+      }
+    },
+    {
+      "id": "R06",
+      "layout": "cover-letter prose with inline address and a third person named",
+      "tests": "Identifiers inside sentences, not on labelled lines; a third party who is not a referee.",
+      "text": "My name is Sharleen Bisnath and I live at 9 Hillview Road, Fictionville. You can reach me on 868-555-0188.\n\nI have worked as a Health Records Assistant at CivicDesk District Clinic since 2021, where I maintain appointment registers for 4 clinics.\n\nMy mentor, Dr. Imran Sookdeo, encouraged me to apply for this post.\n\n## Qualifications\n- Diploma in Health Information, Fictionville Technical Institute, 2020\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Sharleen Bisnath",
+          "start": 11,
+          "end": 27
+        },
+        {
+          "type": "ADDRESS",
+          "text": "9 Hillview Road, Fictionville",
+          "start": 42,
+          "end": 71
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-0188",
+          "start": 93,
+          "end": 105
+        },
+        {
+          "type": "PERSON",
+          "text": "Imran Sookdeo",
+          "start": 263,
+          "end": 276
+        }
+      ],
+      "expected": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE].\n\nI have worked as a Health Records Assistant at CivicDesk District Clinic since 2021, where I maintain appointment registers for 4 clinics.\n\nMy mentor, Dr. [PERSON], encouraged me to apply for this post.\n\n## Qualifications\n- Diploma in Health Information, Fictionville Technical Institute, 2020\n",
+      "keep": [
+        "Health Records Assistant at CivicDesk District Clinic since 2021",
+        "maintain appointment registers for 4 clinics",
+        "Diploma in Health Information, Fictionville Technical Institute, 2020"
+      ],
+      "form": {
+        "name": "Sharleen Bisnath",
+        "email": "s.bisnath@example.invalid",
+        "phone": "868-555-0188"
+      }
+    },
+    {
+      "id": "R07",
+      "layout": "vacancy notice extract with no personal data",
+      "tests": "No PII at all: anything masked is over-redaction. The reference number looks like a phone number to a loose pattern.",
+      "text": "# Vacancy notice extract\nVacancy ref: CD-2024-117-3302\nPosition: Records Assistant, CivicDesk Central Registry\nRequirements: diploma in records management or equivalent; two years' experience.\n",
+      "spans": [],
+      "expected": "# Vacancy notice extract\nVacancy ref: CD-2024-117-3302\nPosition: Records Assistant, CivicDesk Central Registry\nRequirements: diploma in records management or equivalent; two years' experience.\n",
+      "keep": [
+        "Vacancy ref: CD-2024-117-3302",
+        "Records Assistant, CivicDesk Central Registry",
+        "diploma in records management or equivalent"
+      ],
+      "form": null
+    }
+  ]
+}

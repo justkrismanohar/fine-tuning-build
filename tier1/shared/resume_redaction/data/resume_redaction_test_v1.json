@@ -1,0 +1,1729 @@
+{
+  "benchmark_version": "resume-redaction-test-v1",
+  "split": "test (held out: never train, tune prompts or pick examples on it)",
+  "seed": 20261112,
+  "provenance": "Synthetic, rendered from fictional field values; labels derived from those values, not by a model.",
+  "sha256": "c299eb39a169f639fd72b48963fe1154d7c9b4a0786eb4a87354dcd3ccbdd370",
+  "policy": {
+    "version": "T1-05-policy-v1",
+    "redact": {
+      "PERSON": "Name of the applicant, referees, or any other private individual named in the text",
+      "EMAIL": "Any email address, including spelled-out forms such as 'name dot x at y dot z'",
+      "PHONE": "Any phone number, in any format",
+      "ADDRESS": "Home or postal address (street, lot, village or town line)",
+      "DOB": "Date of birth",
+      "ID": "National ID or other personal identification number"
+    },
+    "keep": [
+      "Employer and institution names, even when they contain a family name",
+      "Job titles, duties, dates of employment, qualifications, skills, numbers about the work",
+      "Vacancy or document reference numbers"
+    ],
+    "placeholders": [
+      "[PERSON]",
+      "[EMAIL]",
+      "[PHONE]",
+      "[ADDRESS]",
+      "[DOB]",
+      "[ID]"
+    ],
+    "out_of_scope": "Photographs, scanned images, non-English text, documents over the token budget: not processed, routed to manual."
+  },
+  "docs": [
+    {
+      "id": "B01",
+      "category": "standard",
+      "text": "# Quincy Lalla\nEmail: quincy.lalla@example.invalid | Phone: 868-555-6801\nAddress: 62 Calabash Street, Mockton\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2017: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2014\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Quincy Lalla",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "EMAIL",
+          "text": "quincy.lalla@example.invalid",
+          "start": 22,
+          "end": 50
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-6801",
+          "start": 60,
+          "end": 72
+        },
+        {
+          "type": "ADDRESS",
+          "text": "62 Calabash Street, Mockton",
+          "start": 82,
+          "end": 109
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2017: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2014\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2015-2017",
+        "reconciled 600 supplier invoices a quarter",
+        "Diploma in Records Management, Mockton Technical Institute, 2014"
+      ],
+      "form": {
+        "name": "Quincy Lalla",
+        "email": "quincy.lalla@example.invalid",
+        "phone": "868-555-6801"
+      }
+    },
+    {
+      "id": "B02",
+      "category": "referee_dob_id",
+      "text": "# Curriculum vitae: Chiamaka Vialva\nDate of birth: 20/06/1978\nNational ID: CD-ID-1978-969\nEmail: chiamaka.vialva@example.net | Phone: (868) 555 5093\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2012-2016: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2016\n\n## Referees\n- Kavita Rampersad, Former Supervisor, CivicDesk Finance Unit, +1 (868) 555-9862, kavita.ramper@example.invalid\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Chiamaka Vialva",
+          "start": 20,
+          "end": 35
+        },
+        {
+          "type": "DOB",
+          "text": "20/06/1978",
+          "start": 51,
+          "end": 61
+        },
+        {
+          "type": "ID",
+          "text": "CD-ID-1978-969",
+          "start": 75,
+          "end": 89
+        },
+        {
+          "type": "EMAIL",
+          "text": "chiamaka.vialva@example.net",
+          "start": 97,
+          "end": 124
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 5093",
+          "start": 134,
+          "end": 148
+        },
+        {
+          "type": "PERSON",
+          "text": "Kavita Rampersad",
+          "start": 355,
+          "end": 371
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-9862",
+          "start": 416,
+          "end": 433
+        },
+        {
+          "type": "EMAIL",
+          "text": "kavita.ramper@example.invalid",
+          "start": 435,
+          "end": 464
+        }
+      ],
+      "expected": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL] | Phone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2012-2016: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2016\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Finance Unit, [PHONE], [EMAIL]\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2012-2016",
+        "reconciled 600 supplier invoices a quarter",
+        "BSc Information Management, University of Fictionville, 2016",
+        "Former Supervisor, CivicDesk Finance Unit"
+      ],
+      "form": {
+        "name": "Chiamaka Vialva",
+        "email": "chiamaka.vialva@example.net",
+        "phone": "(868) 555 5093"
+      }
+    },
+    {
+      "id": "B03",
+      "category": "first_name_in_prose",
+      "text": "Name: Quincy Vialva\nContact: +1 (868) 555-5559 / quincy.vialva@example.invalid\nAddress: 57 Silk Cotton Drive, Mockton\n\n## Profile\nQuincy reconciled 600 supplier invoices a quarter as Accounts Officer at CivicDesk Finance Unit.\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2018\n\n## Education\n- BSc Information Management, University of Fictionville, 2014\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Quincy Vialva",
+          "start": 6,
+          "end": 19
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-5559",
+          "start": 29,
+          "end": 46
+        },
+        {
+          "type": "EMAIL",
+          "text": "quincy.vialva@example.invalid",
+          "start": 49,
+          "end": 78
+        },
+        {
+          "type": "ADDRESS",
+          "text": "57 Silk Cotton Drive, Mockton",
+          "start": 88,
+          "end": 117
+        },
+        {
+          "type": "PERSON",
+          "text": "Quincy",
+          "start": 130,
+          "end": 136
+        }
+      ],
+      "expected": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] reconciled 600 supplier invoices a quarter as Accounts Officer at CivicDesk Finance Unit.\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2018\n\n## Education\n- BSc Information Management, University of Fictionville, 2014\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2016-2018",
+        "reconciled 600 supplier invoices a quarter as Accounts Officer at CivicDesk Finance Unit",
+        "BSc Information Management, University of Fictionville, 2014"
+      ],
+      "form": {
+        "name": "Quincy Vialva",
+        "email": "quincy.vialva@example.invalid",
+        "phone": "+1 (868) 555-5559"
+      }
+    },
+    {
+      "id": "B04",
+      "category": "family_business_employer",
+      "text": "# Esperanza Hosein\nPhone: 868 555 4604 | Email: esperanza.hosein@example.net\n\n## Experience\n- Accounts Clerk, Hosein & Sons Hardware Ltd, 2014-2018: reconciled supplier invoices.\n- ICT Support Officer, CivicDesk Trade Unit, 2018-2022: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2012\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Esperanza Hosein",
+          "start": 2,
+          "end": 18
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 4604",
+          "start": 26,
+          "end": 38
+        },
+        {
+          "type": "EMAIL",
+          "text": "esperanza.hosein@example.net",
+          "start": 48,
+          "end": 76
+        }
+      ],
+      "expected": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Hosein & Sons Hardware Ltd, 2014-2018: reconciled supplier invoices.\n- ICT Support Officer, CivicDesk Trade Unit, 2018-2022: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2012\n",
+      "keep": [
+        "Accounts Clerk, Hosein & Sons Hardware Ltd, 2014-2018",
+        "ICT Support Officer, CivicDesk Trade Unit, 2018-2022",
+        "closed 85% of tickets within two days",
+        "Diploma in Records Management, Mockton Technical Institute, 2012"
+      ],
+      "form": {
+        "name": "Esperanza Hosein",
+        "email": "esperanza.hosein@example.net",
+        "phone": "868 555 4604"
+      }
+    },
+    {
+      "id": "B05",
+      "category": "obfuscated_email",
+      "text": "# Anjali Gopaul\nReach me: anjali dot gopaul at example dot net, or 868-555-8781 (WhatsApp)\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2020-2023: maintained registers for 3 clinics.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2015\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Anjali Gopaul",
+          "start": 2,
+          "end": 15
+        },
+        {
+          "type": "EMAIL",
+          "text": "anjali dot gopaul at example dot net",
+          "start": 26,
+          "end": 62
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-8781",
+          "start": 67,
+          "end": 79
+        }
+      ],
+      "expected": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2020-2023: maintained registers for 3 clinics.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2015\n",
+      "keep": [
+        "Health Records Assistant, CivicDesk District Clinic, 2020-2023",
+        "maintained registers for 3 clinics",
+        "Associate Degree in Office Administration, Sampleton College, 2015"
+      ],
+      "form": {
+        "name": "Anjali Gopaul",
+        "email": "anjali.gopaul@example.net",
+        "phone": "868-555-8781"
+      }
+    },
+    {
+      "id": "B06",
+      "category": "inline_prose_third_party",
+      "text": "My name is Darnell Vialva and I live at 18 Hibiscus Close, Mockton. You can reach me on (868) 555 2065 or at darnell.vialva@example.org.\n\nI have worked as Data Entry Clerk at CivicDesk Permits Office since 2014, where I keyed 250 permit forms a week.\n\nMy mentor, Dr. Renuka Ying, encouraged me to apply.\n\n## Qualifications\n- BSc Information Management, University of Fictionville, 2016\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Darnell Vialva",
+          "start": 11,
+          "end": 25
+        },
+        {
+          "type": "ADDRESS",
+          "text": "18 Hibiscus Close, Mockton",
+          "start": 40,
+          "end": 66
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 2065",
+          "start": 88,
+          "end": 102
+        },
+        {
+          "type": "EMAIL",
+          "text": "darnell.vialva@example.org",
+          "start": 109,
+          "end": 135
+        },
+        {
+          "type": "PERSON",
+          "text": "Renuka Ying",
+          "start": 267,
+          "end": 278
+        }
+      ],
+      "expected": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE] or at [EMAIL].\n\nI have worked as Data Entry Clerk at CivicDesk Permits Office since 2014, where I keyed 250 permit forms a week.\n\nMy mentor, Dr. [PERSON], encouraged me to apply.\n\n## Qualifications\n- BSc Information Management, University of Fictionville, 2016\n",
+      "keep": [
+        "Data Entry Clerk at CivicDesk Permits Office since 2014",
+        "keyed 250 permit forms a week",
+        "BSc Information Management, University of Fictionville, 2016"
+      ],
+      "form": {
+        "name": "Darnell Vialva",
+        "email": "darnell.vialva@example.org",
+        "phone": "(868) 555 2065"
+      }
+    },
+    {
+      "id": "B07",
+      "category": "repeated_identifiers",
+      "text": "# Nadira Hosein\nEmail: nadira.hosein@example.org\nPhone: +1 (868) 555-5074\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2013-2015: keyed 250 permit forms a week.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2008\n\n## Contact\nFor references, write to nadira.hosein@example.org or call +1 (868) 555-5074.\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Nadira Hosein",
+          "start": 2,
+          "end": 15
+        },
+        {
+          "type": "EMAIL",
+          "text": "nadira.hosein@example.org",
+          "start": 23,
+          "end": 48
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-5074",
+          "start": 56,
+          "end": 73
+        },
+        {
+          "type": "EMAIL",
+          "text": "nadira.hosein@example.org",
+          "start": 295,
+          "end": 320
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-5074",
+          "start": 329,
+          "end": 346
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL]\nPhone: [PHONE]\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2013-2015: keyed 250 permit forms a week.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2008\n\n## Contact\nFor references, write to [EMAIL] or call [PHONE].\n",
+      "keep": [
+        "Data Entry Clerk, CivicDesk Permits Office, 2013-2015",
+        "keyed 250 permit forms a week",
+        "Diploma in Records Management, Mockton Technical Institute, 2008"
+      ],
+      "form": {
+        "name": "Nadira Hosein",
+        "email": "nadira.hosein@example.org",
+        "phone": "+1 (868) 555-5074"
+      }
+    },
+    {
+      "id": "B08",
+      "category": "standard",
+      "text": "# Tariq Waithe\nEmail: tariq.waithe@example.invalid | Phone: 868 555 4679\nAddress: 69 Pommerac Lane, Mockton\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2014-2019: closed 85% of tickets within two days.\n\n## Education\n- BSc Information Management, University of Fictionville, 2015\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Tariq Waithe",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "EMAIL",
+          "text": "tariq.waithe@example.invalid",
+          "start": 22,
+          "end": 50
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 4679",
+          "start": 60,
+          "end": 72
+        },
+        {
+          "type": "ADDRESS",
+          "text": "69 Pommerac Lane, Mockton",
+          "start": 82,
+          "end": 107
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2014-2019: closed 85% of tickets within two days.\n\n## Education\n- BSc Information Management, University of Fictionville, 2015\n",
+      "keep": [
+        "ICT Support Officer, CivicDesk Trade Unit, 2014-2019",
+        "closed 85% of tickets within two days",
+        "BSc Information Management, University of Fictionville, 2015"
+      ],
+      "form": {
+        "name": "Tariq Waithe",
+        "email": "tariq.waithe@example.invalid",
+        "phone": "868 555 4679"
+      }
+    },
+    {
+      "id": "B09",
+      "category": "referee_dob_id",
+      "text": "# Curriculum vitae: Umeko Vialva\nDate of birth: 10/11/1990\nNational ID: CD-ID-1990-466\nEmail: umeko.vialva@example.org | Phone: 868-555-2285\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2008\n\n## Referees\n- Marlon Balgobin, Former Supervisor, CivicDesk Finance Unit, (868) 555 4505, marlon.balgob@example.org\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Umeko Vialva",
+          "start": 20,
+          "end": 32
+        },
+        {
+          "type": "DOB",
+          "text": "10/11/1990",
+          "start": 48,
+          "end": 58
+        },
+        {
+          "type": "ID",
+          "text": "CD-ID-1990-466",
+          "start": 72,
+          "end": 86
+        },
+        {
+          "type": "EMAIL",
+          "text": "umeko.vialva@example.org",
+          "start": 94,
+          "end": 118
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-2285",
+          "start": 128,
+          "end": 140
+        },
+        {
+          "type": "PERSON",
+          "text": "Marlon Balgobin",
+          "start": 353,
+          "end": 368
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 4505",
+          "start": 413,
+          "end": 427
+        },
+        {
+          "type": "EMAIL",
+          "text": "marlon.balgob@example.org",
+          "start": 429,
+          "end": 454
+        }
+      ],
+      "expected": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL] | Phone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2008\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Finance Unit, [PHONE], [EMAIL]\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2016-2020",
+        "reconciled 600 supplier invoices a quarter",
+        "Associate Degree in Office Administration, Sampleton College, 2008",
+        "Former Supervisor, CivicDesk Finance Unit"
+      ],
+      "form": {
+        "name": "Umeko Vialva",
+        "email": "umeko.vialva@example.org",
+        "phone": "868-555-2285"
+      }
+    },
+    {
+      "id": "B10",
+      "category": "first_name_in_prose",
+      "text": "Name: Vashti Rampersad\nContact: (868) 555 3627 / vashti.ramper@example.net\nAddress: 6 Silk Cotton Drive, Placeholder Bay\n\n## Profile\nVashti processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2012-2017\n\n## Education\n- ACCA Applied Knowledge, 2016\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Vashti Rampersad",
+          "start": 6,
+          "end": 22
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 3627",
+          "start": 32,
+          "end": 46
+        },
+        {
+          "type": "EMAIL",
+          "text": "vashti.ramper@example.net",
+          "start": 49,
+          "end": 74
+        },
+        {
+          "type": "ADDRESS",
+          "text": "6 Silk Cotton Drive, Placeholder Bay",
+          "start": 84,
+          "end": 120
+        },
+        {
+          "type": "PERSON",
+          "text": "Vashti",
+          "start": 133,
+          "end": 139
+        }
+      ],
+      "expected": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2012-2017\n\n## Education\n- ACCA Applied Knowledge, 2016\n",
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2012-2017",
+        "processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office",
+        "ACCA Applied Knowledge, 2016"
+      ],
+      "form": {
+        "name": "Vashti Rampersad",
+        "email": "vashti.ramper@example.net",
+        "phone": "(868) 555 3627"
+      }
+    },
+    {
+      "id": "B11",
+      "category": "family_business_employer",
+      "text": "# Vashti Lalla\nPhone: +1 (868) 555-6495 | Email: vashti.lalla@example.net\n\n## Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2015-2019: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2019-2024: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2013\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Vashti Lalla",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-6495",
+          "start": 22,
+          "end": 39
+        },
+        {
+          "type": "EMAIL",
+          "text": "vashti.lalla@example.net",
+          "start": 49,
+          "end": 73
+        }
+      ],
+      "expected": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2015-2019: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2019-2024: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2013\n",
+      "keep": [
+        "Accounts Clerk, Lalla & Sons Hardware Ltd, 2015-2019",
+        "Accounts Officer, CivicDesk Finance Unit, 2019-2024",
+        "reconciled 600 supplier invoices a quarter",
+        "Associate Degree in Office Administration, Sampleton College, 2013"
+      ],
+      "form": {
+        "name": "Vashti Lalla",
+        "email": "vashti.lalla@example.net",
+        "phone": "+1 (868) 555-6495"
+      }
+    },
+    {
+      "id": "B12",
+      "category": "obfuscated_email",
+      "text": "# Vashti Nanan\nReach me: vashti dot nanan at example dot org, or 868 555 1961 (WhatsApp)\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2017-2021: maintained registers for 3 clinics.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2018\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Vashti Nanan",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "EMAIL",
+          "text": "vashti dot nanan at example dot org",
+          "start": 25,
+          "end": 60
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 1961",
+          "start": 65,
+          "end": 77
+        }
+      ],
+      "expected": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2017-2021: maintained registers for 3 clinics.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2018\n",
+      "keep": [
+        "Health Records Assistant, CivicDesk District Clinic, 2017-2021",
+        "maintained registers for 3 clinics",
+        "Diploma in Records Management, Mockton Technical Institute, 2018"
+      ],
+      "form": {
+        "name": "Vashti Nanan",
+        "email": "vashti.nanan@example.org",
+        "phone": "868 555 1961"
+      }
+    },
+    {
+      "id": "B13",
+      "category": "inline_prose_third_party",
+      "text": "My name is Esperanza Maharaj-Pierre and I live at 54 Hibiscus Close, Fictionville. You can reach me on 868-555-4315 or at esperanza.mahara@example.invalid.\n\nI have worked as Records Officer at CivicDesk Central Registry since 2018, where I indexed 9,500 files a year.\n\nMy mentor, Dr. Chiamaka Charles-Mohan, encouraged me to apply.\n\n## Qualifications\n- Associate Degree in Office Administration, Sampleton College, 2009\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Esperanza Maharaj-Pierre",
+          "start": 11,
+          "end": 35
+        },
+        {
+          "type": "ADDRESS",
+          "text": "54 Hibiscus Close, Fictionville",
+          "start": 50,
+          "end": 81
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-4315",
+          "start": 103,
+          "end": 115
+        },
+        {
+          "type": "EMAIL",
+          "text": "esperanza.mahara@example.invalid",
+          "start": 122,
+          "end": 154
+        },
+        {
+          "type": "PERSON",
+          "text": "Chiamaka Charles-Mohan",
+          "start": 284,
+          "end": 306
+        }
+      ],
+      "expected": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE] or at [EMAIL].\n\nI have worked as Records Officer at CivicDesk Central Registry since 2018, where I indexed 9,500 files a year.\n\nMy mentor, Dr. [PERSON], encouraged me to apply.\n\n## Qualifications\n- Associate Degree in Office Administration, Sampleton College, 2009\n",
+      "keep": [
+        "Records Officer at CivicDesk Central Registry since 2018",
+        "indexed 9,500 files a year",
+        "Associate Degree in Office Administration, Sampleton College, 2009"
+      ],
+      "form": {
+        "name": "Esperanza Maharaj-Pierre",
+        "email": "esperanza.mahara@example.invalid",
+        "phone": "868-555-4315"
+      }
+    },
+    {
+      "id": "B14",
+      "category": "repeated_identifiers",
+      "text": "# Marlon Hosein\nEmail: marlon.hosein@example.org\nPhone: (868) 555 3594\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2019-2021: processed 40 survey requests a month.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2013\n\n## Contact\nFor references, write to marlon.hosein@example.org or call (868) 555 3594.\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Marlon Hosein",
+          "start": 2,
+          "end": 15
+        },
+        {
+          "type": "EMAIL",
+          "text": "marlon.hosein@example.org",
+          "start": 23,
+          "end": 48
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 3594",
+          "start": 56,
+          "end": 70
+        },
+        {
+          "type": "EMAIL",
+          "text": "marlon.hosein@example.org",
+          "start": 294,
+          "end": 319
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 3594",
+          "start": 328,
+          "end": 342
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL]\nPhone: [PHONE]\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2019-2021: processed 40 survey requests a month.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2013\n\n## Contact\nFor references, write to [EMAIL] or call [PHONE].\n",
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2019-2021",
+        "processed 40 survey requests a month",
+        "Associate Degree in Office Administration, Sampleton College, 2013"
+      ],
+      "form": {
+        "name": "Marlon Hosein",
+        "email": "marlon.hosein@example.org",
+        "phone": "(868) 555 3594"
+      }
+    },
+    {
+      "id": "B15",
+      "category": "standard",
+      "text": "# Anjali Balgobin\nEmail: anjali.balgob@example.net | Phone: +1 (868) 555-9557\nAddress: 14 Hibiscus Close, Fictionville\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2019-2021: keyed 250 permit forms a week.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2016\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Anjali Balgobin",
+          "start": 2,
+          "end": 17
+        },
+        {
+          "type": "EMAIL",
+          "text": "anjali.balgob@example.net",
+          "start": 25,
+          "end": 50
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-9557",
+          "start": 60,
+          "end": 77
+        },
+        {
+          "type": "ADDRESS",
+          "text": "14 Hibiscus Close, Fictionville",
+          "start": 87,
+          "end": 118
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2019-2021: keyed 250 permit forms a week.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2016\n",
+      "keep": [
+        "Data Entry Clerk, CivicDesk Permits Office, 2019-2021",
+        "keyed 250 permit forms a week",
+        "Associate Degree in Office Administration, Sampleton College, 2016"
+      ],
+      "form": {
+        "name": "Anjali Balgobin",
+        "email": "anjali.balgob@example.net",
+        "phone": "+1 (868) 555-9557"
+      }
+    },
+    {
+      "id": "B16",
+      "category": "referee_dob_id",
+      "text": "# Curriculum vitae: Marlon Rampersad\nDate of birth: 08/05/1995\nNational ID: CD-ID-1995-793\nEmail: marlon.ramper@example.invalid | Phone: 868 555 3893\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2017-2021: keyed 250 permit forms a week.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2008\n\n## Referees\n- Kavita Hosein, Former Supervisor, CivicDesk Permits Office, 868-555-1811, kavita.hosein@example.org\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Marlon Rampersad",
+          "start": 20,
+          "end": 36
+        },
+        {
+          "type": "DOB",
+          "text": "08/05/1995",
+          "start": 52,
+          "end": 62
+        },
+        {
+          "type": "ID",
+          "text": "CD-ID-1995-793",
+          "start": 76,
+          "end": 90
+        },
+        {
+          "type": "EMAIL",
+          "text": "marlon.ramper@example.invalid",
+          "start": 98,
+          "end": 127
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 3893",
+          "start": 137,
+          "end": 149
+        },
+        {
+          "type": "PERSON",
+          "text": "Kavita Hosein",
+          "start": 349,
+          "end": 362
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-1811",
+          "start": 409,
+          "end": 421
+        },
+        {
+          "type": "EMAIL",
+          "text": "kavita.hosein@example.org",
+          "start": 423,
+          "end": 448
+        }
+      ],
+      "expected": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL] | Phone: [PHONE]\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2017-2021: keyed 250 permit forms a week.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2008\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Permits Office, [PHONE], [EMAIL]\n",
+      "keep": [
+        "Data Entry Clerk, CivicDesk Permits Office, 2017-2021",
+        "keyed 250 permit forms a week",
+        "Diploma in Records Management, Mockton Technical Institute, 2008",
+        "Former Supervisor, CivicDesk Permits Office"
+      ],
+      "form": {
+        "name": "Marlon Rampersad",
+        "email": "marlon.ramper@example.invalid",
+        "phone": "868 555 3893"
+      }
+    },
+    {
+      "id": "B17",
+      "category": "first_name_in_prose",
+      "text": "Name: Vashti Maharaj-Pierre\nContact: 868-555-8958 / vashti.mahara@example.invalid\nAddress: 70 Calabash Street, Mockton\n\n## Profile\nVashti closed 85% of tickets within two days as ICT Support Officer at CivicDesk Trade Unit.\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2018-2023\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2011\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Vashti Maharaj-Pierre",
+          "start": 6,
+          "end": 27
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-8958",
+          "start": 37,
+          "end": 49
+        },
+        {
+          "type": "EMAIL",
+          "text": "vashti.mahara@example.invalid",
+          "start": 52,
+          "end": 81
+        },
+        {
+          "type": "ADDRESS",
+          "text": "70 Calabash Street, Mockton",
+          "start": 91,
+          "end": 118
+        },
+        {
+          "type": "PERSON",
+          "text": "Vashti",
+          "start": 131,
+          "end": 137
+        }
+      ],
+      "expected": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] closed 85% of tickets within two days as ICT Support Officer at CivicDesk Trade Unit.\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2018-2023\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2011\n",
+      "keep": [
+        "ICT Support Officer, CivicDesk Trade Unit, 2018-2023",
+        "closed 85% of tickets within two days as ICT Support Officer at CivicDesk Trade Unit",
+        "Diploma in Records Management, Mockton Technical Institute, 2011"
+      ],
+      "form": {
+        "name": "Vashti Maharaj-Pierre",
+        "email": "vashti.mahara@example.invalid",
+        "phone": "868-555-8958"
+      }
+    },
+    {
+      "id": "B18",
+      "category": "family_business_employer",
+      "text": "# Chiamaka Gopaul\nPhone: (868) 555 2398 | Email: chiamaka.gopaul@example.invalid\n\n## Experience\n- Accounts Clerk, Gopaul & Sons Hardware Ltd, 2011-2015: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2015-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2008\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Chiamaka Gopaul",
+          "start": 2,
+          "end": 17
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 2398",
+          "start": 25,
+          "end": 39
+        },
+        {
+          "type": "EMAIL",
+          "text": "chiamaka.gopaul@example.invalid",
+          "start": 49,
+          "end": 80
+        }
+      ],
+      "expected": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Gopaul & Sons Hardware Ltd, 2011-2015: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2015-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2008\n",
+      "keep": [
+        "Accounts Clerk, Gopaul & Sons Hardware Ltd, 2011-2015",
+        "Accounts Officer, CivicDesk Finance Unit, 2015-2020",
+        "reconciled 600 supplier invoices a quarter",
+        "ACCA Applied Knowledge, 2008"
+      ],
+      "form": {
+        "name": "Chiamaka Gopaul",
+        "email": "chiamaka.gopaul@example.invalid",
+        "phone": "(868) 555 2398"
+      }
+    },
+    {
+      "id": "B19",
+      "category": "obfuscated_email",
+      "text": "# Wendell Nanan\nReach me: wendell dot nanan at example dot net, or +1 (868) 555-2447 (WhatsApp)\n\n## Experience\n- Records Officer, CivicDesk Central Registry, 2017-2021: indexed 9,500 files a year.\n\n## Education\n- BSc Information Management, University of Fictionville, 2010\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Wendell Nanan",
+          "start": 2,
+          "end": 15
+        },
+        {
+          "type": "EMAIL",
+          "text": "wendell dot nanan at example dot net",
+          "start": 26,
+          "end": 62
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-2447",
+          "start": 67,
+          "end": 84
+        }
+      ],
+      "expected": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- Records Officer, CivicDesk Central Registry, 2017-2021: indexed 9,500 files a year.\n\n## Education\n- BSc Information Management, University of Fictionville, 2010\n",
+      "keep": [
+        "Records Officer, CivicDesk Central Registry, 2017-2021",
+        "indexed 9,500 files a year",
+        "BSc Information Management, University of Fictionville, 2010"
+      ],
+      "form": {
+        "name": "Wendell Nanan",
+        "email": "wendell.nanan@example.net",
+        "phone": "+1 (868) 555-2447"
+      }
+    },
+    {
+      "id": "B20",
+      "category": "inline_prose_third_party",
+      "text": "My name is Darnell Rampersad and I live at 19 Silk Cotton Drive, Fictionville. You can reach me on 868 555 5214 or at darnell.ramper@example.invalid.\n\nI have worked as Records Officer at CivicDesk Central Registry since 2018, where I indexed 9,500 files a year.\n\nMy mentor, Dr. Chiamaka Nanan, encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2014\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Darnell Rampersad",
+          "start": 11,
+          "end": 28
+        },
+        {
+          "type": "ADDRESS",
+          "text": "19 Silk Cotton Drive, Fictionville",
+          "start": 43,
+          "end": 77
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 5214",
+          "start": 99,
+          "end": 111
+        },
+        {
+          "type": "EMAIL",
+          "text": "darnell.ramper@example.invalid",
+          "start": 118,
+          "end": 148
+        },
+        {
+          "type": "PERSON",
+          "text": "Chiamaka Nanan",
+          "start": 278,
+          "end": 292
+        }
+      ],
+      "expected": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE] or at [EMAIL].\n\nI have worked as Records Officer at CivicDesk Central Registry since 2018, where I indexed 9,500 files a year.\n\nMy mentor, Dr. [PERSON], encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2014\n",
+      "keep": [
+        "Records Officer at CivicDesk Central Registry since 2018",
+        "indexed 9,500 files a year",
+        "ACCA Applied Knowledge, 2014"
+      ],
+      "form": {
+        "name": "Darnell Rampersad",
+        "email": "darnell.ramper@example.invalid",
+        "phone": "868 555 5214"
+      }
+    },
+    {
+      "id": "B21",
+      "category": "repeated_identifiers",
+      "text": "# Quincy Balgobin\nEmail: quincy.balgob@example.net\nPhone: 868-555-8291\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2015-2020: processed 40 survey requests a month.\n\n## Education\n- BSc Information Management, University of Fictionville, 2013\n\n## Contact\nFor references, write to quincy.balgob@example.net or call 868-555-8291.\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Quincy Balgobin",
+          "start": 2,
+          "end": 17
+        },
+        {
+          "type": "EMAIL",
+          "text": "quincy.balgob@example.net",
+          "start": 25,
+          "end": 50
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-8291",
+          "start": 58,
+          "end": 70
+        },
+        {
+          "type": "EMAIL",
+          "text": "quincy.balgob@example.net",
+          "start": 288,
+          "end": 313
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-8291",
+          "start": 322,
+          "end": 334
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL]\nPhone: [PHONE]\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2015-2020: processed 40 survey requests a month.\n\n## Education\n- BSc Information Management, University of Fictionville, 2013\n\n## Contact\nFor references, write to [EMAIL] or call [PHONE].\n",
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2015-2020",
+        "processed 40 survey requests a month",
+        "BSc Information Management, University of Fictionville, 2013"
+      ],
+      "form": {
+        "name": "Quincy Balgobin",
+        "email": "quincy.balgob@example.net",
+        "phone": "868-555-8291"
+      }
+    },
+    {
+      "id": "B22",
+      "category": "standard",
+      "text": "# Yolanda Jaggernauth\nEmail: yolanda.jagger@example.org | Phone: (868) 555 1129\nAddress: 58 Hibiscus Close, Placeholder Bay\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2012-2015: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2011\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Yolanda Jaggernauth",
+          "start": 2,
+          "end": 21
+        },
+        {
+          "type": "EMAIL",
+          "text": "yolanda.jagger@example.org",
+          "start": 29,
+          "end": 55
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 1129",
+          "start": 65,
+          "end": 79
+        },
+        {
+          "type": "ADDRESS",
+          "text": "58 Hibiscus Close, Placeholder Bay",
+          "start": 89,
+          "end": 123
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2012-2015: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2011\n",
+      "keep": [
+        "ICT Support Officer, CivicDesk Trade Unit, 2012-2015",
+        "closed 85% of tickets within two days",
+        "Diploma in Records Management, Mockton Technical Institute, 2011"
+      ],
+      "form": {
+        "name": "Yolanda Jaggernauth",
+        "email": "yolanda.jagger@example.org",
+        "phone": "(868) 555 1129"
+      }
+    },
+    {
+      "id": "B23",
+      "category": "referee_dob_id",
+      "text": "# Curriculum vitae: Wendell Okafor\nDate of birth: 11/02/1987\nNational ID: CD-ID-1987-753\nEmail: wendell.okafor@example.invalid | Phone: +1 (868) 555-6917\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2012-2014: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2013\n\n## Referees\n- Esperanza Sankar, Former Supervisor, CivicDesk Finance Unit, 868 555 7323, esperanza.sankar@example.invalid\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Wendell Okafor",
+          "start": 20,
+          "end": 34
+        },
+        {
+          "type": "DOB",
+          "text": "11/02/1987",
+          "start": 50,
+          "end": 60
+        },
+        {
+          "type": "ID",
+          "text": "CD-ID-1987-753",
+          "start": 74,
+          "end": 88
+        },
+        {
+          "type": "EMAIL",
+          "text": "wendell.okafor@example.invalid",
+          "start": 96,
+          "end": 126
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-6917",
+          "start": 136,
+          "end": 153
+        },
+        {
+          "type": "PERSON",
+          "text": "Esperanza Sankar",
+          "start": 328,
+          "end": 344
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 7323",
+          "start": 389,
+          "end": 401
+        },
+        {
+          "type": "EMAIL",
+          "text": "esperanza.sankar@example.invalid",
+          "start": 403,
+          "end": 435
+        }
+      ],
+      "expected": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL] | Phone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2012-2014: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2013\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Finance Unit, [PHONE], [EMAIL]\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2012-2014",
+        "reconciled 600 supplier invoices a quarter",
+        "ACCA Applied Knowledge, 2013",
+        "Former Supervisor, CivicDesk Finance Unit"
+      ],
+      "form": {
+        "name": "Wendell Okafor",
+        "email": "wendell.okafor@example.invalid",
+        "phone": "+1 (868) 555-6917"
+      }
+    },
+    {
+      "id": "B24",
+      "category": "first_name_in_prose",
+      "text": "Name: Nadira Waithe\nContact: 868 555 4635 / nadira.waithe@example.invalid\nAddress: 43 Calabash Street, Placeholder Bay\n\n## Profile\nNadira maintained registers for 3 clinics as Health Records Assistant at CivicDesk District Clinic.\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2012-2017\n\n## Education\n- BSc Information Management, University of Fictionville, 2018\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Nadira Waithe",
+          "start": 6,
+          "end": 19
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 4635",
+          "start": 29,
+          "end": 41
+        },
+        {
+          "type": "EMAIL",
+          "text": "nadira.waithe@example.invalid",
+          "start": 44,
+          "end": 73
+        },
+        {
+          "type": "ADDRESS",
+          "text": "43 Calabash Street, Placeholder Bay",
+          "start": 83,
+          "end": 118
+        },
+        {
+          "type": "PERSON",
+          "text": "Nadira",
+          "start": 131,
+          "end": 137
+        }
+      ],
+      "expected": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] maintained registers for 3 clinics as Health Records Assistant at CivicDesk District Clinic.\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2012-2017\n\n## Education\n- BSc Information Management, University of Fictionville, 2018\n",
+      "keep": [
+        "Health Records Assistant, CivicDesk District Clinic, 2012-2017",
+        "maintained registers for 3 clinics as Health Records Assistant at CivicDesk District Clinic",
+        "BSc Information Management, University of Fictionville, 2018"
+      ],
+      "form": {
+        "name": "Nadira Waithe",
+        "email": "nadira.waithe@example.invalid",
+        "phone": "868 555 4635"
+      }
+    },
+    {
+      "id": "B25",
+      "category": "family_business_employer",
+      "text": "# Kavita Lalla\nPhone: 868-555-9318 | Email: kavita.lalla@example.net\n\n## Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2013-2017: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2017-2019: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2015\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Kavita Lalla",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-9318",
+          "start": 22,
+          "end": 34
+        },
+        {
+          "type": "EMAIL",
+          "text": "kavita.lalla@example.net",
+          "start": 44,
+          "end": 68
+        }
+      ],
+      "expected": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2013-2017: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2017-2019: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2015\n",
+      "keep": [
+        "Accounts Clerk, Lalla & Sons Hardware Ltd, 2013-2017",
+        "Accounts Officer, CivicDesk Finance Unit, 2017-2019",
+        "reconciled 600 supplier invoices a quarter",
+        "Associate Degree in Office Administration, Sampleton College, 2015"
+      ],
+      "form": {
+        "name": "Kavita Lalla",
+        "email": "kavita.lalla@example.net",
+        "phone": "868-555-9318"
+      }
+    },
+    {
+      "id": "B26",
+      "category": "obfuscated_email",
+      "text": "# Wendell Charles-Mohan\nReach me: wendell dot charle at example dot invalid, or (868) 555 4299 (WhatsApp)\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2019-2023: processed 40 survey requests a month.\n\n## Education\n- BSc Information Management, University of Fictionville, 2015\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Wendell Charles-Mohan",
+          "start": 2,
+          "end": 23
+        },
+        {
+          "type": "EMAIL",
+          "text": "wendell dot charle at example dot invalid",
+          "start": 34,
+          "end": 75
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 4299",
+          "start": 80,
+          "end": 94
+        }
+      ],
+      "expected": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2019-2023: processed 40 survey requests a month.\n\n## Education\n- BSc Information Management, University of Fictionville, 2015\n",
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2019-2023",
+        "processed 40 survey requests a month",
+        "BSc Information Management, University of Fictionville, 2015"
+      ],
+      "form": {
+        "name": "Wendell Charles-Mohan",
+        "email": "wendell.charle@example.invalid",
+        "phone": "(868) 555 4299"
+      }
+    },
+    {
+      "id": "B27",
+      "category": "inline_prose_third_party",
+      "text": "My name is Shivon Nanan and I live at 70 Pommerac Lane, Fictionville. You can reach me on +1 (868) 555-9919 or at shivon.nanan@example.org.\n\nI have worked as Records Officer at CivicDesk Central Registry since 2015, where I indexed 9,500 files a year.\n\nMy mentor, Dr. Wendell Jaggernauth, encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2013\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Shivon Nanan",
+          "start": 11,
+          "end": 23
+        },
+        {
+          "type": "ADDRESS",
+          "text": "70 Pommerac Lane, Fictionville",
+          "start": 38,
+          "end": 68
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-9919",
+          "start": 90,
+          "end": 107
+        },
+        {
+          "type": "EMAIL",
+          "text": "shivon.nanan@example.org",
+          "start": 114,
+          "end": 138
+        },
+        {
+          "type": "PERSON",
+          "text": "Wendell Jaggernauth",
+          "start": 268,
+          "end": 287
+        }
+      ],
+      "expected": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE] or at [EMAIL].\n\nI have worked as Records Officer at CivicDesk Central Registry since 2015, where I indexed 9,500 files a year.\n\nMy mentor, Dr. [PERSON], encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2013\n",
+      "keep": [
+        "Records Officer at CivicDesk Central Registry since 2015",
+        "indexed 9,500 files a year",
+        "ACCA Applied Knowledge, 2013"
+      ],
+      "form": {
+        "name": "Shivon Nanan",
+        "email": "shivon.nanan@example.org",
+        "phone": "+1 (868) 555-9919"
+      }
+    },
+    {
+      "id": "B28",
+      "category": "repeated_identifiers",
+      "text": "# Ifeoma Thomas-Ali\nEmail: ifeoma.thomas@example.invalid\nPhone: 868 555 1810\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2021: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2009\n\n## Contact\nFor references, write to ifeoma.thomas@example.invalid or call 868 555 1810.\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Ifeoma Thomas-Ali",
+          "start": 2,
+          "end": 19
+        },
+        {
+          "type": "EMAIL",
+          "text": "ifeoma.thomas@example.invalid",
+          "start": 27,
+          "end": 56
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 1810",
+          "start": 64,
+          "end": 76
+        },
+        {
+          "type": "EMAIL",
+          "text": "ifeoma.thomas@example.invalid",
+          "start": 273,
+          "end": 302
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 1810",
+          "start": 311,
+          "end": 323
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL]\nPhone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2021: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2009\n\n## Contact\nFor references, write to [EMAIL] or call [PHONE].\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2016-2021",
+        "reconciled 600 supplier invoices a quarter",
+        "ACCA Applied Knowledge, 2009"
+      ],
+      "form": {
+        "name": "Ifeoma Thomas-Ali",
+        "email": "ifeoma.thomas@example.invalid",
+        "phone": "868 555 1810"
+      }
+    },
+    {
+      "id": "B29",
+      "category": "standard",
+      "text": "# Umeko Waithe\nEmail: umeko.waithe@example.org | Phone: 868-555-6868\nAddress: 76 Lagoon View Road, Placeholder Bay\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2017-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2013\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Umeko Waithe",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "EMAIL",
+          "text": "umeko.waithe@example.org",
+          "start": 22,
+          "end": 46
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-6868",
+          "start": 56,
+          "end": 68
+        },
+        {
+          "type": "ADDRESS",
+          "text": "76 Lagoon View Road, Placeholder Bay",
+          "start": 78,
+          "end": 114
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2017-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2013\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2017-2020",
+        "reconciled 600 supplier invoices a quarter",
+        "ACCA Applied Knowledge, 2013"
+      ],
+      "form": {
+        "name": "Umeko Waithe",
+        "email": "umeko.waithe@example.org",
+        "phone": "868-555-6868"
+      }
+    },
+    {
+      "id": "B30",
+      "category": "referee_dob_id",
+      "text": "# Curriculum vitae: Kavita Waithe\nDate of birth: 07/12/1986\nNational ID: CD-ID-1986-725\nEmail: kavita.waithe@example.net | Phone: (868) 555 9408\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2018: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2011\n\n## Referees\n- Darnell Nanan, Former Supervisor, CivicDesk Finance Unit, +1 (868) 555-1244, darnell.nanan@example.org\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Kavita Waithe",
+          "start": 20,
+          "end": 33
+        },
+        {
+          "type": "DOB",
+          "text": "07/12/1986",
+          "start": 49,
+          "end": 59
+        },
+        {
+          "type": "ID",
+          "text": "CD-ID-1986-725",
+          "start": 73,
+          "end": 87
+        },
+        {
+          "type": "EMAIL",
+          "text": "kavita.waithe@example.net",
+          "start": 95,
+          "end": 120
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 9408",
+          "start": 130,
+          "end": 144
+        },
+        {
+          "type": "PERSON",
+          "text": "Darnell Nanan",
+          "start": 357,
+          "end": 370
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-1244",
+          "start": 415,
+          "end": 432
+        },
+        {
+          "type": "EMAIL",
+          "text": "darnell.nanan@example.org",
+          "start": 434,
+          "end": 459
+        }
+      ],
+      "expected": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL] | Phone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2018: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2011\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Finance Unit, [PHONE], [EMAIL]\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2015-2018",
+        "reconciled 600 supplier invoices a quarter",
+        "Associate Degree in Office Administration, Sampleton College, 2011",
+        "Former Supervisor, CivicDesk Finance Unit"
+      ],
+      "form": {
+        "name": "Kavita Waithe",
+        "email": "kavita.waithe@example.net",
+        "phone": "(868) 555 9408"
+      }
+    },
+    {
+      "id": "B31",
+      "category": "first_name_in_prose",
+      "text": "Name: Umeko Charles-Mohan\nContact: +1 (868) 555-1195 / umeko.charle@example.invalid\nAddress: 91 Mango Rose Avenue, Testbridge\n\n## Profile\nUmeko processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2020-2025\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2017\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Umeko Charles-Mohan",
+          "start": 6,
+          "end": 25
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-1195",
+          "start": 35,
+          "end": 52
+        },
+        {
+          "type": "EMAIL",
+          "text": "umeko.charle@example.invalid",
+          "start": 55,
+          "end": 83
+        },
+        {
+          "type": "ADDRESS",
+          "text": "91 Mango Rose Avenue, Testbridge",
+          "start": 93,
+          "end": 125
+        },
+        {
+          "type": "PERSON",
+          "text": "Umeko",
+          "start": 138,
+          "end": 143
+        }
+      ],
+      "expected": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2020-2025\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2017\n",
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2020-2025",
+        "processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office",
+        "Diploma in Records Management, Mockton Technical Institute, 2017"
+      ],
+      "form": {
+        "name": "Umeko Charles-Mohan",
+        "email": "umeko.charle@example.invalid",
+        "phone": "+1 (868) 555-1195"
+      }
+    },
+    {
+      "id": "B32",
+      "category": "family_business_employer",
+      "text": "# Renuka Lalla\nPhone: 868 555 9661 | Email: renuka.lalla@example.org\n\n## Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2009-2013: reconciled supplier invoices.\n- ICT Support Officer, CivicDesk Trade Unit, 2013-2017: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2017\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Renuka Lalla",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "PHONE",
+          "text": "868 555 9661",
+          "start": 22,
+          "end": 34
+        },
+        {
+          "type": "EMAIL",
+          "text": "renuka.lalla@example.org",
+          "start": 44,
+          "end": 68
+        }
+      ],
+      "expected": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2009-2013: reconciled supplier invoices.\n- ICT Support Officer, CivicDesk Trade Unit, 2013-2017: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2017\n",
+      "keep": [
+        "Accounts Clerk, Lalla & Sons Hardware Ltd, 2009-2013",
+        "ICT Support Officer, CivicDesk Trade Unit, 2013-2017",
+        "closed 85% of tickets within two days",
+        "Diploma in Records Management, Mockton Technical Institute, 2017"
+      ],
+      "form": {
+        "name": "Renuka Lalla",
+        "email": "renuka.lalla@example.org",
+        "phone": "868 555 9661"
+      }
+    },
+    {
+      "id": "B33",
+      "category": "obfuscated_email",
+      "text": "# Yolanda Balgobin\nReach me: yolanda dot balgob at example dot org, or 868-555-4696 (WhatsApp)\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2019-2021: closed 85% of tickets within two days.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2008\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Yolanda Balgobin",
+          "start": 2,
+          "end": 18
+        },
+        {
+          "type": "EMAIL",
+          "text": "yolanda dot balgob at example dot org",
+          "start": 29,
+          "end": 66
+        },
+        {
+          "type": "PHONE",
+          "text": "868-555-4696",
+          "start": 71,
+          "end": 83
+        }
+      ],
+      "expected": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2019-2021: closed 85% of tickets within two days.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2008\n",
+      "keep": [
+        "ICT Support Officer, CivicDesk Trade Unit, 2019-2021",
+        "closed 85% of tickets within two days",
+        "Associate Degree in Office Administration, Sampleton College, 2008"
+      ],
+      "form": {
+        "name": "Yolanda Balgobin",
+        "email": "yolanda.balgob@example.org",
+        "phone": "868-555-4696"
+      }
+    },
+    {
+      "id": "B34",
+      "category": "inline_prose_third_party",
+      "text": "My name is Ifeoma Balgobin and I live at 5 Sapodilla Trace, Testbridge. You can reach me on (868) 555 1836 or at ifeoma.balgob@example.net.\n\nI have worked as Lands Clerk at CivicDesk Lands Office since 2020, where I processed 40 survey requests a month.\n\nMy mentor, Dr. Umeko Hosein, encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2016\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Ifeoma Balgobin",
+          "start": 11,
+          "end": 26
+        },
+        {
+          "type": "ADDRESS",
+          "text": "5 Sapodilla Trace, Testbridge",
+          "start": 41,
+          "end": 70
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 555 1836",
+          "start": 92,
+          "end": 106
+        },
+        {
+          "type": "EMAIL",
+          "text": "ifeoma.balgob@example.net",
+          "start": 113,
+          "end": 138
+        },
+        {
+          "type": "PERSON",
+          "text": "Umeko Hosein",
+          "start": 270,
+          "end": 282
+        }
+      ],
+      "expected": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE] or at [EMAIL].\n\nI have worked as Lands Clerk at CivicDesk Lands Office since 2020, where I processed 40 survey requests a month.\n\nMy mentor, Dr. [PERSON], encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2016\n",
+      "keep": [
+        "Lands Clerk at CivicDesk Lands Office since 2020",
+        "processed 40 survey requests a month",
+        "ACCA Applied Knowledge, 2016"
+      ],
+      "form": {
+        "name": "Ifeoma Balgobin",
+        "email": "ifeoma.balgob@example.net",
+        "phone": "(868) 555 1836"
+      }
+    },
+    {
+      "id": "B35",
+      "category": "repeated_identifiers",
+      "text": "# Darnell Sankar\nEmail: darnell.sankar@example.org\nPhone: +1 (868) 555-6468\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2019-2022: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2010\n\n## Contact\nFor references, write to darnell.sankar@example.org or call +1 (868) 555-6468.\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Darnell Sankar",
+          "start": 2,
+          "end": 16
+        },
+        {
+          "type": "EMAIL",
+          "text": "darnell.sankar@example.org",
+          "start": 24,
+          "end": 50
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-6468",
+          "start": 58,
+          "end": 75
+        },
+        {
+          "type": "EMAIL",
+          "text": "darnell.sankar@example.org",
+          "start": 304,
+          "end": 330
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 555-6468",
+          "start": 339,
+          "end": 356
+        }
+      ],
+      "expected": "# [PERSON]\nEmail: [EMAIL]\nPhone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2019-2022: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2010\n\n## Contact\nFor references, write to [EMAIL] or call [PHONE].\n",
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2019-2022",
+        "reconciled 600 supplier invoices a quarter",
+        "BSc Information Management, University of Fictionville, 2010"
+      ],
+      "form": {
+        "name": "Darnell Sankar",
+        "email": "darnell.sankar@example.org",
+        "phone": "+1 (868) 555-6468"
+      }
+    },
+    {
+      "id": "B36",
+      "category": "no_pii",
+      "text": "# Vacancy notice extract\nVacancy ref: CD-2020-222-2798\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
+      "spans": [],
+      "expected": "# Vacancy notice extract\nVacancy ref: CD-2020-222-2798\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
+      "keep": [
+        "Vacancy ref: CD-2020-222-2798",
+        "Records Officer, CivicDesk Central Registry",
+        "indexed 9,500 files a year"
+      ],
+      "form": null
+    },
+    {
+      "id": "B37",
+      "category": "no_pii",
+      "text": "# Vacancy notice extract\nVacancy ref: CD-2022-455-2436\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "spans": [],
+      "expected": "# Vacancy notice extract\nVacancy ref: CD-2022-455-2436\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "keep": [
+        "Vacancy ref: CD-2022-455-2436",
+        "Records Officer, CivicDesk Central Registry",
+        "indexed 9,500 files a year"
+      ],
+      "form": null
+    },
+    {
+      "id": "B38",
+      "category": "no_pii",
+      "text": "# Vacancy notice extract\nVacancy ref: CD-2020-766-2204\nPosition: Lands Clerk, CivicDesk Lands Office\nDuties: processed 40 survey requests a month.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
+      "spans": [],
+      "expected": "# Vacancy notice extract\nVacancy ref: CD-2020-766-2204\nPosition: Lands Clerk, CivicDesk Lands Office\nDuties: processed 40 survey requests a month.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
+      "keep": [
+        "Vacancy ref: CD-2020-766-2204",
+        "Lands Clerk, CivicDesk Lands Office",
+        "processed 40 survey requests a month"
+      ],
+      "form": null
+    },
+    {
+      "id": "B39",
+      "category": "no_pii",
+      "text": "# Vacancy notice extract\nVacancy ref: CD-2025-994-4467\nPosition: Lands Clerk, CivicDesk Lands Office\nDuties: processed 40 survey requests a month.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "spans": [],
+      "expected": "# Vacancy notice extract\nVacancy ref: CD-2025-994-4467\nPosition: Lands Clerk, CivicDesk Lands Office\nDuties: processed 40 survey requests a month.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "keep": [
+        "Vacancy ref: CD-2025-994-4467",
+        "Lands Clerk, CivicDesk Lands Office",
+        "processed 40 survey requests a month"
+      ],
+      "form": null
+    },
+    {
+      "id": "B40",
+      "category": "no_pii",
+      "text": "# Vacancy notice extract\nVacancy ref: CD-2023-756-8268\nPosition: Data Entry Clerk, CivicDesk Permits Office\nDuties: keyed 250 permit forms a week.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "spans": [],
+      "expected": "# Vacancy notice extract\nVacancy ref: CD-2023-756-8268\nPosition: Data Entry Clerk, CivicDesk Permits Office\nDuties: keyed 250 permit forms a week.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "keep": [
+        "Vacancy ref: CD-2023-756-8268",
+        "Data Entry Clerk, CivicDesk Permits Office",
+        "keyed 250 permit forms a week"
+      ],
+      "form": null
+    }
+  ]
+}

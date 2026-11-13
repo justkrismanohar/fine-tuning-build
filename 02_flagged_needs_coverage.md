@@ -10,16 +10,16 @@ Honest read of what is **built** (prep + three contact days + five aux workshops
 | Select an SLM | Partial | Two pre-chosen models compared (T1-03). No Hub search, no benchmark sheet, no task-to-model criteria lab. |
 | Deploy locally | Meets (classroom) | T1-01a + Docker image + `BACKEND` local/demo/shared. Not a ministry production deploy. |
 | Configure | Partial | System prompt, `BACKEND`, `WHICH_MODEL`, RAG k/role. No serving/quantisation runbook. |
-| Evaluate vs cloud baseline | **Gap** | T1-03 is OLMo vs Phi + a privacy question. No gold set, no GPT/Azure quality baseline. |
+| Evaluate vs cloud baseline | Partial | T1-03 now scores OLMo and Phi on a frozen GO/BLOCK set. Hosted API is optional and fictional-only; not a Ministry baseline. |
 | Maintain without the trainer | Partial | T1-14 is a next workshop, not an ops SOP. No SBOM, patch, or model-update drill. |
 | Guardrails + logging | Partial | Data ban, cite-or-abstain, tool allowlist, request logs. No adversarial/prompt-injection lab. |
 | Official vs community models | Named only | T1-04 licences (OLMo/Phi/Llama/ChatGPT). No Hub-fork vs publisher-org exercise. |
 | Trusted channels + provenance | **Gap** (for learners) | Pinned in `download_models.py` for the consultant. Participants do not keep a source/version register. |
-| Data cleaning + metadata | Partial | T1-07 is policy classification for an index, not cleaning unstructured files or OCR. |
-| Paper to softcopy | **Gap** | Not in contact hours or aux. |
+| Data cleaning + metadata | Partial (literacy) | [prep/data_cleaning_and_metadata.md](prep/data_cleaning_and_metadata.md) + PREP-02b: INDEX/NEVER/**HOLD**, Dublin Core labels on a chunk, dataset card vs model card. T1-07 is still policy classification, not a cleaning factory. |
+| Paper to softcopy | Partial (awareness) | Tesseract quality page (headings only) + HOLD for image-only / OCR junk. No Tesseract install, no real scans. |
 | Terminology / SLM vs LLM / local vs cloud | Meets | Prep + T1-02/03/04 + intervention map. |
 | Docker specs (incl. Brev) | Partial / gap on Brev | README has RAM/CPU/GPU notes. No Brev (or other GPU-cloud) spin-up sheet. |
-| Own environment if Docker unfit | Partial | pip/venv, `build_llms` engines, demo/shared. Not a full WSL/Azure/VM runbook. |
+| Own environment if Docker unfit | Meets (classroom runbook + Colab demo) | [03_own_environment.md](03_own_environment.md) for a live stack; [colab/](colab/README.md) for the ideas with scripted replies (not a deploy). |
 
 ## Do not over-claim
 

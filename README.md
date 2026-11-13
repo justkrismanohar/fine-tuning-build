@@ -6,6 +6,13 @@ This folder is packaged like a classroom image: a `Dockerfile`, an `environment/
 
 **CivicDesk only.** No real CVs, Cabinet/EDMS exports, case files, health records, burgess applications, patrol notes, passwords, or live GLPI/GIS extracts go in a cell.
 
+**Two tracks**
+
+| Track | Use when | Live model? |
+|---|---|---|
+| **Docker / local** (`tier1/`) | Classroom machine, or [own environment](03_own_environment.md) | Yes, if you start OLMo/Phi |
+| **Colab demo** ([`colab/`](colab/README.md)) | No Docker, no GPU | No — scripted `[OLMo demo]` replies |
+
 ## Repository contents
 
 ```text
@@ -21,6 +28,7 @@ This folder is packaged like a classroom image: a `Dockerfile`, an `environment/
 ├── 00_common_needs_from_eois.md
 ├── 01_tier1_day_by_day_plan.md
 ├── prep/                         # no-code Colab pre-work (2–3 evenings)
+├── colab/                        # Tier 1 Colab mirror (demo replies, no Docker/GPU)
 ├── auxiliary/                    # self-taught workshops (no GPU)
 └── tier1/
     ├── day1/                     # start a model
@@ -59,9 +67,9 @@ Day 1 labs. Open them in order. Each notebook has the teaching text; do not past
 | `T1-01a_build_from_scratch.ipynb`    | 09:15–09:50 | Check host; fetch OLMo/Phi weights; start an OpenAI-compatible API — **or** skip and stay on demo |
 | `T1-01_first_call.ipynb`             | 09:50–10:30 | `BACKEND` + `WHICH_MODEL`; system vs user; one CivicDesk request                                  |
 | `T1-02_tokens_and_transformer.ipynb` | 10:45–12:00 | Tokens and the architecture card                                                                  |
-| `T1-03_slm_vs_llm.ipynb`             | 12:45–13:45 | OLMo vs Phi; cost card                                                                            |
-| `T1-04_openness_licences_gpu.ipynb`  | 13:45–14:20 | Model cards, licences, GPU questions                                                              |
-| `T1-05_usecase_canvas.ipynb`         | 14:20–14:55 | Group canvas + overnight                                                                          |
+| `T1-03_slm_vs_llm.ipynb`             | 12:45–13:45 | Two small models, frozen screening set, scorecard + cost                                          |
+| `T1-04_openness_licences_gpu.ipynb`  | 13:45–14:20 | Licence scavenger hunt (Llama 3.2 vs Apache), scenario labels, GPU card                           |
+| `T1-05_usecase_canvas.ipynb`         | 14:20–14:55 | Worked redaction canvas, frozen baseline, group experiment design + gold pairs                    |
 
 
 ### `tier1/day2/`
@@ -74,7 +82,7 @@ Inspect an SFT set and a pretend adapter. Do **not** train. Open in order: T1-11
 
 ### `prep/`
 
-Optional **no-code** pre-work (about 3–4½ hours over two or three evenings). Google Colab; no Python install. Start at [`prep/README.md`](prep/README.md). PREP-00 is how to click Run; **PREP-00b** is the very basic Python needed to follow a `# [CHANGE]` line (not a programming course). Readings (Hugging Face ch. 1, OSI Open Source AI, optional OWASP/NIST/model cards, scan-quality awareness) are in [`prep/readings.md`](prep/readings.md). People who already use notebooks can skip PREP-00; skip 00b only if you already read Python.
+Optional **no-code** pre-work (about 4–5 hours over two or three evenings). Google Colab; no Python install. Start at [`prep/README.md`](prep/README.md). PREP-00 is how to click Run; **PREP-00b** is the very basic Python needed to follow a `# [CHANGE]` line; **PREP-02b** is cleaning/metadata literacy (INDEX / NEVER / HOLD). Send with the repo: [`prep/data_cleaning_and_metadata.md`](prep/data_cleaning_and_metadata.md). Readings (Hugging Face ch. 1, OSI, Dublin Core, dataset cards, optional OWASP/NIST/Tesseract headings) are in [`prep/readings.md`](prep/readings.md). People who already use notebooks can skip PREP-00; skip 00b only if you already read Python.
 
 Auxiliary workshops are in `auxiliary/` and are self-taught (no GPU).
 
@@ -110,7 +118,7 @@ To edit live, copy the `course` folder to a local disk Docker can share (for exa
 docker run --rm -it -p 8888:8888 -v "C:/civicdesk:/civicdesk" civicdesk-course
 ```
 
-If that mount is still empty, the container copies the baked-in files from `/opt/civicdesk` into `/civicdesk` at start.
+If that mount is still empty, the container copies the baked-in files from `/opt/civicdesk` into `/civicdesk` at start. The copy runs only when `/civicdesk/tier1/day1/civicdesk_lab.py` is missing, so an older mounted checkout keeps its helper and `hf_openai_server.py` instead of the image copies.
 
 PowerShell (no mount — use the files in the image):
 
@@ -141,6 +149,8 @@ docker compose up --build
 
 Stop with `Ctrl+C`, then `docker compose down`.
 
+If Docker is the **wrong object** (no Docker on the laptop, Windows without WSL, ministry VM, approved GPU cloud, RAM too small, or a server you already host), use **[03_own_environment.md](03_own_environment.md)** — decision table, pip/venv, CPU `hf` serve, WSL/vLLM, shared/custom URL, and a provenance row to fill.
+
 ## Run locally with `pip`
 
 Python 3.11+ recommended. From this directory:
@@ -166,7 +176,7 @@ sh environment/entrypoint.sh
 
 Jupyter prints a local URL. Open it, then open `tier1/day1/`.
 
-Windows without Docker: this pip path is the usual option. `build_llms.py check` will say if there is no NVIDIA GPU. Stay on `BACKEND='demo'` or use the course shared URL.
+Windows without Docker: this pip path is the usual option. `build_llms.py check` will say if there is no NVIDIA GPU. Stay on `BACKEND='demo'` or use the course shared URL. Full decision tree and GPU/VM steps: [03_own_environment.md](03_own_environment.md).
 
 ## Live models
 

@@ -4,6 +4,8 @@ Maps `00_common_needs_from_eois.md` onto the notebooks in the final workplan. **
 
 Days run 09:00–15:00. Instruction lives in the notebook. CivicDesk only.
 
+**Two tracks:** `tier1/` is Docker/local with a live OLMo/Phi if you start the servers. [`colab/`](colab/README.md) is the same notebooks on Google Colab (CPU, no Docker, no GPU). Chat cells that would have called a model use scripted `[OLMo demo]` / `[Phi-4-mini demo]` replies. Days 2–3 never needed a model. Completing Colab is the **ideas**, not a deploy.
+
 ## Coverage matrix
 
 | Need | Day 1 | Day 2 | Day 3 | Aux (self-taught) |
@@ -34,11 +36,11 @@ Days run 09:00–15:00. Instruction lives in the notebook. CivicDesk only.
 | 09:15–09:50 | **T1-01a** Build from scratch | Check host; download OLMo+Phi weights; start vLLM/docker/hf or skip | N7 | CPO/TTDF/Finance: own the door. Script: `build_llms.py` |
 | 09:50–10:30 | **T1-01** First CivicDesk call | `BACKEND` = demo/local/shared/custom; send one request; save log | N7, N9, N1 woven | Request is a **service ticket** (Trade) that also needs a **criteria quote** (Labour/Health). Reply must not hire, grade, or reset a password |
 | 10:30–10:45 | Break | | | |
-| 10:45–12:00 | **T1-02** Tokens and the transformer | Tokenize public-sector *fictional* sentences; architecture card; two decoding settings | N12 woven (the weights are this machine) | Sentences stand in for Finance minute-style prose, OPR-style rule, vacancy criterion, asset question — **fictional** |
+| 10:45–12:00 | **T1-02** Tokens and the transformer | OLMo tokenizer, chat-template count, scope rule, temperature with repeats | N12 woven (the weights are this machine) | Sentences stand in for Finance minute-style prose, OPR-style rule, vacancy criterion, asset question — **fictional** |
 | 12:00–12:45 | Lunch | | | |
-| 12:45–13:45 | **T1-03** SLM vs LLM | Same prompt to OLMo and Phi-4 Mini; cost card | N11, N7 | Cost-per-acceptable-answer and “who pays” — CPO/TTDF/Finance arguing for owned inference |
-| 13:45–14:20 | **T1-04** Openness, licences, GPU questions | Model cards; Apache vs MIT; OSAID vs open-weight; GPU question card | N12, N11, N7, N4 named | Closed API vs weights you can host — why Finance/CPO/TTDF care |
-| 14:20–14:55 | **T1-05** Use-case canvas (group) | Frame the *type* of their EOI; owner, verifier, baseline, stop | N2, N5, N10 named, N15 named | Each cluster gets a prompt: criteria / retrieval / desk / local-control |
+| 12:45–13:45 | **T1-03** Measuring two small models | Frozen GO/BLOCK set, scorecard (acceptable, tokens, latency), cost per acceptable | N11, N7 | Cost-per-acceptable-answer and “who pays” — CPO/TTDF/Finance arguing for owned inference |
+| 13:45–14:20 | **T1-04** Openness, licences, GPU questions | Licence scavenger hunt (Llama 3.2 vs Apache), scenario labels, GPU card | N12, N11, N7, N4 named | Closed API vs weights you can host — why Finance/CPO/TTDF care |
+| 14:20–14:55 | **T1-05** Use-case canvas (group) | Worked redaction canvas + frozen baseline; groups design experiment, gold pairs overnight | N2, N5, N10 named, N15 named | Each cluster gets a prompt: criteria / retrieval / desk / local-control |
 | 14:55–15:00 | Download | | | |
 | Overnight | Finish canvas | 20–30 min, no GPU | | Arrive Day 2 able to label prompt / RAG / fine-tune / none |
 
@@ -98,4 +100,5 @@ Written so a participant can do them after Day 3, without a GPU. They absorb N10
 - **Tier 1 Day 1** notebooks and cards.
 - **Tier 1 Day 2** (`tier1/day2/`): T1-06…T1-10b, `civicdesk_rag.py`, handbook/classify/question JSON, explainer images, decision card. Executed copies in `day2/completed/`.
 - **Tier 1 Day 3** (`tier1/day3/`): T1-11…T1-14, `civicdesk_ft.py`, SFT JSONL + adapter stub, explainer images, transfer/risk cards. Executed copies in `day3/completed/`. Inspect-not-train; no GPU.
-- **Prep** (`prep/`): no-code Colab curriculum (PREP-00, **00b Python literacy**, 01–03) for people who do not know Python. 00b is follow-along syntax only (not a programming course); optional pointer to three Software Carpentry pages. README launches each notebook on Google Colab. Executed copies in `prep/completed/`.
+- **Own environment** (`03_own_environment.md`): pip/venv, CPU `hf`, WSL/vLLM, VM/GPU-cloud, shared/custom URL when the course Docker image does not fit. **Colab mirror** (`colab/`): full Tier 1 without Docker/GPU; scripted demo replies where a live model would be called.
+- **Prep** (`prep/`): no-code Colab curriculum (PREP-00, **00b Python literacy**, 01–03, **02b clean + metadata**). Sendable pack for the flagged “data cleaning and metadata” ask: [`prep/data_cleaning_and_metadata.md`](prep/data_cleaning_and_metadata.md) (Dublin Core, dataset cards, Tesseract headings, HOLD). Not an OCR/pandas lab.

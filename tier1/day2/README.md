@@ -2,7 +2,7 @@
 
 Retrieve from an approved CivicDesk set, cite it, refuse when the source is missing. Instruction is in the notebooks. No slide deck.
 
-Day 1 started the model. This day does **not** train. Default path needs no GPU (`civicdesk_rag.py` uses word-overlap retrieval and canned cite/abstain).
+Day 1 started the model. This day does **not** train. Default path needs no GPU (`civicdesk_rag.py` uses word-overlap retrieval and canned cite/abstain). Same notebooks on the [Colab track](../../colab/README.md) — Days 2–3 never called a live model.
 
 ## Order of play
 

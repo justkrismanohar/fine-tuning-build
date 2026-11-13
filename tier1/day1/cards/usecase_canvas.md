@@ -9,6 +9,8 @@ CivicDesk words only. Type of EOI, not a live system. Group product; each member
 - Domain verifier (role):
 - Current non-AI baseline:
 - Success measure:
+- Acceptance rule (numbers, written before any run):
+- Test set plan (size, categories, who labels, how it stays frozen):
 - Error cost if the model is wrong in the harmful direction:
 - Data that must stay out:
 - Preferred intervention guess (prompt / RAG / integration / fine-tune / none / unsure):

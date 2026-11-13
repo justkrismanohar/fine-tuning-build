@@ -1,0 +1,22 @@
+{
+  "label": "ILLUSTRATIVE - author-written outputs, NOT produced by any model. Each shows one failure type so the scorer and stop rule have something to catch.",
+  "fixture_sha256": "39c0e0ea82d2ef8783bc9ffa4e145c0803a7d5b394c2af57adad65bef059e7f2",
+  "what_each_shows": {
+    "R01": "correct",
+    "R02": "referee phone and email left in (leak a pattern check catches)",
+    "R03": "first name left in prose (leak only the known-name check catches) plus an unrelated edit: 30% became 40%",
+    "R04": "over-redaction: employer name masked",
+    "R05": "spelled-out email left in (silent leak: no check fires)",
+    "R06": "output cut off mid-sentence (truncation)",
+    "R07": "correct, but the reference number trips the phone pattern (false hold)"
+  },
+  "outputs": {
+    "R01": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- Records Officer, CivicDesk Central Registry, 2019-2025: indexed 12,000 files a year.\n\n## Education\n- BSc Information Management, University of Fictionville, 2018\n\n## Skills\nRetention schedules, EDMS indexing, spreadsheets\n",
+    "R02": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL]\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2017-2024: processed survey plan requests.\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Lands Office, 868-555-0177, g.ramsaran@example.invalid\n",
+    "R03": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\nOyelaran built the service-desk queue dashboard and reduced average queue time by 40%.\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2020-2025\n",
+    "R04": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, [PERSON] & Sons Hardware Ltd, 2016-2021: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2021-2025\n\n## Education\n- ACCA Applied Knowledge, 2019\n",
+    "R05": "# [PERSON]\nReach me: rajiv dot persaud at example dot invalid, or [PHONE] (WhatsApp)\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2022-2025: keyed 300 permit forms a week.\n",
+    "R06": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE].\n\nI have worked as a Health Records",
+    "R07": "# Vacancy notice extract\nVacancy ref: CD-2024-117-3302\nPosition: Records Assistant, CivicDesk Central Registry\nRequirements: diploma in records management or equivalent; two years' experience.\n"
+  }
+}

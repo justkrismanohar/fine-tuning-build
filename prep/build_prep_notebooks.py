@@ -758,7 +758,7 @@ Day 1 the model had **no handbook** in the prompt, so it could invent Circular 9
 
 Optional reading: [IBM on RAG](https://www.ibm.com/think/topics/retrieval-augmented-generation) (plain language). Skip the vendor diagrams.
 
-Paper that later becomes a PDF is **not** cleaned in this notebook. If your ministry scans files, skim [Tesseract: improving output quality](https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html) (resolution, skew, image-only PDF). Do not install Tesseract. Do not upload a real page. Technical staff who already know tables may glance at [10 minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html); Day 2 is INDEX vs NEVER, not a pandas lab.
+Paper that later becomes a PDF is **not** OCRed in this notebook. Same sitting or the next morning: **[PREP-02b](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-02b_clean_and_label.ipynb)** (HOLD vs INDEX vs NEVER, metadata labels, dataset card). Sendable pack: [data_cleaning_and_metadata.md](https://github.com/justkrismanohar/fine-tuning-build/blob/main/prep/data_cleaning_and_metadata.md). Do not install Tesseract. Do not upload a real page.
 """
         ),
         md(
@@ -972,7 +972,225 @@ Finance EDMS already has access rules. A chatbot does not get a free pass becaus
 
 You should be able to say: **retrieve, then generate; cite or abstain; index vs never; a hit is not permission.**
 
-Last sitting: **PREP-03**. [Open PREP-03 in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-03_frozen_and_boundary.ipynb).
+Same sitting if you have 25 minutes left, else tomorrow morning: **PREP-02b** (clean text + metadata). [Open PREP-02b in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-02b_clean_and_label.ipynb). Then **PREP-03**. [Open PREP-03 in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-03_frozen_and_boundary.ipynb).
+"""
+        ),
+    ],
+)
+
+# ---------------------------------------------------------------------------
+# PREP-02b
+# ---------------------------------------------------------------------------
+write(
+    "PREP-02b_clean_and_label.ipynb",
+    [
+        md(
+            f"""# PREP-02b Clean text and label it (metadata)
+
+**Time:** 25–35 minutes &nbsp;|&nbsp; **Maps to:** T1-07 metadata; sendable pack for the repo
+
+{badge("PREP-02b_clean_and_label.ipynb")}
+
+"""
+            + BANNER
+        ),
+        md(
+            """## Why this night exists
+
+Ministries asked for **data cleaning and metadata basics** to travel with the course files. Day 2 already teaches **INDEX vs NEVER**. This notebook adds the missing desk words:
+
+- **Cleaning** here = make an *approved* paragraph searchable and honest (strip junk, refuse image-only files). It is **not** pandas on a live extract.
+- **Metadata** = labels that **travel with** the paragraph (`id`, title, date, source, clearance). Not the paragraph itself.
+- **HOLD** = not ready: OCR garbage, missing id, scan with no selectable text. Send it back. In the T1-07 scoring cell, HOLD counts as NEVER.
+
+Read the one-pager if you want the official links in one place: [data_cleaning_and_metadata.md](https://github.com/justkrismanohar/fine-tuning-build/blob/main/prep/data_cleaning_and_metadata.md).
+
+Optional 10-minute skim (browser only): [Dublin Core — Creating Metadata](https://www.dublincore.org/resources/userguide/creating_metadata/) (Title, Identifier, Date, Rights). Paper scans: headings only on [Tesseract quality](https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html) — do not install, do not upload a page.
+"""
+        ),
+        md(
+            """## 1. Three buckets
+
+| Bucket | When | CivicDesk example |
+|---|---|---|
+| **INDEX** | Approved rule, selectable text, id + clearance filled | Vacancy Handbook C2 |
+| **NEVER** | PII, Cabinet *body*, ops notes, canary, live serial dump | A real CV; patrol notes |
+| **HOLD** | Image-only PDF, OCR junk, missing identifier, header soup | “page 4 of 88” repeated over C2 |
+
+Finance: **class metadata** (“a Cabinet-class item exists”) is not the body. Do not INDEX the body in this course.
+"""
+        ),
+        code(
+            """# [CHANGE] each value: index / never / hold
+GUESSES = {
+    "CivicDesk Vacancy Handbook C2, selectable text, id HB-VAC-C2": "index",
+    "A real applicant CV exported from e-recruitment": "never",
+    "Scan: image-only PDF, no selectable text, of the attachment circular": "hold",
+    "OCR: 'C2. The app1icant must ho1d a recogni5ed dip1oma' plus 'page 4 of 88'": "hold",
+    "Cabinet minute BODY on coastal security": "never",
+    "A line that only says 'Cabinet-class item exists' with no body": "index",
+    "Burgess application with household names": "never",
+    "Handbook paragraph with no id and no clearance filled in": "hold",
+}
+
+gold = {
+    "CivicDesk Vacancy Handbook C2, selectable text, id HB-VAC-C2": "index",
+    "A real applicant CV exported from e-recruitment": "never",
+    "Scan: image-only PDF, no selectable text, of the attachment circular": "hold",
+    "OCR: 'C2. The app1icant must ho1d a recogni5ed dip1oma' plus 'page 4 of 88'": "hold",
+    "Cabinet minute BODY on coastal security": "never",
+    "A line that only says 'Cabinet-class item exists' with no body": "index",
+    "Burgess application with household names": "never",
+    "Handbook paragraph with no id and no clearance filled in": "hold",
+}
+right = 0
+for k, g in gold.items():
+    got = GUESSES[k].strip().lower()
+    ok = got == g
+    right += int(ok)
+    print(("OK   " if ok else "WRONG"), got, "—", k)
+print(f"score {right}/{len(gold)}")
+print("Class metadata without the body may be INDEXED as a stub. The body stays NEVER.")
+"""
+        ),
+        md(
+            """### Teaching note
+
+The class-metadata row is the Finance / EDMS move: you may record *that* a classed item exists so the clerk is told “ask a records officer,” without putting the minute in the search pile. T1-10 is the gate. If you are unsure, HOLD.
+"""
+        ),
+        md(
+            """## 2. Spot the junk (cleaning without OCR)
+
+This is a **fictional** scan dump. You are not running Tesseract. Delete headers, footers, and the garbage letters until one handbook sentence remains.
+
+A production desk would re-type from the approved file or re-scan at proper resolution ([Tesseract quality notes](https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html) — read headings only).
+"""
+        ),
+        code(
+            r'''# [CHANGE] delete header/footer/OCR junk. Keep one clean C2 sentence.
+RAW = """CivicDesk Vacancy Handbook v3          page 4 of 88
+C2. The app1icant must ho1d a recognised diploma in records management or equivalent.
+CONFIDENTIAL — do not circulate            page 4 of 88
+"""
+
+CLEAN = "C2. The applicant must hold a recognised diploma in records management or equivalent."
+
+print("RAW length:", len(RAW))
+print("CLEAN:", CLEAN)
+print()
+problems = []
+low = CLEAN.lower()
+if "page 4" in low or "confidential" in low:
+    problems.append("header/footer still in CLEAN")
+if "app1icant" in low or "ho1d" in low:
+    problems.append("OCR digit-for-letter still in CLEAN")
+if "records management" not in low:
+    problems.append("the actual rule disappeared")
+if "c2" not in low:
+    problems.append("criterion id disappeared")
+if problems:
+    print("HOLD — still dirty:")
+    for p in problems:
+        print(" ", p)
+else:
+    print("INDEX-ready text (next: attach metadata).")
+'''
+        ),
+        md(
+            """If `CLEAN` still prints HOLD, you left `page 4`, `CONFIDENTIAL`, or the `1`s that were letters. The gold line is already in the cell as a model; the skill is *seeing* why RAW must not be indexed.
+"""
+        ),
+        md(
+            """## 3. Labels that travel with the chunk
+
+Dublin Core names (optional 10-minute skim: [Creating Metadata](https://www.dublincore.org/resources/userguide/creating_metadata/)):
+
+| CivicDesk | Dublin Core | Must be filled? |
+|---|---|---|
+| `id` | Identifier | **Yes** |
+| `title` | Title | Yes |
+| `source` | Source | Yes |
+| `clearance` | Rights / accessRights | **Yes** |
+| `date` | Date | Yes if the circular has one |
+| `creator` | Creator | Office, not a person from a CV |
+
+A missing `id` or `clearance` → **HOLD**.
+"""
+        ),
+        code(
+            """# [CHANGE] fill every quoted value. Fiction only.
+CHUNK = {
+    "id": "HB-VAC-C2",
+    "title": "Vacancy Handbook v3 — criterion C2",
+    "creator": "CivicDesk Records Office",
+    "date": "2024-03-01",
+    "source": "CivicDesk Vacancy Handbook v3",
+    "clearance": "internal",
+    "rights": "internal; not for a public chatbot",
+    "text": "C2. The applicant must hold a recognised diploma in records management or equivalent.",
+}
+
+required = ["id", "title", "source", "clearance", "text"]
+missing = [k for k in required if not str(CHUNK.get(k, "")).strip()]
+print("chunk")
+for k, v in CHUNK.items():
+    print(f"  {k:12} {v}")
+print()
+if missing:
+    print("HOLD — empty:", ", ".join(missing))
+elif CHUNK["id"].startswith("HB-") and CHUNK["clearance"] in {"internal", "restricted", "public"}:
+    print("INDEX-ready metadata. Day 2 stores this beside the paragraph, not inside the model.")
+else:
+    print("HOLD — id should look like HB-… and clearance is internal / restricted / public.")
+print("Creator is an office. A name from a CV would make this NEVER.")
+"""
+        ),
+        md(
+            """## 4. Dataset card vs model card
+
+| Card | About | Course |
+|---|---|---|
+| **Model card** | Who published the *weights*, licence, intended use | T1-04, OLMo / Phi |
+| **Dataset card** | What is in the *pile*, licence, who may use it, known gaps | This notebook; T1-11 looks at rows |
+
+Hugging Face writes both: [dataset cards](https://huggingface.co/docs/hub/datasets-cards) and [model cards](https://huggingface.co/docs/hub/model-cards). You will not upload CivicDesk to the Hub. You will still fill the same *kinds* of field so a successor knows what they inherited.
+"""
+        ),
+        code(
+            """# [CHANGE] each value: dataset or model
+GUESSES = {
+    "Apache-2.0 on allenai/OLMo-2-0425-1B-Instruct": "model",
+    "Twelve fictional handbook chunks, index_ok true/false": "dataset",
+    "Intended use: classroom RAG, not Cabinet search": "dataset",
+    "Phi-4-mini is MIT as published on the Hub": "model",
+    "Canary rows FT-08 and FT-09 must never be trained on": "dataset",
+}
+
+gold = {
+    "Apache-2.0 on allenai/OLMo-2-0425-1B-Instruct": "model",
+    "Twelve fictional handbook chunks, index_ok true/false": "dataset",
+    "Intended use: classroom RAG, not Cabinet search": "dataset",
+    "Phi-4-mini is MIT as published on the Hub": "model",
+    "Canary rows FT-08 and FT-09 must never be trained on": "dataset",
+}
+right = 0
+for k, g in gold.items():
+    got = GUESSES[k].strip().lower()
+    ok = got == g
+    right += int(ok)
+    print(("OK   " if ok else "WRONG"), got, "—", k)
+print(f"score {right}/{len(gold)}")
+"""
+        ),
+        md(
+            """## Done
+
+You should be able to say: **INDEX / NEVER / HOLD; labels travel with the chunk; a dataset card is not a model card; we do not OCR ministry paper in Colab.**
+
+Print the sheet at the bottom of [data_cleaning_and_metadata.md](https://github.com/justkrismanohar/fine-tuning-build/blob/main/prep/data_cleaning_and_metadata.md) if you want a paper form.
+
+Next: **PREP-03**. [Open PREP-03 in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-03_frozen_and_boundary.ipynb).
 """
         ),
     ],
@@ -1168,6 +1386,7 @@ CHECK = {
     "A language model continues text; it is not the register.": "YES",
     "I can explain system vs user in one sentence.": "YES",
     "If the handbook is missing I expect 'I cannot cite', not Circular 99.": "YES",
+    "A chunk without an id or clearance is HOLD, not INDEX.": "YES",
     "A search hit is not permission to show the paragraph.": "YES",
     "Chat may draft a ticket; it may not reset a password or award.": "YES",
     "Day 3 inspects an adapter; we do not train in the room.": "YES",

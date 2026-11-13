@@ -1,0 +1,421 @@
+The Open Source AI Definition – 1.0 – Open Source Initiative 
+
+Skip to content 
+
+About 
+
+About Learn more about OSI’s mission, history, people, and programs.
+
+Mission & History 
+
+Team 
+
+Board of Directors 
+
+Programs 
+
+Sponsors 
+
+Financials & Annual Reports 
+
+Board Minutes 
+
+Bylaws 
+
+Logo & Trademark 
+
+Contact us 
+
+Featured Programs OSI Programs bring together our work to protect, advance, and strengthen Open Source. Read more 
+
+Licensing 
+
+Licensing Explore the list of OSI-Approved licenses and learn more about the license review process.
+
+Open Source Definition 
+
+Licenses 
+
+License Review Process 
+
+License API 
+
+Open Standards Requirement 
+
+ClearlyDefined 
+
+Featured Licenses Browse the complete list of licenses approved by the OSI. Read more 
+
+Open Source AI 
+
+Open Source AI Learn more about Open Source AI, how do we define it, and its benefits to society.
+
+Open Source AI 
+
+OSAID 1.0 
+
+Open Source AI Salons 
+
+Process 
+
+Timeline 
+
+Open Weights 
+
+FAQ 
+
+Checklist 
+
+Endorsements 
+
+Featured Open Source AI The definition that establishes the principles and requirements for an AI system that grant users the freedoms to use, study, modify, and share. Read more 
+
+Policy & Standards 
+
+Policy & Standards Advancing Open Source through policy, regulation, and standards.
+
+Open Policy Alliance 
+
+Open Source Congress 
+
+OSI Europe Foundation 
+
+AI Policy & Regulation 
+
+Cybersecurity Policy & Regulation 
+
+Featured The Open Policy Alliance The Open Policy Alliance gives nonprofit organizations and communities a voice in public policy. Read more 
+
+Research & Education 
+
+Research & Education Supporting research, education, and knowledge about Open Source.
+
+OTR Network 
+
+OTR Symposium 
+
+Open Source AI Fellowship 
+
+Licensing Education 
+
+Featured Education Learn the fundamentals of Open Source licensing and compliance. Read more 
+
+Community 
+
+Community Connecting the people and organizations that build and support Open Source.
+
+Affiliate Organizations 
+
+Associations 
+
+Maintainers & Developers 
+
+Lawyers & Legal 
+
+Founders & Executives 
+
+Policymakers & Government 
+
+Nonprofits & Academia 
+
+Get involved 
+
+Featured Affiliate Organizations Connect with organizations advancing and supporting Open Source worldwide. Read more 
+
+News 
+
+News Explore the latest news, blog posts, newsletters, press mentions, and events from the OSI.
+
+Blog 
+
+Newsletter 
+
+Press Mentions 
+
+Events 
+
+Featured OSI Newsletter sign-up Sign up for OSI's monthly newsletter and explore all past editions. Read more 
+
+About 
+
+About Learn more about OSI’s mission, history, people, and programs.
+
+Mission & History 
+
+Team 
+
+Board of Directors 
+
+Programs 
+
+Sponsors 
+
+Financials & Annual Reports 
+
+Board Minutes 
+
+Bylaws 
+
+Logo & Trademark 
+
+Contact us 
+
+Featured Programs OSI Programs bring together our work to protect, advance, and strengthen Open Source. Read more 
+
+Licensing 
+
+Licensing Explore the list of OSI-Approved licenses and learn more about the license review process.
+
+Open Source Definition 
+
+Licenses 
+
+License Review Process 
+
+License API 
+
+Open Standards Requirement 
+
+ClearlyDefined 
+
+Featured Licenses Browse the complete list of licenses approved by the OSI. Read more 
+
+Open Source AI 
+
+Open Source AI Learn more about Open Source AI, how do we define it, and its benefits to society.
+
+Open Source AI 
+
+OSAID 1.0 
+
+Open Source AI Salons 
+
+Process 
+
+Timeline 
+
+Open Weights 
+
+FAQ 
+
+Checklist 
+
+Endorsements 
+
+Featured Open Source AI The definition that establishes the principles and requirements for an AI system that grant users the freedoms to use, study, modify, and share. Read more 
+
+Policy & Standards 
+
+Policy & Standards Advancing Open Source through policy, regulation, and standards.
+
+Open Policy Alliance 
+
+Open Source Congress 
+
+OSI Europe Foundation 
+
+AI Policy & Regulation 
+
+Cybersecurity Policy & Regulation 
+
+Featured The Open Policy Alliance The Open Policy Alliance gives nonprofit organizations and communities a voice in public policy. Read more 
+
+Research & Education 
+
+Research & Education Supporting research, education, and knowledge about Open Source.
+
+OTR Network 
+
+OTR Symposium 
+
+Open Source AI Fellowship 
+
+Licensing Education 
+
+Featured Education Learn the fundamentals of Open Source licensing and compliance. Read more 
+
+Community 
+
+Community Connecting the people and organizations that build and support Open Source.
+
+Affiliate Organizations 
+
+Associations 
+
+Maintainers & Developers 
+
+Lawyers & Legal 
+
+Founders & Executives 
+
+Policymakers & Government 
+
+Nonprofits & Academia 
+
+Get involved 
+
+Featured Affiliate Organizations Connect with organizations advancing and supporting Open Source worldwide. Read more 
+
+News 
+
+News Explore the latest news, blog posts, newsletters, press mentions, and events from the OSI.
+
+Blog 
+
+Newsletter 
+
+Press Mentions 
+
+Events 
+
+Featured OSI Newsletter sign-up Sign up for OSI's monthly newsletter and explore all past editions. Read more 
+
+Get Involved 
+
+Open Main Menu 
+
+version 1.0
+
+See FAQs 
+See list of endorsements 
+See Checklist 
+Endorse the OSAID 
+
+Preamble 
+
+Why we need Open Source Artificial Intelligence (AI)
+
+Open Source has demonstrated that massive benefits accrue to everyone after removing the barriers to learning, using, sharing and improving software systems. These benefits are the result of using licenses that adhere to the Open Source Definition. For AI, society needs at least the same essential freedoms of Open Source to enable AI developers, deployers and end users to enjoy those same benefits: autonomy, transparency, frictionless reuse and collaborative improvement.
+
+What is Open Source AI
+
+When we refer to a “system,” we are speaking both broadly about a fully functional structure and its discrete structural elements. To be considered Open Source, the requirements are the same, whether applied to a system , a model , weights and parameters , or other structural elements.
+
+An  Open Source AI  is an AI system made available under terms and in a way that grant the freedoms 1  to:
+
+Use  the system for any purpose and without having to ask for permission.
+
+Study  how the system works and inspect its components.
+
+Modify  the system for any purpose, including to change its output.
+
+Share  the system for others to use with or without modifications, for any purpose.
+
+These freedoms apply both to a fully functional system and to discrete elements of a system. A precondition to exercising these freedoms is to have access to the preferred form to make modifications to the system.
+
+Preferred form to make modifications to machine-learning systems
+
+The preferred form of making modifications to a machine-learning system must include all the elements below:
+
+Data Information: Sufficiently detailed information about the data used to train the system so that a skilled person can build a substantially equivalent system. Data Information shall be made available under OSI-approved terms.
+
+In particular, this must include: (1) the complete description of all data used for training, including (if used) of unshareable data, disclosing the provenance of the data, its scope and characteristics, how the data was obtained and selected, the labeling procedures, and data processing and filtering methodologies; (2) a listing of all publicly available training data and where to obtain it; and (3) a listing of all training data obtainable from third parties and where to obtain it, including for fee.
+
+Code: The complete source code used to train and run the system. The Code shall represent the full specification of how the data was processed and filtered, and how the training was done. Code shall be made available under OSI-approved licenses.
+
+For example, if used, this must include code used for processing and filtering data, code used for training including arguments and settings used, validation and testing, supporting libraries like tokenizers and hyperparameters search code, inference code, and model architecture.
+
+Parameters: The model parameters, such as weights or other configuration settings. Parameters shall be made available under OSI-approved terms.
+
+For example, this might include checkpoints from key intermediate stages of training as well as the final optimizer state.
+
+The licensing or other terms applied to these elements and to any combination thereof may contain conditions that require any modified version to be released under the same terms as the original.
+
+Open Source models and Open Source weights
+
+For machine learning systems,
+
+An AI model consists of the model architecture, model parameters (including weights) and inference code for running the model.
+
+AI weights are the set of learned parameters that overlay the model architecture to produce an output from a given input.
+
+The preferred form to make modifications to machine learning systems also applies to these individual components. “Open Source models” and “Open Source weights” must include the data information and code used to derive those parameters.
+
+The Open Source AI Definition does not require a specific legal mechanism for assuring that the model parameters are freely available to all. They may be free by their nature or a license or other legal instrument may be required to ensure their freedom. We expect this will become clearer over time, once the legal system has had more opportunity to address Open Source AI systems.
+
+Definitions
+
+AI system 2 : An AI system is a machine-based system that, for explicit or implicit objectives, infers, from the input it receives, how to generate outputs such as predictions, content, recommendations, or decisions that can influence physical or virtual environments. Different AI systems vary in their levels of autonomy and adaptiveness after deployment.
+
+Machine learning 3 : is a set of techniques that allows machines to improve their performance and usually generate models in an automated manner through exposure to training data, which can help identify patterns and regularities rather than through explicit instructions from a human. The process of improving a system’s performance using machine learning techniques is known as “training”.
+
+These freedoms are derived from the  Free Software Definition .  ↩︎ 
+Recommendation of the Council on Artificial Intelligence OECD/LEGAL/0449, Organization for Economic and Co-operation Development (OECD), 2024   ↩︎ 
+Explanatory memorandum on the updated OECD definition of an AI system, OECD Artificial Intelligence Papers, No. 8, OECD Publishing, Paris   ↩︎ 
+
+See FAQs 
+See Checklist 
+See list of endorsements 
+
+Get involved 
+
+Mastodon 
+
+LinkedIn 
+
+Subscribe to our newsletter
+
+Receive the top news and articles of the Open Source ecosystem in your inbox, the first week of every month.
+
+Please leave this field empty. 
+
+Δ 
+
+The content on this website, of which Opensource.org is the author, is licensed under a  Creative Commons Attribution 4.0 International License .
+
+Opensource.org is not the author of any of the licenses reproduced on this site. Questions about the copyright in a license should be directed to the license steward. Read our Privacy Policy 
+
+Proudly powered by WordPress. Hosted by Pressable. 
+
+Manage Cookie Consent
+
+To provide the best experiences, we use technologies like cookies to store and/or access device information. Consenting to these technologies will allow us to process data such as browsing behavior or unique IDs on this site. Not consenting or withdrawing consent, may adversely affect certain features and functions.
+
+Functional 
+
+Functional 
+
+Always active 
+
+The technical storage or access is strictly necessary for the legitimate purpose of enabling the use of a specific service explicitly requested by the subscriber or user, or for the sole purpose of carrying out the transmission of a communication over an electronic communications network. 
+
+Preferences 
+
+Preferences 
+
+The technical storage or access is necessary for the legitimate purpose of storing preferences that are not requested by the subscriber or user. 
+
+Statistics 
+
+Statistics 
+
+The technical storage or access that is used exclusively for statistical purposes. 
+The technical storage or access that is used exclusively for anonymous statistical purposes. Without a subpoena, voluntary compliance on the part of your Internet Service Provider, or additional records from a third party, information stored or retrieved for this purpose alone cannot usually be used to identify you. 
+
+Marketing 
+
+Marketing 
+
+The technical storage or access is required to create user profiles to send advertising, or to track the user on a website or across several websites for similar marketing purposes. 
+
+Manage options 
+
+Manage services 
+
+Manage {vendor_count} vendors 
+
+Read more about these purposes 
+
+Accept 
+Deny 
+View preferences 
+Save preferences 
+View preferences 
+
+{title} 
+
+{title} 
+
+{title} 
+
+Manage consent

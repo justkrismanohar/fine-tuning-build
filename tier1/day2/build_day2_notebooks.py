@@ -224,11 +224,12 @@ Yesterday the model only saw what you typed. Today you will give it a **corpus**
 | **Corpus** | The set of documents you are willing to search | Twelve fictional handbook chunks, not an EDMS export |
 | **Chunk** | One retrieval unit (a paragraph or short section), not a 200-page PDF | `HB-VAC-C2` is one chunk |
 | **Index** | The searchable structure over chunks (keyword overlap here; embeddings in production) | Only chunks with `index_ok: true` |
-| **Metadata** | Labels on a chunk that are not the paragraph itself | `clearance`, `id`, `citation` |
+| **Metadata** | Labels on a chunk that are not the paragraph itself | `clearance`, `id`, `citation` (Dublin Core: Identifier, Title, Rights — PREP-02b) |
+| **HOLD** | Not ready for the pile (OCR junk, image-only PDF, missing id) | Send back for a clean copy. **This scoring cell treats HOLD as NEVER.** |
 | **Canary** | Planted sensitive text. If a reply quotes it, the exercise **fails** | National ID `999-00-1111`, name Maya Reid |
 | **PII** | Information that identifies a person | CVs, burgess forms, health records, live tickets |
 
-**INDEX** means: this text may be stored in the classroom search pile. **NEVER** means: do not copy it in, even “just to try.”
+**INDEX** means: this text may be stored in the classroom search pile. **NEVER** means: do not copy it in, even “just to try.” Prep pack: `prep/data_cleaning_and_metadata.md`.
 
 This is **N5** (data ban) and the start of **N4** (access). T1-10 is the access gate. Today is “does it enter the pile at all?”
 

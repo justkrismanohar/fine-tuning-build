@@ -2,7 +2,7 @@
 
 This folder is **optional pre-work** for people who have never written Python and have not sat a language-model course. It is not Tier 1. It does not start OLMo. It does not connect to a ministry system.
 
-**Aim:** after two or three evenings (about **3–4½ hours** including PREP-00b and one short reading) you can walk into Day 1 and:
+**Aim:** after two or three evenings (about **4–5 hours** including PREP-00b, PREP-02b, and one short reading) you can walk into Day 1 and:
 
 - click **Run** on a notebook cell without panic
 - follow a notebook with **very basic Python** (PREP-00b): quotes, labels, `print`, `import`, a labelled form — you still do not write programs
@@ -10,6 +10,7 @@ This folder is **optional pre-work** for people who have never written Python an
 - keep **work files out** of cells
 - tell **prompt / RAG / a database / a human** apart at the level of a sentence
 - know that **citing a handbook** is different from **being allowed to see it**, and that **chat is not allowed to reset a password**
+- say **INDEX / NEVER / HOLD** for a chunk, and name the **metadata** that must travel with it (id, clearance, source)
 
 You will still learn the real labs in the room. This only gives you the words.
 
@@ -43,6 +44,7 @@ Direct links (same as the badges):
 | 0b — no Python yet | [PREP-00b](PREP-00b_python_enough_to_follow.ipynb) | [Open in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-00b_python_enough_to_follow.ipynb) |
 | 1 — Day 1 words | [PREP-01](PREP-01_what_a_model_is.ipynb) | [Open in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-01_what_a_model_is.ipynb) |
 | 2 — Day 2 words | [PREP-02](PREP-02_retrieve_and_cite.ipynb) | [Open in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-02_retrieve_and_cite.ipynb) |
+| 2b — clean + metadata | [PREP-02b](PREP-02b_clean_and_label.ipynb) | [Open in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-02b_clean_and_label.ipynb) |
 | 3 — Day 3 words | [PREP-03](PREP-03_frozen_and_boundary.ipynb) | [Open in Colab](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/prep/PREP-03_frozen_and_boundary.ipynb) |
 
 ### B. Upload the file (always works)
@@ -69,12 +71,13 @@ Read the message once. The usual fix is: you deleted a quote `"` or a comma. Und
 |---|---|---|
 | **First sitting** | PREP-00 (skip if you already use Colab/Jupyter) then **PREP-00b** | 20 min + 30–40 min |
 | **Same night or the next** | Hugging Face [LLM Course ch. 1](https://huggingface.co/learn/llm-course/chapter1/1) (stop at their first code block), then PREP-01 | 20–40 min + 50–70 min |
-| **Second sitting** | IBM RAG page (optional Illustrated Transformer if you like pictures), then PREP-02 | 15 min + 50–70 min |
+| **Second sitting** | IBM RAG page, then PREP-02; if you have 25 minutes left, PREP-02b | 15 min + 50–70 min (+ 25–35 min for 02b) |
+| **Same sitting or next morning** | PREP-02b if you skipped it; skim [Dublin Core Creating Metadata](https://www.dublincore.org/resources/userguide/creating_metadata/) (six fields). Pack to **send with the repo**: [data_cleaning_and_metadata.md](data_cleaning_and_metadata.md) | 25–35 min |
 | **Third sitting** | OSI [Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) (everyone); IT/policy skim OWASP LLM Top 10; technical staff skim a model card page — then PREP-03 | 15–25 min + 40–55 min |
 
 Do **not** skip PREP-00b if you have never seen Python. Do **not** skip the data ban in PREP-01.
 
-Full list, including pandas, Tesseract (scan quality), Hub security, and NIST: [readings.md](readings.md). Those are **awareness** pages. Do not install Tesseract or pandas for this prep. Do not upload a real scan.
+Full list, including Dublin Core, dataset cards, pandas, Tesseract (scan quality), Hub security, and NIST: [readings.md](readings.md). Cleaning/metadata pack to send with the repo: [data_cleaning_and_metadata.md](data_cleaning_and_metadata.md). Awareness pages only. Do not install Tesseract or pandas for this prep. Do not upload a real scan.
 
 ## Data ban (read before you open Colab)
 
@@ -86,7 +89,7 @@ CivicDesk names in the notebooks are **fiction**. If you want to practise a sent
 
 - Not a Python course (PREP-00b is literacy to *follow* cells; the Python Tutorial 1–4 is optional extra, not a substitute)
 - Not permission to use ChatGPT on work files
-- Not the Day 1–3 labs (those stay in `tier1/`)
+- Not the Day 1–3 labs (live Docker path: `tier1/`; no-Docker demo path: [`colab/`](../colab/README.md))
 - Not a substitute for the opening pre-test in the room
 
 ## You are ready for Day 1 if you can say, out loud
@@ -95,7 +98,7 @@ CivicDesk names in the notebooks are **fiction**. If you want to practise a sent
 2. **System** text is the standing instruction; **user** text is this visitor’s question.
 3. **Open-weight** means you can host the files; it does not mean the training data is public.
 4. If the handbook paragraph is not in the prompt, an honest reply is **I cannot cite** — not an invented circular.
-5. A **hit in a search index** is not permission to show the paragraph.
+5. A **hit in a search index** is not permission to show the paragraph. A chunk with no **id** or **clearance**, or an image-only scan, is **HOLD** — not INDEX.
 6. Chat may **draft**; it may not **reset a password, hire, grade, or award**.
 7. Nothing from work goes in a cell.
 8. `# [CHANGE]` means: edit the text inside the quotes; leave the rest of the cell alone.

@@ -2,7 +2,7 @@
 
 Inspect a CivicDesk training set and a pretend adapter. Operating questions: burst vs standing, licence, rollback, bounded agency. Instruction is in the notebooks. No slide deck.
 
-You do **not** run a LoRA job. No GPU required.
+You do **not** run a LoRA job. No GPU required. Same notebooks on the [Colab track](../../colab/README.md).
 
 ## Order of play
 

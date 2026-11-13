@@ -48,18 +48,37 @@ Do **not** start Codecademy, pandas, or “Python in 30 days.”
 - [Open Source Initiative — Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition) — **everyone who will hear “open source” in the room.** Hold one distinction: **open-weight** (you can download the files) is not the same as **OSAID open source** (data, code, and weights are inspectable). T1-04 uses this.
 - Tokens you can see: paste a *fictional* CivicDesk sentence into [tiktokenizer.vercel.app](https://tiktokenizer.vercel.app/). No OpenAI account.
 
-### With PREP-02 — retrieve, then generate; messy documents
+### With PREP-02 — retrieve, then generate
 
 - [IBM, What is RAG?](https://www.ibm.com/think/topics/retrieval-augmented-generation) — retrieve an approved paragraph, *then* generate. If it is missing, stop.
 
-**Optional awareness** (you will not clean ministry files in this prep or in the room):
+### With PREP-02b — data cleaning and metadata (send with the repo)
 
-- [Tesseract — Improving the quality of the output](https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html) — **paper → softcopy.** Skim headings only: resolution, contrast, skew, image vs searchable PDF. A bad scan becomes a bad index. Do **not** install Tesseract. Do **not** upload a real page.
-- [10 minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html) and [Working with missing data](https://pandas.pydata.org/docs/user_guide/missing_data.html) — **optional, technical staff only.** Day 2 classification is *INDEX vs NEVER*, not a pandas lab. If you open these, use toy tables, never a ministry extract.
+This is the pack for “point us at cleaning and metadata basics.” One-pager: [data_cleaning_and_metadata.md](data_cleaning_and_metadata.md). Notebook: [PREP-02b](PREP-02b_clean_and_label.ipynb). CivicDesk only.
+
+**Everyone** (about 20–30 minutes of reading besides the notebook):
+
+- [Dublin Core — Creating Metadata](https://www.dublincore.org/resources/userguide/creating_metadata/) — skim **Title, Creator, Date, Identifier, Rights, AccessRights**. You will not write RDF.
+- [Dublin Core Metadata Element Set (15 elements)](https://www.dublincore.org/specifications/dublin-core/dces/) — the named list. Same terms, current docs: [DCMI Metadata Terms](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/).
+- [Hugging Face — Dataset cards](https://huggingface.co/docs/hub/datasets-cards) — what is in the *pile*. Different from a [model card](https://huggingface.co/docs/hub/model-cards) (T1-04).
+
+**Paper → softcopy** (awareness; you will **HOLD** a bad scan, not OCR it in Colab):
+
+- [Tesseract — Improving the quality of the output](https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html) — skim headings only: resolution, contrast, skew, image-only vs searchable PDF. Do **not** install. Do **not** upload a real page.
+
+**Optional, records / IM staff:**
+
+- [NISO, Understanding Metadata (2017 primer)](https://www.niso.org/publications/understanding-metadata-2017) — what metadata is *for*. Map examples to circulars, not museum objects.
+
+**Optional, technical staff only** (tables, not scans):
+
+- [10 minutes to pandas](https://pandas.pydata.org/docs/user_guide/10min.html) and [Working with missing data](https://pandas.pydata.org/docs/user_guide/missing_data.html) — toy tables, never a ministry extract. Day 2 is still INDEX vs NEVER, not a pandas lab.
 
 ### With PREP-03 — frozen weights; where models come from; security
 
 - Hugging Face “Fine-tuning” [first screen](https://huggingface.co/docs/transformers/training) — a small extra file can sit on frozen weights; it is not a database. You will **not** train.
+
+If the course **Docker image will not run** on your machine, technical staff should bookmark [Own environment](../03_own_environment.md) (pip/venv, CPU serve, WSL/vLLM, ministry VM). Do that **after** PREP-00b, not instead of it.
 
 **For technical staff** (where models come from):
 

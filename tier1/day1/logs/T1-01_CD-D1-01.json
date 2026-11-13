@@ -5,10 +5,11 @@
     "Labour (MOLSED)",
     "Health LMS grading"
   ],
+  "pick_if_you_are": "Labour (MOLSED); Health (LMS / marking)",
   "messages": [
     {
       "role": "system",
-      "content": "You are a CivicDesk classroom assistant. Use only the text in this prompt. If a handbook or register is missing, say so and stop. Never hire, grade, award a contract, reset a password, or invent a citation."
+      "content": "You are a CivicDesk classroom assistant for vacancy screening. Use only the text in this prompt. Match the application to the stated criterion and quote the span you used. If equivalent is unclear, say Human review required. Never hire, never rank candidates, never invent a qualification."
     },
     {
       "role": "user",
@@ -19,10 +20,10 @@
     "ok": true,
     "mode": "demo",
     "model": "allenai/OLMo-2-0425-1B-Instruct",
-    "text": "[allenai/OLMo-2-0425-1B-Instruct demo] Label: Human review required. Quoted span: 'two-year diploma in library studies'. C2 asks for records management or equivalent; library studies may be equivalent but is not identical. Do not hire.",
+    "text": "[OLMo demo] Label: Human review required. Quoted span: 'two-year diploma in library studies'. C2 asks for records management or equivalent; library studies may be equivalent but is not identical. Do not hire.",
     "latency_ms": 0,
     "url": "demo"
   },
   "quality_note": "",
-  "saved_at": "2026-11-12T14:53:53.760037+00:00"
+  "saved_at": "2026-11-13T17:00:19.012047+00:00"
 }

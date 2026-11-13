@@ -9,5 +9,6 @@
     "base_url": "demo",
     "model": "microsoft/Phi-4-mini-instruct"
   },
-  "fallback_to_demo": true
+  "fallback_to_demo": true,
+  "engine": "demo"
 }

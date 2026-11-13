@@ -1,6 +1,6 @@
 # Prep quick card — bring to Day 1 if you want
 
-Read list: `readings.md` (Hugging Face ch. 1, OSI Open Source AI, model cards / Hub security for technical staff, OWASP + NIST for IT/policy). Python: PREP-00b is enough; Tutorial 1–4 is optional.
+Read list: `readings.md` (Hugging Face ch. 1, OSI Open Source AI, Dublin Core + dataset cards for PREP-02b, model cards / Hub security for technical staff, OWASP + NIST for IT/policy). Cleaning pack to send with the repo: `data_cleaning_and_metadata.md`. Python: PREP-00b is enough; Tutorial 1–4 is optional.
 
 ## Python you will *see* (you do not write programs)
 
@@ -38,6 +38,14 @@ The weights are not your EDMS.
 | integration | Query a register / ticket store — not the model |
 | fine-tune | Small extra file on frozen weights (inspect, don’t train) |
 | none | Maybe no language model, or the act is banned |
+
+## INDEX / NEVER / HOLD
+
+- **INDEX** — approved rule, selectable text, `id` + clearance filled
+- **NEVER** — PII, Cabinet body, ops notes, canary
+- **HOLD** — image-only scan, OCR junk, missing id — send back (T1-07 scores HOLD as NEVER)
+
+Metadata travels **with** the chunk (Dublin Core: Identifier, Title, Date, Source, Rights). Dataset card ≠ model card.
 
 ## Cite or abstain
 

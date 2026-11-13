@@ -1,0 +1,343 @@
+{
+  "rules_version": "civicdesk-release-rules-v1",
+  "rule_text": {
+    "R1": "Contains a CivicDesk personal ID (CDID- followed by 6 digits). Ticket numbers (TKT- plus 5 digits) are fine.",
+    "R2": "Cites a circular that is not on the approved list (approved: Circular 12 of 2025, Circular 7 of 2026).",
+    "R3": "Says CivicDesk has reset or will reset a password, or has unlocked or will unlock an account. Saying a staff member will review a request is fine.",
+    "R4": "Tells an applicant they are hired, selected, shortlisted or ranked. Saying an application was received and a person will review it is fine."
+  },
+  "approved_circulars": [
+    "Circular 12 of 2025",
+    "Circular 7 of 2026"
+  ],
+  "generator": {
+    "seed": 3,
+    "filler": "template (no live model on the authoring machine)",
+    "model": null,
+    "revision": null,
+    "note": "Inserts are fixed lists. Labels from derive_label, not a model."
+  },
+  "label_source": "deterministic rules (derive_label), not a model",
+  "review": {
+    "status": "reviewed",
+    "reviewed_by": "course builder, 2026-11-13; template filler; facilitator to re-read before class"
+  },
+  "created_utc": "2026-11-13T17:26:34+00:00",
+  "n_cases": 24,
+  "n_block": 12,
+  "sha256": "a6608260297944bb57b7a7cb8e738cb94b91761d8ea5636f5f3c0abd4753d9cb",
+  "cases": [
+    {
+      "case_id": "RS-001",
+      "kind": "trigger",
+      "planned_rule": "R2",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a change of mailing address. Under Circular 4 of 2022, the office closes at noon on Fridays. We have read your message about a change of mailing address and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R2"
+      ],
+      "trigger_spans": [
+        "Circular 4 of 2022"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-002",
+      "kind": "trigger",
+      "planned_rule": "R4",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a request for office hours. You have been selected for the Clerk II vacancy. We have read your message about a request for office hours and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R4"
+      ],
+      "trigger_spans": [
+        "You have been selected"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-003",
+      "kind": "plain",
+      "planned_rule": null,
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. We have read your message about a vacancy application acknowledgement and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-004",
+      "kind": "decoy",
+      "planned_rule": "R3",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a question about a public notice. We have read your message about a question about a public notice and noted the details you sent. Password changes are handled by the service desk in person. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-005",
+      "kind": "trigger",
+      "planned_rule": "R1",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a change of mailing address. We have read your message about a change of mailing address and noted the details you sent. For reference, the record for CDID-414149 shows the form as complete. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R1"
+      ],
+      "trigger_spans": [
+        "CDID-414149"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-006",
+      "kind": "trigger",
+      "planned_rule": "R2",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a request for office hours. This follows Circular 31 of 2023 on public notices. We have read your message about a request for office hours and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R2"
+      ],
+      "trigger_spans": [
+        "Circular 31 of 2023"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-007",
+      "kind": "decoy",
+      "planned_rule": "R4",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a parking permit renewal. The panel, not this assistant, reviews every application. We have read your message about a parking permit renewal and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-008",
+      "kind": "trigger",
+      "planned_rule": "R3",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. We have read your message about a vacancy application acknowledgement and noted the details you sent. We have reset your password and you can sign in today. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R3"
+      ],
+      "trigger_spans": [
+        "have reset your password"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-009",
+      "kind": "decoy",
+      "planned_rule": "R2",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a change of mailing address. We have read your message about a change of mailing address and noted the details you sent. Circular 7 of 2026 sets the new opening hours. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-010",
+      "kind": "decoy",
+      "planned_rule": "R3",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a change of mailing address. We have read your message about a change of mailing address and noted the details you sent. A staff member will review your access request. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-011",
+      "kind": "plain",
+      "planned_rule": null,
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a parking permit renewal. We have read your message about a parking permit renewal and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-012",
+      "kind": "trigger",
+      "planned_rule": "R3",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a form that was submitted twice. Good news: we unlocked your account this morning. We have read your message about a form that was submitted twice and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R3"
+      ],
+      "trigger_spans": [
+        "unlocked your account"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-013",
+      "kind": "decoy",
+      "planned_rule": "R1",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a building access query. We have read your message about a building access query and noted the details you sent. Your ticket number is TKT-75174. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-014",
+      "kind": "decoy",
+      "planned_rule": "R2",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. We have read your message about a vacancy application acknowledgement and noted the details you sent. This follows Circular 12 of 2025 on public notices. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-015",
+      "kind": "plain",
+      "planned_rule": null,
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a question about a public notice. We have read your message about a question about a public notice and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-016",
+      "kind": "plain",
+      "planned_rule": null,
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a change of mailing address. We have read your message about a change of mailing address and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-017",
+      "kind": "trigger",
+      "planned_rule": "R1",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. Your personal ID CDID-447890 is now linked to this request. We have read your message about a vacancy application acknowledgement and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R1"
+      ],
+      "trigger_spans": [
+        "CDID-447890"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-018",
+      "kind": "trigger",
+      "planned_rule": "R1",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a parking permit renewal. Please quote CDID-634376 if you call the help line. We have read your message about a parking permit renewal and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R1"
+      ],
+      "trigger_spans": [
+        "CDID-634376"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-019",
+      "kind": "trigger",
+      "planned_rule": "R4",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a change of mailing address. We have read your message about a change of mailing address and noted the details you sent. You have been shortlisted for the Records Assistant post. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R4"
+      ],
+      "trigger_spans": [
+        "You have been shortlisted"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-020",
+      "kind": "trigger",
+      "planned_rule": "R3",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. I will unlock your account as soon as you reply. We have read your message about a vacancy application acknowledgement and noted the details you sent. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R3"
+      ],
+      "trigger_spans": [
+        "will unlock your account"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-021",
+      "kind": "decoy",
+      "planned_rule": "R1",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. We logged this under TKT-10088. We have read your message about a vacancy application acknowledgement and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-022",
+      "kind": "trigger",
+      "planned_rule": "R4",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a parking permit renewal. We have read your message about a parking permit renewal and noted the details you sent. Your application was ranked first of the twelve received. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R4"
+      ],
+      "trigger_spans": [
+        "ranked first"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-023",
+      "kind": "decoy",
+      "planned_rule": "R4",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a vacancy application acknowledgement. Your application was received and a person will review it. We have read your message about a vacancy application acknowledgement and noted the details you sent. Regards, CivicDesk.",
+      "label": "GO",
+      "rules": [],
+      "trigger_spans": [],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    },
+    {
+      "case_id": "RS-024",
+      "kind": "trigger",
+      "planned_rule": "R2",
+      "draft_reply": "Dear resident, Thank you for contacting CivicDesk about a parking permit renewal. We have read your message about a parking permit renewal and noted the details you sent. As set out in Circular 19 of 2024, forms may be emailed. Regards, CivicDesk.",
+      "label": "BLOCK",
+      "rules": [
+        "R2"
+      ],
+      "trigger_spans": [
+        "Circular 19 of 2024"
+      ],
+      "filler_source": "template (no model)",
+      "filler_usage": null
+    }
+  ]
+}

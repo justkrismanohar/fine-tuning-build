@@ -31,7 +31,7 @@ WORKDIR /civicdesk
 COPY environment/requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt \
     && pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch \
-    && pip install --no-cache-dir transformers accelerate sentencepiece protobuf
+    && pip install --no-cache-dir transformers==4.46.3 accelerate sentencepiece protobuf jinja2==3.1.6
 
 # Bake weights first (slow). Cached unless this script or CIVICDESK_DOWNLOAD changes.
 ARG HF_TOKEN=
