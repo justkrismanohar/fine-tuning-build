@@ -12,7 +12,8 @@ cd /civicdesk
 mkdir -p /civicdesk/tier1/day1/logs
 
 MODELS_DIR="${CIVICDESK_MODELS_DIR:-/models}"
-LOAD="${CIVICDESK_LOAD_MODELS:-olmo,phi}"
+# LOAD="${CIVICDESK_LOAD_MODELS:-olmo,phi}"
+LOAD="${CIVICDESK_LOAD_MODELS:-olmo}"
 SERVER="${CIVICDESK_SERVER:-/civicdesk/tier1/day1/hf_openai_server.py}"
 
 start_one() {
