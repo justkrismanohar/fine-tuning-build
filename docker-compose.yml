@@ -19,4 +19,4 @@ services:
       CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo}
     # volumes:
     #   - .:/civicdesk
-    # gpus: all
+    gpus: all

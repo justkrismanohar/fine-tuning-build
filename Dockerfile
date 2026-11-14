@@ -30,16 +30,22 @@ WORKDIR /civicdesk
 
 COPY environment/requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt \
-    && pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu torch \
-    && pip install --no-cache-dir transformers==4.46.3 accelerate sentencepiece protobuf jinja2==3.1.6 "huggingface_hub[hf_transfer]"
+    && pip install --no-cache-dir torch \
+    && pip install --no-cache-dir "huggingface_hub[hf_transfer]"
 
 # Bake weights first (slow). Cached unless this script or CIVICDESK_DOWNLOAD changes.
 ARG HF_TOKEN=
 ENV HF_TOKEN=$HF_TOKEN \
-    HF_HUB_ENABLE_HF_TRANSFER=1
+    # HF_HUB_ENABLE_HF_TRANSFER=1
+    HF_XET_HIGH_PERFORMANCE=1
+    
 COPY environment/download_models.py /tmp/download_models.py
 RUN sed -i 's/\r$//' /tmp/download_models.py \
     && python /tmp/download_models.py
+
+# Install PyTorch (CUDA) + updated Transformers after downloading weights
+RUN pip install --no-cache-dir torch \
+    && pip install --no-cache-dir "transformers>=4.49.0" accelerate sentencepiece protobuf jinja2==3.1.6
 
 # Notebooks and helpers — changing these does not redo the download layer.
 COPY . /opt/civicdesk
