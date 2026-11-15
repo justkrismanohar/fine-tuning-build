@@ -1,0 +1,779 @@
+{
+  "model": "allenai/OLMo-2-0425-1B-Instruct",
+  "backend": "local",
+  "prompt_version": "redact-prompt-v1",
+  "system_prompt": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text.",
+  "benchmark_version": "resume-redaction-test-v1",
+  "generation": "temperature 0, max_tokens 256 (civicdesk_lab defaults)",
+  "run_at_utc": "2026-11-15T15:01:47Z",
+  "usage_from_server": {
+    "B01": {
+      "prompt_tokens": 186,
+      "completion_tokens": 19,
+      "total_tokens": 205,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 401.9,
+        "eos_included": true
+      }
+    },
+    "B02": {
+      "prompt_tokens": 247,
+      "completion_tokens": 92,
+      "total_tokens": 339,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1705.1,
+        "eos_included": true
+      }
+    },
+    "B03": {
+      "prompt_tokens": 202,
+      "completion_tokens": 206,
+      "total_tokens": 408,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 3682.9,
+        "eos_included": true
+      }
+    },
+    "B04": {
+      "prompt_tokens": 201,
+      "completion_tokens": 19,
+      "total_tokens": 220,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 368.5,
+        "eos_included": true
+      }
+    },
+    "B05": {
+      "prompt_tokens": 183,
+      "completion_tokens": 19,
+      "total_tokens": 202,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 360.4,
+        "eos_included": true
+      }
+    },
+    "B06": {
+      "prompt_tokens": 212,
+      "completion_tokens": 112,
+      "total_tokens": 324,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2025.0,
+        "eos_included": true
+      }
+    },
+    "B07": {
+      "prompt_tokens": 208,
+      "completion_tokens": 119,
+      "total_tokens": 327,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2141.8,
+        "eos_included": true
+      }
+    },
+    "B08": {
+      "prompt_tokens": 191,
+      "completion_tokens": 136,
+      "total_tokens": 327,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2430.2,
+        "eos_included": true
+      }
+    },
+    "B09": {
+      "prompt_tokens": 241,
+      "completion_tokens": 100,
+      "total_tokens": 341,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1827.4,
+        "eos_included": true
+      }
+    },
+    "B10": {
+      "prompt_tokens": 196,
+      "completion_tokens": 128,
+      "total_tokens": 324,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2296.7,
+        "eos_included": true
+      }
+    },
+    "B11": {
+      "prompt_tokens": 201,
+      "completion_tokens": 20,
+      "total_tokens": 221,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 383.4,
+        "eos_included": true
+      }
+    },
+    "B12": {
+      "prompt_tokens": 179,
+      "completion_tokens": 19,
+      "total_tokens": 198,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 359.6,
+        "eos_included": true
+      }
+    },
+    "B13": {
+      "prompt_tokens": 212,
+      "completion_tokens": 127,
+      "total_tokens": 339,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2287.0,
+        "eos_included": true
+      }
+    },
+    "B14": {
+      "prompt_tokens": 202,
+      "completion_tokens": 117,
+      "total_tokens": 319,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2120.0,
+        "eos_included": true
+      }
+    },
+    "B15": {
+      "prompt_tokens": 196,
+      "completion_tokens": 111,
+      "total_tokens": 307,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2003.9,
+        "eos_included": true
+      }
+    },
+    "B16": {
+      "prompt_tokens": 242,
+      "completion_tokens": 139,
+      "total_tokens": 381,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2521.2,
+        "eos_included": true
+      }
+    },
+    "B17": {
+      "prompt_tokens": 206,
+      "completion_tokens": 236,
+      "total_tokens": 442,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 4245.6,
+        "eos_included": true
+      }
+    },
+    "B18": {
+      "prompt_tokens": 199,
+      "completion_tokens": 115,
+      "total_tokens": 314,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2069.4,
+        "eos_included": true
+      }
+    },
+    "B19": {
+      "prompt_tokens": 184,
+      "completion_tokens": 99,
+      "total_tokens": 283,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1776.4,
+        "eos_included": true
+      }
+    },
+    "B20": {
+      "prompt_tokens": 205,
+      "completion_tokens": 120,
+      "total_tokens": 325,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2163.1,
+        "eos_included": true
+      }
+    },
+    "B21": {
+      "prompt_tokens": 201,
+      "completion_tokens": 115,
+      "total_tokens": 316,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2073.6,
+        "eos_included": true
+      }
+    },
+    "B22": {
+      "prompt_tokens": 193,
+      "completion_tokens": 103,
+      "total_tokens": 296,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1865.9,
+        "eos_included": true
+      }
+    },
+    "B23": {
+      "prompt_tokens": 238,
+      "completion_tokens": 135,
+      "total_tokens": 373,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2451.8,
+        "eos_included": true
+      }
+    },
+    "B24": {
+      "prompt_tokens": 200,
+      "completion_tokens": 103,
+      "total_tokens": 303,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1858.7,
+        "eos_included": true
+      }
+    },
+    "B25": {
+      "prompt_tokens": 200,
+      "completion_tokens": 116,
+      "total_tokens": 316,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2093.0,
+        "eos_included": true
+      }
+    },
+    "B26": {
+      "prompt_tokens": 182,
+      "completion_tokens": 97,
+      "total_tokens": 279,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1745.1,
+        "eos_included": true
+      }
+    },
+    "B27": {
+      "prompt_tokens": 208,
+      "completion_tokens": 123,
+      "total_tokens": 331,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2223.3,
+        "eos_included": true
+      }
+    },
+    "B28": {
+      "prompt_tokens": 198,
+      "completion_tokens": 256,
+      "total_tokens": 454,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 4687.3,
+        "eos_included": false
+      }
+    },
+    "B29": {
+      "prompt_tokens": 182,
+      "completion_tokens": 19,
+      "total_tokens": 201,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 372.3,
+        "eos_included": true
+      }
+    },
+    "B30": {
+      "prompt_tokens": 242,
+      "completion_tokens": 100,
+      "total_tokens": 342,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1869.6,
+        "eos_included": true
+      }
+    },
+    "B31": {
+      "prompt_tokens": 201,
+      "completion_tokens": 85,
+      "total_tokens": 286,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1575.3,
+        "eos_included": true
+      }
+    },
+    "B32": {
+      "prompt_tokens": 201,
+      "completion_tokens": 19,
+      "total_tokens": 220,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 368.7,
+        "eos_included": true
+      }
+    },
+    "B33": {
+      "prompt_tokens": 186,
+      "completion_tokens": 19,
+      "total_tokens": 205,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 365.3,
+        "eos_included": true
+      }
+    },
+    "B34": {
+      "prompt_tokens": 207,
+      "completion_tokens": 98,
+      "total_tokens": 305,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 1835.4,
+        "eos_included": true
+      }
+    },
+    "B35": {
+      "prompt_tokens": 209,
+      "completion_tokens": 124,
+      "total_tokens": 333,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 2348.1,
+        "eos_included": true
+      }
+    },
+    "B36": {
+      "prompt_tokens": 166,
+      "completion_tokens": 19,
+      "total_tokens": 185,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 371.4,
+        "eos_included": true
+      }
+    },
+    "B37": {
+      "prompt_tokens": 166,
+      "completion_tokens": 19,
+      "total_tokens": 185,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 407.4,
+        "eos_included": true
+      }
+    },
+    "B38": {
+      "prompt_tokens": 165,
+      "completion_tokens": 19,
+      "total_tokens": 184,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 371.3,
+        "eos_included": true
+      }
+    },
+    "B39": {
+      "prompt_tokens": 165,
+      "completion_tokens": 19,
+      "total_tokens": 184,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 380.2,
+        "eos_included": true
+      }
+    },
+    "B40": {
+      "prompt_tokens": 167,
+      "completion_tokens": 19,
+      "total_tokens": 186,
+      "civicdesk": {
+        "model_path": "/models/olmo",
+        "revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+        "device": "cuda:0",
+        "dtype": "torch.float16",
+        "decoding": "greedy (do_sample=False); temperature ignored",
+        "counting_convention": "prompt_tokens = length of the exact input_ids passed to generate (chat template applied by this model's tokenizer, system text, role markers and generation prompt included, batch size 1, no padding). completion_tokens = newly generated token IDs after the prompt, up to and including the first EOS id; anything after it is not counted.",
+        "engine": "hf",
+        "generation_ms": 366.6,
+        "eos_included": true
+      }
+    }
+  },
+  "fixture_sha256": "c299eb39a169f639fd72b48963fe1154d7c9b4a0786eb4a87354dcd3ccbdd370",
+  "outputs": {
+    "B01": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B02": "# Curriculum vitae: [PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2012-2016: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2016\n\n## Referees\n- [REFERRER], [REFERRING_NUMBER], [PHONE], [ADDRESS]\n\n",
+    "B03": "Name: [PERSON]\nContact: +1 (868) 555-5559 / quincy.vialva@example.invalid\nAddress: 57 Silk Cotton Drive, Mockton\n\n## Profile\nQuincy reconciled 600 supplier invoices a quarter as Accounts Officer at CivicDesk Finance Unit.\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2018\n\n## Education\n- BSc Information Management, University of Fictionville, 2014\n\n---\n\n**Note:** The placeholders are constructed to match the original text while respecting privacy and avoiding direct personal identifiers. The use of `example.invalid` for email addresses is a common practice in redaction to ensure the data does not match any real-world addresses. The use of `mockton` for home addresses is also a placeholder that avoids referencing a specific real location, maintaining the anonymity of the individual. The dates of birth, ID numbers, and other sensitive information are left as-is to preserve the original content while ensuring the redaction is effective.",
+    "B04": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B05": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B06": "My name is Darnell Vialva and I live at 18 Hibiscus Close, Mockton. You can reach me on (868) 555 2065 or at darnell.vialva@example.org.\n\nI have worked as Data Entry Clerk at CivicDesk Permits Office since 2014, where I keyed 250 permit forms a week.\n\n## Qualifications\n- BSc Information Management, University of Fictionville, 2016\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B07": "# Nadira Hosein\nEmail: [PERSON].example.org\nPhone: +1 (868) 555-5074\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2013-2015: keyed 250 permit forms a week.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2008\n\n## Contact\nFor references, write to [PERSON].example.org or call +1 (868) 555-5074.\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B08": "### Tariq Waithe\nEmail: tariq.waithe@example.invalid | Phone: 868 555 4679 | Address: 69 Pommerac Lane, Mockton | DOB: [DOB] | ID: [ID]\n\n### Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2014-2019: closed 85% of tickets within two days.\n\n### Education\n- BSc Information Management, University of Fictionville, 2015\n\n---\n\n**Note:** The placeholders have been replaced with generic placeholders to respect privacy and avoid identifying specific individuals. The original data was redacted to respect the privacy of the individuals mentioned.",
+    "B09": "# Curriculum vitae: [PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2008\n\n## Referees\n- [REFERRER], [JOB TITLE], [DURATION], [QUALIFICATIONS], [SKILLS], [REFERENCE NUMBER]\n\n",
+    "B10": "Name: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [PLACEHOLDER]\nDOB: [PLACEHOLDER]\nID: [PLACEHOLDER]\n\n## Experience\nName: [PERSON]\nContact: [PHONE]\nAddress: [PLACEHOLDER]\nJob Title: Lands Clerk\nEmployer: CivicDesk Lands Office\nDates of Employment: 2012-2017\n\n## Education\nName: [PERSON]\nContact: [EMAIL]\nCourse: ACCA Applied Knowledge\nDate of Completion: 2016",
+    "B11": "# [PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B12": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B13": "My name is Esperanza Maharaj-Pierre and I live at 54 Hibiscus Close, Fictionville. You can reach me on 868-555-4315 or at esperanza.mahara@example.invalid.\n\nI have worked as Records Officer at CivicDesk Central Registry since 2018, where I indexed 9,500 files a year.\n\nMy mentor, Dr. Chiamaka Charles-Mohan, encouraged me to apply.\n\n## Qualifications\n- Associate Degree in Office Administration, Sampleton College, 2009\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B14": "# Marlon Hosein\nEmail: marlon.hosein@example.org\nPhone: (868) 555 3594\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2019-2021: processed 40 survey requests a month.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2013\n\n## Contact\nFor references, write to marlon.hosein@example.org or call (868) 555 3594.\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B15": "# Anjali Balgobin\nEmail: anjali.balgob@example.net | Phone: +1 (868) 555-9557\nAddress: 14 Hibiscus Close, Fictionville\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2019-2021: keyed 250 permit forms a week.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2016\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B16": "# Curriculum vitae: Marlon Rampersad\nDate of birth: 08/05/1995\nNational ID: CD-ID-1995-793\nEmail: marlon.ramper@example.invalid | Phone: 868 555 3893\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2017-2021: keyed 250 permit forms a week.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2008\n\n## Referees\n- Kavita Hosein, Former Supervisor, CivicDesk Permits Office, 868-555-1811, kavita.hosein@example.org\n\n",
+    "B17": "Name: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: Vashti Maharaj-Pierre\nContact: 868-555-8958 / vashti.mahara@example.invalid\nAddress: 70 Calabash Street, Mockton\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: [PERSON]\nContact: [EMAIL]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n",
+    "B18": "# Chiamaka Gopaul\nPhone: (868) 555 2398 | Email: chiamaka.gopaul@example.invalid\n\n## Experience\n- Accounts Clerk, Gopaul & Sons Hardware Ltd, 2011-2015: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2015-2020: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2008\n\n## ID Numbers\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [ID]",
+    "B19": "# Wendell Nanan\nReach me: wendell dot nanan at example dot net, or +1 (868) 555-2447 (WhatsApp)\n\n## Experience\n- Records Officer, CivicDesk Central Registry, 2017-2021: indexed 9,500 files a year.\n\n## Education\n- BSc Information Management, University of Fictionville, 2010\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B20": "My name is Darnell Rampersad and I live at 19 Silk Cotton Drive, Fictionville. You can reach me on 868 555 5214 or at darnell.ramper@example.invalid.\n\nI have worked as Records Officer at CivicDesk Central Registry since 2018, where I indexed 9,500 files a year.\n\nMy mentor, Dr. Chiamaka Nanan, encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2014\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B21": "# Quincy Balgob\nEmail: quincy.balgob@example.net\nPhone: 868-555-8291\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2015-2020: processed 40 survey requests a month.\n\n## Education\n- BSc Information Management, University of Fictionville, 2013\n\n## Contact\nFor references, write to quincy.balgob@example.net or call 868-555-8291.\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B22": "# Yolanda Jaggernauth\nEmail: [PERSON].jagger@example.org | Phone: [PHONE]\nAddress: 58 Hibiscus Close, Placeholder Bay\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2012-2015: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2011\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B23": "# Curriculum vitae: Wendell Okafor\nDate of birth: 11/02/1987\nNational ID: CD-ID-1987-753\nEmail: wendell.okafor@example.invalid | Phone: +1 (868) 555-6917\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2012-2014: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2013\n\n## Referees\n- Esperanza Sankar, Former Supervisor, CivicDesk Finance Unit, 868 555 7323, esperanza.sankar@example.invalid\n\n",
+    "B24": "Name: [PERSON]\nContact: [PERSON]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\nName: Nadira Waithe\nContact: 868 555 4635 / nadira.waithe@example.invalid\nAddress: 43 Calabash Street, Placeholder Bay\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2012-2017\n\n## Education\n- BSc Information Management, University of Fictionville, 2018\n\n",
+    "B25": "### Kavita Lalla\nPhone: 868-555-9318 | Email: kavita.lalla@example.net\n\n#### Experience\n- Accounts Clerk, Lalla & Sons Hardware Ltd, 2013-2017: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2017-2019: reconciled 600 supplier invoices a quarter.\n\n#### Education\n- Associate Degree in Office Administration, Sampleton College, 2015\n\n### [PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B26": "# Wendell Charles-Mohan\nReach me: wendell dot charle at example dot invalid, or (868) 555 4299 (WhatsApp)\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2019-2023: processed 40 survey requests a month.\n\n## Education\n- BSc Information Management, University of Fictionville, 2015\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B27": "My name is Shivon Nanan and I live at 70 Pommerac Lane, Fictionville. You can reach me on +1 (868) 555-9919 or at shivon.nanan@example.org.\n\nI have worked as Records Officer at CivicDesk Central Registry since 2015, where I indexed 9,500 files a year.\n\nMy mentor, Dr. Wendell Jaggernauth, encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2013\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B28": "# Ifeoma Thomas-Ali\nEmail: ifeoma.thomas@example.invalid\nPhone: 868 555 1810\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2021: reconciled 600 supplier invoices a quarter.\n\n## Education\n- ACCA Applied Knowledge, 2009\n\n## Contact\nFor references, write to ifeoma.thomas@example.invalid or call 868 555 1810.\n\n---\n\n### Redacted Text\nIfeoma Thomas-Ali\nEmail: ifeoma.thomas@example.invalid\nPhone: 868 555 1810\n\n### Experience\n- Accounts Officer, CivicDesk Finance Unit, 2016-2021: reconciled 600 supplier invoices a quarter.\n\n### Education\n- ACCA Applied Knowledge, 2009\n\n### Contact\nFor references, write to ifeoma.thomas@example.invalid or call 868 555 1810.\n\n---\n\n**Note:** The placeholders [PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID] are used to respect privacy and comply with data protection regulations. In real scenarios, it's important to handle personal data with care and to ensure that any redaction is done transparently and legally compliant",
+    "B29": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B30": "# Curriculum vitae: [PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2018: reconciled 600 supplier invoices a quarter.\n\n## Education\n- Associate Degree in Office Administration, Sampleton College, 2011\n\n## Referees\n- [REFERRER], [JOB TITLE], [DURATION], [QUALIFICATIONS], [SKILLS], [REFERENCE NUMBER]\n\n",
+    "B31": "Name: [PERSON]\nContact: [PHONE]\nAddress: [ADDRESS]\nDOB: [DOB]\nID: [ID]\n\n## Profile\n[PERSON] processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2020-2025\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2017\n\n",
+    "B32": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B33": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B34": "My name is [PERSON], and I live at [ADDRESS]. You can reach me at [EMAIL]. I have worked as [JOB TITLE] at [INSTITUTION] since 2020, where I processed 40 survey requests a month.\n\nMy mentor, Dr. Umeko Hosein, encouraged me to apply.\n\n## Qualifications\n- ACCA Applied Knowledge, 2016\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B35": "# Darnell Sankar\nEmail: darnell.sankar@example.org\nPhone: +1 (868) 555-6468\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2019-2022: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2010\n\n## Contact\nFor references, write to darnell.sankar@example.org or call +1 (868) 555-6468.\n\n[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B36": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B37": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B38": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B39": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]",
+    "B40": "[PERSON], [EMAIL], [PHONE], [ADDRESS], [DOB], [ID]"
+  },
+  "latency_s": {
+    "B01": 0.42,
+    "B02": 1.71,
+    "B03": 3.69,
+    "B04": 0.37,
+    "B05": 0.36,
+    "B06": 2.03,
+    "B07": 2.14,
+    "B08": 2.43,
+    "B09": 1.83,
+    "B10": 2.3,
+    "B11": 0.39,
+    "B12": 0.36,
+    "B13": 2.29,
+    "B14": 2.12,
+    "B15": 2.01,
+    "B16": 2.52,
+    "B17": 4.25,
+    "B18": 2.07,
+    "B19": 1.78,
+    "B20": 2.17,
+    "B21": 2.08,
+    "B22": 1.87,
+    "B23": 2.45,
+    "B24": 1.86,
+    "B25": 2.1,
+    "B26": 1.75,
+    "B27": 2.23,
+    "B28": 4.69,
+    "B29": 0.38,
+    "B30": 1.87,
+    "B31": 1.58,
+    "B32": 0.37,
+    "B33": 0.37,
+    "B34": 1.84,
+    "B35": 2.35,
+    "B36": 0.37,
+    "B37": 0.41,
+    "B38": 0.37,
+    "B39": 0.38,
+    "B40": 0.37
+  },
+  "notes": {
+    "B01": "live",
+    "B02": "live",
+    "B03": "live",
+    "B04": "live",
+    "B05": "live",
+    "B06": "live",
+    "B07": "live",
+    "B08": "live",
+    "B09": "live",
+    "B10": "live",
+    "B11": "live",
+    "B12": "live",
+    "B13": "live",
+    "B14": "live",
+    "B15": "live",
+    "B16": "live",
+    "B17": "live",
+    "B18": "live",
+    "B19": "live",
+    "B20": "live",
+    "B21": "live",
+    "B22": "live",
+    "B23": "live",
+    "B24": "live",
+    "B25": "live",
+    "B26": "live",
+    "B27": "live",
+    "B28": "live",
+    "B29": "live",
+    "B30": "live",
+    "B31": "live",
+    "B32": "live",
+    "B33": "live",
+    "B34": "live",
+    "B35": "live",
+    "B36": "live",
+    "B37": "live",
+    "B38": "live",
+    "B39": "live",
+    "B40": "live"
+  },
+  "measured": true
+}
