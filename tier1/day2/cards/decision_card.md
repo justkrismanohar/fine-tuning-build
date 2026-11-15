@@ -12,5 +12,13 @@ CivicDesk words only. One example in *your ministry type*. Group product; each m
 - Stop / human-review condition:
 - Data that must never enter this index:
 - What you will *not* do with this answer (hire / publish / award / reset):
+- Known-answer run 1 (met / total):
+- Known-answer run 2 (met / total):
+- Wrong abstentions:
+- Unsupported citations:
+- Source versions used:
+- Scan status:
+- Cost per acceptable answer (T1-03 if logged, else not measured):
+- Hand-marked supported:
 
 Overnight: 20–30 min. No GPU. No ministry files.

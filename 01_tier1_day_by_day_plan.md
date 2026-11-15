@@ -54,8 +54,8 @@ Day 1 does **not** build RAG or fine-tune. It gives people the machine, the cost
 |---|---|---|---|
 | 09:00–09:20 | T1-06 Intervention map (group) | N1–N3, N10, N15 | Force a label: many EOIs want “an LLM”; some need a database or no model |
 | 09:20–10:30 | T1-07 Data classification | N5, N4, N14 | Finance/MPSDFS/THA/RDLG/TTDF: what must never enter an index |
-| 10:45–12:00 | T1-08 Build RAG | **N3**, N1, N8 | 12 fictional handbooks stand in for OPR, EDMS-style notes, circulars, ECMS, KB, minutes |
-| 12:45–13:45 | T1-09 Prompt vs RAG | N3 | Invented consensus vs a cited paragraph — Finance/Defence/Health |
+| 10:45–12:00 | T1-08 Build RAG | **N3**, N1, N8 | Source-file → chunks → index → prompt → live (or labelled fallback); handbook retrieve/generate |
+| 12:45–13:45 | T1-09 Prompt vs RAG | N3 | Frozen 12-item known-answer set; live/recorded/simulated totals kept separate |
 | 13:45–14:20 | T1-10 Access and governance (group) | **N4** | Same chunk, wrong user |
 | 14:20–14:55 | Decision card (group) | N3, N4, N14 | Overnight: one cite-or-abstain example in *their* ministry type |
 

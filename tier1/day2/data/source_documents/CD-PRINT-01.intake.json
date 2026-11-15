@@ -1,0 +1,17 @@
+{
+  "id": "CD-PRINT-01",
+  "source_path": "data/source_documents/CD-PRINT-01.md",
+  "title": "CivicDesk Print Rule CD-PRINT-01",
+  "owner": "CivicDesk Records Unit",
+  "source_type": "born-digital",
+  "version": "v1",
+  "effective_date": "2024-03-01",
+  "status": "current",
+  "supersedes": null,
+  "contains_personal_data": false,
+  "retention": "Keep while the print rule is in force",
+  "train_ok": false,
+  "index_ok": true,
+  "clearance": "internal",
+  "ocr_checked_by": "not applicable (born-digital)"
+}

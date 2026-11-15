@@ -8,5 +8,13 @@
   "role_that_must_be_refused": "public chatbot user; also clerk for HB-CAB-X",
   "stop_condition": "If the store is unavailable, stop. Do not invent a workaround circular.",
   "never_enter_index": "Cabinet bodies, CVs, burgess PII, canaries, live serial dumps",
-  "will_not_do": "hire / publish / award / reset a password"
+  "will_not_do": "hire / publish / award / reset a password",
+  "known_answer_run1": "not measured",
+  "known_answer_run2": "not measured",
+  "wrong_abstentions": "not measured",
+  "unsupported_citations": "not measured",
+  "source_versions_used": "HB-ATTACH-04 v4",
+  "scan_status": "HB-SCAN-01 unchecked",
+  "cost_per_acceptable_answer": "not measured",
+  "hand_marked_supported": "not marked"
 }

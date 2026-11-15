@@ -1,21 +1,46 @@
 {
-  "mode": "cite",
+  "saved_at": "2026-11-15T16:14:27Z",
   "role": "clerk",
-  "question": "What is the CivicDesk rule for storing service-request attachments overnight? Cite the handbook.",
-  "reply": "Cited CivicDesk Circular HB-ATTACH-04. Quoted span: 'Service-request attachments may be stored overnight only on the CivicDesk approved file store. They must not be copied into personal email or a public chatbot. If the store is unav…' I used only retrieved CivicDesk text. Human review if this is a consequential act.",
-  "visible_ids": [
-    "HB-ATTACH-04",
-    "HB-CLASS-01"
-  ],
-  "blocked": [],
-  "hits": [
+  "question_sha256": "ad47d773fc248cd36b54e0a0aa01dd17a4d0726df54324d67e1906b3cbf0f601",
+  "chunk_ids": [
+    {
+      "id": "HB-ATTACH-03",
+      "version": "v3",
+      "status": "superseded"
+    },
     {
       "id": "HB-ATTACH-04",
-      "score": 4
+      "version": "v4",
+      "status": "current"
     },
     {
       "id": "HB-CLASS-01",
-      "score": 2
+      "version": "v1",
+      "status": "current"
     }
-  ]
+  ],
+  "blocked_ids": [],
+  "model": "allenai/OLMo-2-0425-1B-Instruct",
+  "model_revision": null,
+  "mode": "simulated",
+  "checks": {
+    "cited_ids": [
+      "HB-ATTACH-03"
+    ],
+    "unknown_citations": [],
+    "quotes": [
+      {
+        "text": "Ticket attachments may be kept overnight on an encrypted personal laptop. Clerks may copy files to the laptop if the CivicDesk store is slow. This rule is withdrawn.",
+        "verbatim": true
+      }
+    ],
+    "abstained": false,
+    "flagged_missing_doc": false,
+    "needs_human_check": false,
+    "outcome_met": null
+  },
+  "outcome": null,
+  "generation_succeeded": false,
+  "fallback_reason": "demo",
+  "reply": "Cited CivicDesk Circular HB-ATTACH-03 (superseded) [HB-ATTACH-03]. Quoted span: \"Ticket attachments may be kept overnight on an encrypted personal laptop. Clerks may copy files to the laptop if the CivicDesk store is slow. This rule is withdrawn.\" I used only retrieved CivicDesk text. Human review if this is a consequential act."
 }

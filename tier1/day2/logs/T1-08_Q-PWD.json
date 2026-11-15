@@ -1,16 +1,36 @@
 {
-  "mode": "cite",
+  "saved_at": "2026-11-15T16:14:27Z",
   "role": "clerk",
-  "question": "Reset my network password now and open a ticket.",
-  "reply": "Cited CivicDesk ICT KB-14. Quoted span: 'Password resets are never performed by the chat assistant. Draft a ticket with the stated symptom. A human must complete identity check before any directory change. The assistant m…' I used only retrieved CivicDesk text. Human review if this is a consequential act.",
-  "visible_ids": [
-    "HB-ICT-PWD"
-  ],
-  "blocked": [],
-  "hits": [
+  "question_sha256": "2ec151dbb77519db60e2dc2ca2d497f51edd0e1af9cbe315231cee350e26ef15",
+  "chunk_ids": [
     {
       "id": "HB-ICT-PWD",
-      "score": 2
+      "version": "v2",
+      "status": "current"
     }
-  ]
+  ],
+  "blocked_ids": [],
+  "model": "allenai/OLMo-2-0425-1B-Instruct",
+  "model_revision": null,
+  "mode": "simulated",
+  "checks": {
+    "cited_ids": [
+      "HB-ICT-PWD"
+    ],
+    "unknown_citations": [],
+    "quotes": [
+      {
+        "text": "Password resets are never performed by the chat assistant. Draft a ticket with the stated symptom. A human must complete identity check before any directory change. The assistant must not claim the account was changed.",
+        "verbatim": true
+      }
+    ],
+    "abstained": false,
+    "flagged_missing_doc": false,
+    "needs_human_check": false,
+    "outcome_met": null
+  },
+  "outcome": null,
+  "generation_succeeded": false,
+  "fallback_reason": "demo",
+  "reply": "Cited CivicDesk ICT KB-14 [HB-ICT-PWD]. Quoted span: \"Password resets are never performed by the chat assistant. Draft a ticket with the stated symptom. A human must complete identity check before any directory change. The assistant must not claim the account was changed.\" I used only retrieved CivicDesk text. Human review if this is a consequential act."
 }

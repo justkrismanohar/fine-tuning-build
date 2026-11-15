@@ -2,7 +2,7 @@
 
 Retrieve from an approved CivicDesk set, cite it, refuse when the source is missing. Instruction is in the notebooks. No slide deck.
 
-Day 1 started the model. This day does **not** train. Default path needs no GPU (`civicdesk_rag.py` uses word-overlap retrieval and canned cite/abstain). Same notebooks on the [Colab track](../../colab/README.md) — Days 2–3 never called a live model.
+Day 1 started the model. This day does **not** train. Normal operation sends retrieved text through the Day 1 client (`civicdesk_lab.chat`). If the backend is demo or down, notebooks continue with a labelled local cite-or-abstain helper; those replies are **not scored as model performance**. Download this folder and run it locally before the workshop if the hosted notebook can lose its host.
 
 ## Order of play
 
@@ -17,6 +17,8 @@ Day 1 started the model. This day does **not** train. Default path needs no GPU 
 
 ## Other files
 
-`civicdesk_rag.py`, `data/`, `images/`, `cards/`, `completed/`, `day2_quick_card.md`.
+`civicdesk_rag.py`, `data/`, `images/`, `cards/`, `completed/`, `day2_quick_card.md`, `make_replays.py`, `logs/replay/`.
+
+Required offline path: Python 3 with the Day 1 helper (`../day1/civicdesk_lab.py`), the files in this folder, and no API key, GPU, vector service or OCR install. Set `CIVICDESK_MODE=demo` (the Day 1 default). A Colab or JupyterHub tab is not a substitute for this package if that host disappears.
 
 If you are stuck, load `completed/` for **this** notebook only and mark it as loaded from reference.

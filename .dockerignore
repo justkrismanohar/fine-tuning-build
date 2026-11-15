@@ -4,6 +4,8 @@
 **/*.pyc
 **/.DS_Store
 **/logs/*.json
+!**/logs/replay/
+!**/logs/replay/**
 .git
 .gitignore
 .dockerignore

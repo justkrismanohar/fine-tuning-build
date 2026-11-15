@@ -9,6 +9,9 @@
     "CI-07": "never",
     "CI-08": "index",
     "CI-09": "never",
-    "CI-10": "never"
+    "CI-10": "never",
+    "CI-11": "never",
+    "CI-12": "index",
+    "CI-13": "never"
   }
 }

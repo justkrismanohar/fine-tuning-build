@@ -1,21 +1,41 @@
 {
-  "mode": "cite",
+  "saved_at": "2026-11-15T16:14:27Z",
   "role": "clerk",
-  "question": "Does a two-year diploma in library studies meet CivicDesk vacancy criterion C2? Quote the rule. Do not hire.",
-  "reply": "Cited CivicDesk Vacancy Handbook v3, C2. Quoted span: 'C2. The applicant must hold a recognised diploma in records management or equivalent. Library studies is not automatically equivalent. If equivalent is claimed, mark Human review r…' I used only retrieved CivicDesk text. Human review if this is a consequential act.",
-  "visible_ids": [
-    "HB-VAC-C2",
-    "HB-MIN-02"
-  ],
-  "blocked": [],
-  "hits": [
+  "question_sha256": "2be12a4d8f64a138462b9baf29ba5cc48395bc1d178ff36f753ee98e3347aa75",
+  "chunk_ids": [
     {
       "id": "HB-VAC-C2",
-      "score": 5
+      "version": "v3",
+      "status": "current"
     },
     {
       "id": "HB-MIN-02",
-      "score": 2
+      "version": "v1",
+      "status": "current"
     }
-  ]
+  ],
+  "blocked_ids": [],
+  "model": "allenai/OLMo-2-0425-1B-Instruct",
+  "model_revision": null,
+  "mode": "simulated",
+  "checks": {
+    "cited_ids": [
+      "HB-VAC-C2"
+    ],
+    "unknown_citations": [],
+    "quotes": [
+      {
+        "text": "C2. The applicant must hold a recognised diploma in records management or equivalent. Library studies is not automatically equivalent. If equivalent is claimed, mark Human review required. Do not recommend hiring.",
+        "verbatim": true
+      }
+    ],
+    "abstained": false,
+    "flagged_missing_doc": false,
+    "needs_human_check": false,
+    "outcome_met": null
+  },
+  "outcome": null,
+  "generation_succeeded": false,
+  "fallback_reason": "demo",
+  "reply": "Cited CivicDesk Vacancy Handbook v3, C2 [HB-VAC-C2]. Quoted span: \"C2. The applicant must hold a recognised diploma in records management or equivalent. Library studies is not automatically equivalent. If equivalent is claimed, mark Human review required. Do not recommend hiring.\" I used only retrieved CivicDesk text. Human review if this is a consequential act."
 }
