@@ -47,6 +47,11 @@ RUN sed -i 's/\r$//' /tmp/download_models.py \
 RUN apt-get update && apt-get install -y tesseract-ocr 
 RUN pip install --no-cache-dir pytesseract pypdf chromadb sentence_transformers
 
+# Bake all-MiniLM-L6-v2 weights into the image
+ENV HF_HOME=/models/hf-cache
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+
 # Install PyTorch (CUDA) + updated Transformers after downloading weights
 RUN pip install --no-cache-dir torch \
     && pip install --no-cache-dir "transformers>=4.49.0" accelerate sentencepiece protobuf jinja2==3.1.6
