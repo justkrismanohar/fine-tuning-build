@@ -3,3 +3,4 @@ logs/*.json
 !logs/replay/
 !logs/replay/*.json
 .pytest_cache/
+data/vector_store/

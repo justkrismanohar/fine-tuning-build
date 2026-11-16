@@ -266,6 +266,56 @@ def import_lab():
     return lab
 
 
+_day2_backend = {"choice": "demo", "model": None}
+
+
+def set_backend(choice: str = "demo") -> dict:
+    """Switch this kernel: demo (no GPU), local OLMo, or local Phi.
+
+    Retrieval always runs here. This only changes where generate_with_rag sends the prompt.
+    """
+    lab = import_lab()
+    raw = (choice or "demo").strip().lower()
+    aliases = {
+        "demo": "demo",
+        "olmo": "olmo",
+        "local": "olmo",
+        "local-olmo": "olmo",
+        "phi": "phi",
+        "local-phi": "phi",
+    }
+    if raw not in aliases:
+        raise ValueError('BACKEND must be "demo", "olmo", or "phi"')
+    choice = aliases[raw]
+    global _force_failure
+    _force_failure = None
+    _live_state["unavailable"] = False
+    _live_state["reason"] = ""
+    if choice == "demo":
+        cfg = lab.use_backend("demo")
+        _day2_backend["model"] = None
+        print("BACKEND=demo — no GPU. Retrieval still runs. Generations are canned or the local cite/abstain template; not scored as model performance.")
+    else:
+        cfg = lab.use_backend("local")
+        model = lab.resolve_model(choice)
+        _day2_backend["model"] = model
+        url = cfg["olmo_url"] if choice == "olmo" else cfg["phi_url"]
+        print(f"BACKEND=local  model={choice}")
+        print("id:", model)
+        print("url:", url)
+        print("Needs the Day 1 server on that port (T1-01a / docker compose). If the call fails, the notebook continues with a labelled local fallback.")
+        if choice == "phi":
+            print("Phi is :8001. Compose loads OLMo only unless CIVICDESK_LOAD_MODELS includes phi.")
+    _day2_backend["choice"] = choice
+    print("mode:", cfg.get("mode"))
+    print("GPU / host:", lab.gpu_note())
+    return cfg
+
+
+def active_model() -> str | None:
+    return _day2_backend.get("model")
+
+
 def retry_live() -> None:
     global _force_failure
     _force_failure = None
@@ -385,17 +435,29 @@ def chunk_text(text: str, max_words: int, overlap: int = 0) -> list[str]:
     return out
 
 
-def load_source_document(path: str | Path) -> dict:
+def _resolve_source_path(path: str | Path) -> Path:
     path = Path(path)
-    if not path.is_file():
-        path = DATA / path
-    if not path.is_file():
-        path = HERE / path
+    if path.is_file():
+        return path
+    for candidate in (DATA / path, HERE / path, DATA / "source_documents" / Path(path).name):
+        if candidate.is_file():
+            return candidate
+    raise FileNotFoundError(path)
+
+
+def _load_intake(path: Path) -> dict:
+    intake_path = path.with_name(path.stem + ".intake.json")
+    if not intake_path.is_file():
+        intake_path = path.with_suffix(".intake.json")
+    if intake_path.is_file():
+        return json.loads(intake_path.read_text(encoding="utf-8"))
+    return {}
+
+
+def load_source_document(path: str | Path) -> dict:
+    path = _resolve_source_path(path)
     text = path.read_text(encoding="utf-8")
-    intake_path = path.with_suffix(".intake.json")
-    if path.suffix == ".md":
-        intake_path = path.with_name(path.stem + ".intake.json")
-    meta = json.loads(intake_path.read_text(encoding="utf-8")) if intake_path.is_file() else {}
+    meta = _load_intake(path)
     return {
         "path": str(path),
         "text": text,
@@ -406,30 +468,68 @@ def load_source_document(path: str | Path) -> dict:
     }
 
 
+def load_pdf_document(path: str | Path) -> dict:
+    """Born-digital PDF extract. Not OCR. Requires pypdf."""
+    try:
+        from pypdf import PdfReader
+    except ImportError as exc:
+        raise ImportError("pypdf is required to read the T1-08b PDF. pip install pypdf") from exc
+    path = _resolve_source_path(path)
+    reader = PdfReader(str(path))
+    pages = []
+    for i, page in enumerate(reader.pages, 1):
+        pages.append({"page": i, "text": (page.extract_text() or "").strip()})
+    text = "\n\n".join(p["text"] for p in pages if p["text"])
+    meta = _load_intake(path)
+    return {
+        "path": str(path),
+        "text": text,
+        "pages": pages,
+        "n_pages": len(reader.pages),
+        "meta": meta,
+        "title": meta.get("title") or path.name,
+        "version": meta.get("version"),
+        "extraction": "pypdf extract_text; not OCR",
+    }
+
+
+def _chunk_row(doc: dict, meta: dict, piece: str, seq: int, page: int | None = None) -> dict:
+    src = meta.get("source_path") or doc.get("path")
+    cid = f"{meta.get('id') or 'SRC'}-{seq:02d}"
+    row = {
+        "id": cid,
+        "title": doc.get("title"),
+        "text": piece,
+        "citation": f"{doc.get('title')} #{seq}",
+        "source_path": src,
+        "version": meta.get("version"),
+        "sequence": seq,
+        "clearance": meta.get("clearance", "internal"),
+        "index_ok": bool(meta.get("index_ok", True)),
+        "owner": meta.get("owner"),
+        "status": meta.get("status", "current"),
+        "contains_personal_data": bool(meta.get("contains_personal_data")),
+        "train_ok": bool(meta.get("train_ok")),
+    }
+    if page is not None:
+        row["page"] = page
+    return row
+
+
 def chunk_source(doc: dict, max_words: int, overlap: int = 0) -> list[dict]:
     meta = doc.get("meta") or {}
-    parts = chunk_text(doc["text"], max_words=max_words, overlap=overlap)
+    pages = doc.get("pages")
     rows = []
-    src = meta.get("source_path") or doc.get("path")
-    for i, piece in enumerate(parts, 1):
-        cid = f"{meta.get('id') or 'SRC'}-{i:02d}"
-        rows.append(
-            {
-                "id": cid,
-                "title": doc.get("title"),
-                "text": piece,
-                "citation": f"{doc.get('title')} #{i}",
-                "source_path": src,
-                "version": meta.get("version"),
-                "sequence": i,
-                "clearance": meta.get("clearance", "internal"),
-                "index_ok": bool(meta.get("index_ok", True)),
-                "owner": meta.get("owner"),
-                "status": meta.get("status", "current"),
-                "contains_personal_data": bool(meta.get("contains_personal_data")),
-                "train_ok": bool(meta.get("train_ok")),
-            }
-        )
+    seq = 0
+    if pages:
+        for p in pages:
+            for piece in chunk_text(p.get("text") or "", max_words=max_words, overlap=overlap):
+                seq += 1
+                rows.append(_chunk_row(doc, meta, piece, seq, page=p.get("page")))
+        return rows
+    for piece in chunk_text(doc["text"], max_words=max_words, overlap=overlap):
+        seq += 1
+        rows.append(_chunk_row(doc, meta, piece, seq))
     return rows
 
 
@@ -684,6 +784,8 @@ def generate_with_rag(
     messages = build_messages(question, visible, system=system)
     assert "HB-CANARY" not in json.dumps(messages)
     local = render_cite_or_abstain(question, role, hits, visible, blocked)
+    if model is None:
+        model = _day2_backend.get("model")
     chat = _call_chat(messages, model)
     mode = chat.get("mode")
     generation_ok = mode == "live" and bool((chat.get("text") or "").strip())
@@ -742,6 +844,8 @@ def generate_prompt_only(question: str, model: str | None = None) -> dict:
         {"role": "system", "content": "Answer the CivicDesk staff question. Do not invent a circular number."},
         {"role": "user", "content": question},
     ]
+    if model is None:
+        model = _day2_backend.get("model")
     chat = _call_chat(messages, model)
     generation_ok = chat.get("mode") == "live" and bool((chat.get("text") or "").strip())
     if generation_ok:

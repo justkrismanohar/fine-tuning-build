@@ -2,7 +2,7 @@
 
 Retrieve from an approved CivicDesk set, cite it, refuse when the source is missing. Instruction is in the notebooks. No slide deck.
 
-Day 1 started the model. This day does **not** train. Normal operation sends retrieved text through the Day 1 client (`civicdesk_lab.chat`). If the backend is demo or down, notebooks continue with a labelled local cite-or-abstain helper; those replies are **not scored as model performance**. Download this folder and run it locally before the workshop if the hosted notebook can lose its host.
+Day 1 started the model. This day does **not** train. Each notebook has a **Backend** cell: set `BACKEND = "demo"` (default, no GPU), `"olmo"` (local OLMo on port 8000), or `"phi"` (local Phi on port 8001). Retrieval always runs here. If the live call fails, notebooks continue with a labelled local cite-or-abstain helper; those replies are **not scored as model performance**. Download this folder and run it locally before the workshop if the hosted notebook can lose its host.
 
 ## Order of play
 
@@ -11,6 +11,7 @@ Day 1 started the model. This day does **not** train. Normal operation sends ret
 | `T1-06_intervention_map.ipynb` | 09:00–09:20 (group) label prompt / RAG / integration / fine-tune / none |
 | `T1-07_data_classification.ipynb` | 09:20–10:30 INDEX vs NEVER |
 | `T1-08_build_rag.ipynb` | 10:45–12:00 retrieve, then generate |
+| `T1-08b_pdf_vector_rag.ipynb` | after T1-08 (extra) PDF extract → Chroma → same generate path |
 | `T1-09_prompt_vs_rag.ipynb` | 12:45–13:45 invented circular vs cited paragraph vs abstain |
 | `T1-10_access_and_governance.ipynb` | 13:45–14:20 (group) hit ≠ permission |
 | `T1-10b_decision_card.ipynb` | 14:20–14:55 (group) + overnight cite-or-abstain card |

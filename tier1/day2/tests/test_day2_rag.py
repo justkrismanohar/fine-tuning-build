@@ -104,6 +104,20 @@ def test_log_record_strips_personal_text(tmp_path, monkeypatch):
     assert "reply" not in rec
 
 
+def test_pdf_source_extract_and_chunk():
+    pytest.importorskip("pypdf")
+    src = rag.load_pdf_document(DAY2 / "data" / "source_documents" / "CD-COURIER-02.pdf")
+    assert "pouch" in src["text"].lower()
+    assert src["extraction"].startswith("pypdf")
+    assert src["n_pages"] == 2
+    chunks = rag.chunk_source(src, max_words=40)
+    assert chunks
+    assert all(c["id"].startswith("CD-COURIER-02") for c in chunks)
+    assert all(c.get("page") in {1, 2} for c in chunks)
+    hb_ids = {c["id"] for c in rag.load_chunks()}
+    assert not any(c["id"] in hb_ids for c in chunks)
+
+
 def test_source_exercise_provenance_and_exclude():
     src = rag.load_source_document(DAY2 / "data" / "source_documents" / "CD-PRINT-01.md")
     chunks = rag.chunk_source(src, max_words=40)
@@ -118,6 +132,16 @@ def test_source_exercise_provenance_and_exclude():
     assert hits2 == []
     hb_ids = {c["id"] for c in rag.load_chunks()}
     assert not any(h["id"] in hb_ids for h in hits)
+
+
+def test_set_backend_demo_and_aliases():
+    cfg = rag.set_backend("demo")
+    assert cfg["mode"] == "demo"
+    assert rag.active_model() is None
+    rag.set_backend("olmo")
+    assert rag.active_model()
+    rag.set_backend("demo")
+    assert rag.active_model() is None
 
 
 def test_generate_demo_is_simulated_not_live():
