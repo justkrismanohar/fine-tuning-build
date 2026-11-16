@@ -15,8 +15,8 @@ services:
       - "8001:8001"
     working_dir: /civicdesk
     environment:
-      CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo,phi}
-      # CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo}
+      # CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo,phi}
+      CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo}
     # volumes:
     #   - .:/civicdesk
     gpus: all
