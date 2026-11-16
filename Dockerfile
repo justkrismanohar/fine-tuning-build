@@ -43,6 +43,10 @@ COPY environment/download_models.py /tmp/download_models.py
 RUN sed -i 's/\r$//' /tmp/download_models.py \
     && python /tmp/download_models.py
 
+# Install additional things for Day 2 - just placting it here so don't have to redownload the model weights.
+RUN apt-get update && apt-get install -y tesseract-ocr 
+RUN pip install --no-cache-dir pytesseract pypdf chromadb sentence_transformers
+
 # Install PyTorch (CUDA) + updated Transformers after downloading weights
 RUN pip install --no-cache-dir torch \
     && pip install --no-cache-dir "transformers>=4.49.0" accelerate sentencepiece protobuf jinja2==3.1.6
