@@ -56,6 +56,11 @@ ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 RUN pip install --no-cache-dir torch \
     && pip install --no-cache-dir "transformers>=4.49.0" accelerate sentencepiece protobuf jinja2==3.1.6
 
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+supervisor \
+&& rm -rf /var/lib/apt/lists/*
+
 # Notebooks and helpers — changing these does not redo the download layer.
 COPY . /opt/civicdesk
 RUN sed -i 's/\r$//' /opt/civicdesk/environment/docker-entrypoint.sh \
