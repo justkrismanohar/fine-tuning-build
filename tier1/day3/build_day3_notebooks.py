@@ -1,3 +1,13 @@
+"""Do not run this file.
+
+Day 3 notebooks are maintained by write_day3_notebooks.py. Running this
+old builder would wipe the baseline-failure revision. Kris reviews first.
+"""
+raise SystemExit(
+    "Do not run build_day3_notebooks.py. Use write_day3_notebooks.py after review."
+)
+
+# Original builder kept below as history. Unreachable.
 """Write the Day 3 notebooks as valid .ipynb files."""
 from __future__ import annotations
 

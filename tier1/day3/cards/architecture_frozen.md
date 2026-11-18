@@ -19,3 +19,5 @@ input text
 | **Burst** | A training job on a bigger GPU, then stop. |
 | **Standing** | The chat API that stays up (`:8000` / `:8001`). |
 | **Canary** | Planted PII. Must not be in a real train split. If the model quotes it, fail. |
+| **human_review** | Silence, in-progress, partial, or a different qualification. Not a fail. |
+| **Floor** | If evidence is not a résumé substring, force `human_review`. Simplest thing first. |

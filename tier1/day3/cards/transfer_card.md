@@ -12,6 +12,7 @@ First *safe* next step after Tier 1. CivicDesk type only. Not a pilot.
 - Where the box would live if this were core (N7):
 - Burst vs standing: what is the chat API vs what would be a LoRA job:
 - Tools the model must never call:
-- Audit: what you would log (request id, chunk ids, role, abstain?):
+- Audit: what you would log (request id, prompt version, gold file sha256, human_review / abstain):
 - Question for MPAAI / GoRTT:
 - First safe next step (one workshop, not a procurement):
+- Policy you would teach for silence on a CV (`human_review` vs `does_not_meet`):

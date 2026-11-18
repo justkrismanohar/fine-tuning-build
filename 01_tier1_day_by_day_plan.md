@@ -4,7 +4,7 @@ Maps `00_common_needs_from_eois.md` onto the notebooks in the final workplan. **
 
 Days run 09:00–15:00. Instruction lives in the notebook. CivicDesk only.
 
-**Two tracks:** `tier1/` is Docker/local with a live OLMo/Phi if you start the servers. [`colab/`](colab/README.md) is the same notebooks on Google Colab (CPU, no Docker, no GPU). Chat cells that would have called a model use scripted `[OLMo demo]` / `[Phi-4-mini demo]` replies. Days 2–3 never needed a model. Completing Colab is the **ideas**, not a deploy.
+**Two tracks:** `tier1/` is Docker/local with a live OLMo/Phi if you start the servers. [`colab/`](colab/README.md) is the same notebooks on Google Colab (CPU, no Docker, no GPU). Chat cells that would have called a model use scripted `[OLMo demo]` / `[Phi-4-mini demo]` replies. Day 3 pre-flight uses the live server when it is up; otherwise labelled cards, not scored. Completing Colab is the **ideas**, not a deploy.
 
 ## Coverage matrix
 
@@ -18,7 +18,7 @@ Days run 09:00–15:00. Instruction lives in the notebook. CivicDesk only.
 | N6 Bounded agency | Woven in opening (no passwords in chat) | Woven | **Direct** T1-13 | AUX-01 tools/APIs |
 | N7 Own the box if core | **Direct** T1-01 (start local/shared endpoint) + T1-04 GPU card | — | Burst vs standing briefing | — |
 | N8 Summarise / extract | Woven (first reply is short) | Direct-ish T1-08 (quote, not a long summary) | Woven | AUX-02 when extraction is not generation |
-| N9 Classify incoming text | Woven T1-01 CivicDesk request type | Direct T1-07 | — | — |
+| N9 Classify incoming text | Woven T1-01 CivicDesk request type | Direct T1-07 | Direct T1-13 tickets | — |
 | N10 Structured register query | Named in T1-05 (“is the source of truth a database?”) | Woven | — | **AUX-02** |
 | N11 Cost / GPU / burst vs standing | **Direct** T1-03 cost card; T1-04 GPU questions | Woven (RAG cheaper than LoRA) | Direct architecture card burst vs standing | — |
 | N12 Open vs open-weight vs API | **Direct** T1-04 | — | Woven (licence inheritance of an adapter) | — |
@@ -59,18 +59,20 @@ Day 1 does **not** build RAG or fine-tune. It gives people the machine, the cost
 | 13:45–14:20 | T1-10 Access and governance (group) | **N4** | Same chunk, wrong user |
 | 14:20–14:55 | Decision card (group) | N3, N4, N14 | Overnight: one cite-or-abstain example in *their* ministry type |
 
+Optional, not in the 15 hours: `tier1/data_cleaning/` (Colab CPU). INDEX / NEVER / HOLD with government examples. Does not replace T1-07.
+
 ## Day 3 — Fine-tuning literacy and operating questions
 
-**Goal:** inspect a training set and a pre-built adapter. They do **not** train.
+**Goal:** re-run the frozen baseline on this machine, inspect criteria training rows, compare a floor and (if present) an adapter. Optional short GPU cell. They do **not** have to train.
 
 | Time | Notebook | Needs | Why |
 |---|---|---|---|
 | 09:00–09:15 | Architecture card: frozen vs updated; burst vs standing | N11, N7 | CPO “train on judgments” meets “LoRA is a burst, serving is standing” |
-| 09:15–10:30 | T1-11 Dataset + what is frozen | N1, N5, N12 | Criteria-matching rows (Labour/Health); canaries (all PII papers) |
-| 10:45–12:00 | T1-12 Base vs adapter | N1 | Adapter is not a database (Finance/RDLG still need RAG) |
+| 09:15–10:30 | T1-11 Pre-flight + criteria rows | N1, N5, N12, N2 | Labour: silence is `human_review`; prove the prompt fails on this GPU |
+| 10:45–12:00 | T1-12 Base vs floor vs adapter | N1 | Same held-out prompt; redaction still HOLD / PASS CHECKS |
 | 12:45–13:30 | Risk cells | N5, N11 | Rollback, licence inheritance |
-| 13:30–14:15 | T1-13 Agentic boundary | **N6**, N2 | Trade password/GLPI; CPO agentic research; Defence “must not award” |
-| 14:15–14:55 | T1-14 Defence + EOI transfer card | N2, N14, all clusters | First safe next step, not a pilot |
+| 13:30–14:15 | T1-13 Agentic boundary + tickets | **N6**, N2, N9 | Trade: security beats the printer; password/GLPI stay banned |
+| 14:15–14:55 | T1-14 Defence + EOI transfer card | N2, N14, all clusters | Policy line; minutes as partial; first safe next step |
 
 ## How Day 1 notebooks will mark ministry relevance
 

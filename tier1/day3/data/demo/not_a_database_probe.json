@@ -1,0 +1,6 @@
+{
+  "question": "Where may CivicDesk attachments sit overnight if the pouch shelf is empty?",
+  "note": "No sources in the prompt. An adapter is not a handbook. not a model answer, not scored when BACKEND=demo.",
+  "base_demo": "[base demo] I do not have a circular in this prompt. I will not invent a pouch rule.",
+  "adapter_demo": "[adapter demo] I have no handbook in this prompt. I will not invent a circular. That is RAG, not an adapter."
+}

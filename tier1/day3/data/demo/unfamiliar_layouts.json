@@ -1,0 +1,22 @@
+{
+  "note": "Two probes. Neither is in train_clean_v1. Compare over-redaction and altered text. Demo outputs are stand-ins.",
+  "docs": [
+    {
+      "id": "U-CAB",
+      "layout": "cabinet-style note, no personal data",
+      "text": "# CivicDesk Note — Registry hours\nThe Central Registry remains open until 16:00 on working days. Paper originals travel in the pouch. This note names no person.",
+      "expected": "# CivicDesk Note — Registry hours\nThe Central Registry remains open until 16:00 on working days. Paper originals travel in the pouch. This note names no person.",
+      "keep": ["Central Registry remains open until 16:00", "Paper originals travel in the pouch"]
+    },
+    {
+      "id": "U-LAYOUT",
+      "layout": "two-column skills block absent from training",
+      "text": "APPLICANT\tCONTACT\nFarah Dindial\tfarah.dindial@civicdesk.test | 868-554-2201\nSKILLS\tEDMS | retention | indexing",
+      "spans": [
+        {"type": "PERSON", "text": "Farah Dindial"},
+        {"type": "EMAIL", "text": "farah.dindial@civicdesk.test"},
+        {"type": "PHONE", "text": "868-554-2201"}
+      ]
+    }
+  ]
+}

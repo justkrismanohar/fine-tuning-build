@@ -1,0 +1,37 @@
+{
+  "notice": "CPU reference examples from 17 November 2026, not this machine. Not scored as this session's baseline.",
+  "measured_this_session": false,
+  "cards": [
+    {
+      "id": "R2-criteria",
+      "scenario": "Labour / MOLSED — résumé criteria",
+      "cue": "The model says 'not mentioned' and then marks the person as failing. That's the harm Labour's proposal is designed to prevent: an applicant rejected for something the CV never addressed. A rule in a prompt is a request. A label pattern repeated in training is a habit.",
+      "input": "Curriculum Vitae\nName: Marcus Thomas-Ramjit\nDate of birth: 03/07/1991\nNational ID: 19910703-045\nPhone: (868) 555-0187   Email: m.t.ramjit@example.net\nAddress: Apt 4B, 22 Pembroke Street, Port of Spain\n\nQualifications\n- Diploma in Records Management, CivicDesk College, 2015\n- BSc Information Systems (in progress, expected 2027), UWI Open Campus\n\nWork history\nRecords Clerk II, Ministry of CivicDesk Affairs, 2015 to 2026 (11 years)",
+      "gold": {
+        "C1": "human_review",
+        "C2": "meets",
+        "C3": "human_review"
+      },
+      "raw": "{\"criteria\": [{\"id\": \"C1\", \"result\": \"meets\", \"evidence\": \"Bachelor's degree in Information Systems or a related field\", \"reason\": \"The CV states a BSc in Information Systems is in progress, which meets the requirement.\"}, {\"id\": \"C2\", \"result\": \"does_not_meet\", \"evidence\": \"At least eight years of records management experience\", \"reason\": \"The work history states 11 years of experience, which is more than eight years.\"}, {\"id\": \"C3\", \"result\": \"meets\", \"evidence\": \"Holds a valid driver's permit\", \"reason\": \"The CV clearly states that Marcus holds a valid driver's permit.\"}]}",
+      "why_one_line": "0 of 3 correct: in-progress counted as meets, 11 years labelled does_not_meet, a never-mentioned permit labelled meets, and every evidence string is the criterion line."
+    },
+    {
+      "id": "T1",
+      "scenario": "Trade / MTIT — IT ticket routing",
+      "cue": "Of the four security incidents, the base model escalated none. The prompt said exactly what to do. The model needs hundreds of labelled tickets where security wins over everything else, including tickets that try to talk it out of escalating.",
+      "input": "Printer on 3rd floor is jamming again. Also, yesterday I got an email from 'IT Support' saying my mailbox was full and I entered my username and password on the page it linked. Is the printer still under warranty?",
+      "gold": {"category": "security_incident", "action": "escalate_security", "urgency": "high"},
+      "raw": "{\"category\": \"hardware\", \"action\": \"route_desktop_support\", \"urgency\": \"low\", \"reason\": \"Printer jamming is a common issue and not a security incident. The email about mailbox full is likely a false alarm and not a security threat.\"}",
+      "why_one_line": "Wrong on all three fields: it classified the printer, dismissed a typed password as a false alarm, and never escalated."
+    },
+    {
+      "id": "M1",
+      "scenario": "Rural Development / MRDLG — minutes into an action log",
+      "cue": "The model reads every motion as a decision. If this log were used to chase outstanding work, the corporation would chase a motion that was voted down and miss the Engineer's report.",
+      "input": "Item 4: Drainage. Cllr. Ramdass moved that the Corporation clear the drain on Pasea Road before the rainy season. Seconded by Cllr. Mohammed. Agreed. The Corporation Engineer is to report on progress at the next statutory meeting.\nItem 5: Street lights. Cllr. Baptiste moved that the Corporation purchase 40 solar street lights for Bamboo Village. Following discussion, the motion was put to a vote and was defeated, 6 votes to 4.\nItem 6: Market stalls. Deferred to the January meeting pending the CEO's legal advice.",
+      "gold": "actions: clear Pasea drain (Corporation, before rainy season, open); Engineer report (next statutory meeting, open). not_agreed: street lights. deferred: market stalls.",
+      "raw": "{\"actions\": [{\"action\": \"Clear the drain on Pasea Road (as agreed)\", \"owner\": \"Corporation\", \"due\": \"before the rainy season\", \"status\": \"open\"}, {\"action\": \"Purchase 40 solar street lights for Bamboo Village (motion put to vote and defeated)\", \"owner\": \"Cllr. Baptiste\", \"due\": \"as discussed\", \"status\": \"closed\"}], \"not_agreed\": [\"Seconded by Cllr. Mohammed\"], \"deferred\": [\"Market stalls\", \"Legal advice from CEO required for market stalls deferred to January meeting\"]}",
+      "why_one_line": "The defeated street-light motion is logged as an action; the Engineer's report is missing; 'Seconded by Cllr. Mohammed' is listed as not agreed."
+    }
+  ]
+}

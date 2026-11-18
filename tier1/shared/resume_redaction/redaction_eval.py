@@ -264,15 +264,25 @@ SYSTEM_PROMPT = (
 )
 
 
-def run_live(fixture: dict, which: str = "olmo", timeout_s: float = 30.0) -> dict:
+def run_live(
+    fixture: dict,
+    which: str = "olmo",
+    timeout_s: float = 30.0,
+    adapter_dir: str | None = None,
+    served_name: str | None = None,
+) -> dict:
     """Send each synthetic doc to the backend chosen in T1-01. Only 'live' replies count as measured.
 
     civicdesk_lab.chat() falls back to canned demo text on errors; those replies are recorded as
     errors (empty output), never scored as model behaviour.
     """
     import civicdesk_lab as lab  # lazy on purpose: replay mode needs no backend
+    import os
 
-    model = lab.resolve_model(which)
+    if served_name or which in {"olmo-adapter", "adapter"}:
+        model = served_name or os.environ.get("CIVICDESK_ADAPTER_SERVED_NAME", "olmo-redact-lora")
+    else:
+        model = lab.resolve_model(which)
     outputs, latencies, notes, usage = {}, {}, {}, {}
     for doc in fixture["docs"]:
         msgs = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": doc["text"]}]
@@ -290,7 +300,7 @@ def run_live(fixture: dict, which: str = "olmo", timeout_s: float = 30.0) -> dic
             if isinstance(raw, dict) and raw.get("usage"):
                 usage[doc["id"]] = raw["usage"]  # present once the server returns usage (T1-03 spec)
         latencies[doc["id"]] = round(res.get("latency_ms", 0) / 1000, 2)
-    return {
+    pack = {
         "model": model,
         "backend": lab.endpoint_config()["backend"],
         "prompt_version": PROMPT_VERSION,
@@ -305,6 +315,24 @@ def run_live(fixture: dict, which: str = "olmo", timeout_s: float = 30.0) -> dic
         "notes": notes,
         "measured": all(v == "live" for v in notes.values()),
     }
+    if adapter_dir or which in {"olmo-adapter", "adapter"} or served_name:
+        pack["adapter_name"] = model
+        pack["adapter_dir"] = adapter_dir
+        pack["base_revision"] = os.environ.get("CIVICDESK_OLMO_REVISION")
+        pack["training_data_version"] = "train-clean-v1"
+        if adapter_dir:
+            import hashlib
+            from pathlib import Path
+
+            weights = Path(adapter_dir) / "adapter_model.safetensors"
+            if weights.is_file():
+                pack["adapter_sha256"] = hashlib.sha256(weights.read_bytes()).hexdigest()
+            report = Path(adapter_dir) / "training_report.json"
+            if report.is_file():
+                rep = json.loads(report.read_text(encoding="utf-8"))
+                pack["training_file_sha256"] = rep.get("training_sha256")
+                pack["base_revision"] = pack["base_revision"] or rep.get("base_revision")
+    return pack
 
 
 def count_tokens(texts: dict[str, str], model_dir: str | None = None) -> dict[str, int] | None:

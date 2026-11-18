@@ -11,7 +11,7 @@ Days 2–3 never needed a model. Day 1 hosting (T1-01a) is **walked through with
 
 **Runtime → CPU → Run all.** First cell clones this repo (or uses the folder if it is already on the machine).
 
-Prep (Python literacy, Colab) is separate: [`../prep/README.md`](../prep/README.md).
+Prep (Python literacy, Colab) is separate: [`../prep/README.md`](../prep/README.md). Optional government data-cleaning notebooks (self-run, CPU): [`../tier1/data_cleaning/README.md`](../tier1/data_cleaning/README.md).
 
 ## Open in Colab
 
@@ -36,6 +36,13 @@ Prep (Python literacy, Colab) is separate: [`../prep/README.md`](../prep/README.
 | T1-09 | [Open](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/colab/day2/T1-09_prompt_vs_rag.ipynb) |
 | T1-10 | [Open](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/colab/day2/T1-10_access_and_governance.ipynb) |
 | T1-10b | [Open](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/colab/day2/T1-10b_decision_card.ipynb) |
+
+### Data cleaning (optional, not a contact-hour lab)
+
+| Notebook | Colab |
+|---|---|
+| DC-01 Keep, throw, or send back | [Open](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/tier1/data_cleaning/DC-01_keep_or_throw.ipynb) |
+| DC-02 Clean a page, then label it | [Open](https://colab.research.google.com/github/justkrismanohar/fine-tuning-build/blob/main/tier1/data_cleaning/DC-02_clean_then_label.ipynb) |
 
 ### Day 3
 

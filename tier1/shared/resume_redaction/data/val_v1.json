@@ -1,0 +1,534 @@
+{
+  "version": "val-v1",
+  "seed": 20261116,
+  "n_rows": 10,
+  "note": "From the training pools. Settings and early stopping only. Not the test split.",
+  "policy": {
+    "version": "T1-05-policy-v1",
+    "redact": {
+      "PERSON": "Name of the applicant, referees, or any other private individual named in the text",
+      "EMAIL": "Any email address, including spelled-out forms such as 'name dot x at y dot z'",
+      "PHONE": "Any phone number, in any format",
+      "ADDRESS": "Home or postal address (street, lot, village or town line)",
+      "DOB": "Date of birth",
+      "ID": "National ID or other personal identification number"
+    },
+    "keep": [
+      "Employer and institution names, even when they contain a family name",
+      "Job titles, duties, dates of employment, qualifications, skills, numbers about the work",
+      "Vacancy or document reference numbers"
+    ],
+    "placeholders": [
+      "[PERSON]",
+      "[EMAIL]",
+      "[PHONE]",
+      "[ADDRESS]",
+      "[DOB]",
+      "[ID]"
+    ],
+    "out_of_scope": "Photographs, scanned images, non-English text, documents over the token budget: not processed, routed to manual."
+  },
+  "rows": [
+    {
+      "id": "VA-01",
+      "layout": "first_name_in_prose",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "Name: Ines Etienne\nContact: 868-554-6007 / ines.etienn@civicdesk.test\nAddress: 46 Nutmeg Close, Parable Heights\n\n## Profile\nInes keyed 250 permit forms a week as Data Entry Clerk at CivicDesk Permits Office.\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2013-2015\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2013\n"
+        }
+      ],
+      "target": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] keyed 250 permit forms a week as Data Entry Clerk at CivicDesk Permits Office.\n\n## Experience\n- Data Entry Clerk, CivicDesk Permits Office, 2013-2015\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2013\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Ines Etienne",
+          "start": 6,
+          "end": 18
+        },
+        {
+          "type": "PHONE",
+          "text": "868-554-6007",
+          "start": 28,
+          "end": 40
+        },
+        {
+          "type": "EMAIL",
+          "text": "ines.etienn@civicdesk.test",
+          "start": 43,
+          "end": 69
+        },
+        {
+          "type": "ADDRESS",
+          "text": "46 Nutmeg Close, Parable Heights",
+          "start": 79,
+          "end": 111
+        },
+        {
+          "type": "PERSON",
+          "text": "Ines",
+          "start": 124,
+          "end": 128
+        }
+      ],
+      "keep": [
+        "Data Entry Clerk, CivicDesk Permits Office, 2013-2015",
+        "keyed 250 permit forms a week as Data Entry Clerk at CivicDesk Permits Office",
+        "Diploma in Records Management, Mockton Technical Institute, 2013"
+      ],
+      "form": {
+        "name": "Ines Etienne",
+        "email": "ines.etienn@civicdesk.test",
+        "phone": "868-554-6007"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-02",
+      "layout": "family_business_employer",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Priya Persad\nPhone: (868) 554 5795 | Email: priya.persad@civicdesk.test\n\n## Experience\n- Accounts Clerk, Persad & Sons Hardware Ltd, 2014-2018: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2018-2022: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2013\n"
+        }
+      ],
+      "target": "# [PERSON]\nPhone: [PHONE] | Email: [EMAIL]\n\n## Experience\n- Accounts Clerk, Persad & Sons Hardware Ltd, 2014-2018: reconciled supplier invoices.\n- Accounts Officer, CivicDesk Finance Unit, 2018-2022: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2013\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Priya Persad",
+          "start": 2,
+          "end": 14
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 554 5795",
+          "start": 22,
+          "end": 36
+        },
+        {
+          "type": "EMAIL",
+          "text": "priya.persad@civicdesk.test",
+          "start": 46,
+          "end": 73
+        }
+      ],
+      "keep": [
+        "Accounts Clerk, Persad & Sons Hardware Ltd, 2014-2018",
+        "Accounts Officer, CivicDesk Finance Unit, 2018-2022",
+        "reconciled 600 supplier invoices a quarter",
+        "BSc Information Management, University of Fictionville, 2013"
+      ],
+      "form": {
+        "name": "Priya Persad",
+        "email": "priya.persad@civicdesk.test",
+        "phone": "(868) 554 5795"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-03",
+      "layout": "obfuscated_email",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Priya Etienne\nReach me: priya dot etienn at mailbox dot test, or +1 (868) 554-3788 (WhatsApp)\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2016-2019: maintained registers for 3 clinics.\n\n## Education\n- ACCA Applied Knowledge, 2017\n"
+        }
+      ],
+      "target": "# [PERSON]\nReach me: [EMAIL], or [PHONE] (WhatsApp)\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2016-2019: maintained registers for 3 clinics.\n\n## Education\n- ACCA Applied Knowledge, 2017\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Priya Etienne",
+          "start": 2,
+          "end": 15
+        },
+        {
+          "type": "EMAIL",
+          "text": "priya dot etienn at mailbox dot test",
+          "start": 26,
+          "end": 62
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 554-3788",
+          "start": 67,
+          "end": 84
+        }
+      ],
+      "keep": [
+        "Health Records Assistant, CivicDesk District Clinic, 2016-2019",
+        "maintained registers for 3 clinics",
+        "ACCA Applied Knowledge, 2017"
+      ],
+      "form": {
+        "name": "Priya Etienne",
+        "email": "priya.etienn@mailbox.test",
+        "phone": "+1 (868) 554-3788"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-04",
+      "layout": "inline_prose_third_party",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "My name is Priya Mohammed-Gray and I live at 32 Seagrape Crescent, Yarnborough. You can reach me on 868 554 6349 or at priya.mohamm@mailbox.test.\n\nI have worked as Health Records Assistant at CivicDesk District Clinic since 2017, where I maintained registers for 3 clinics.\n\nMy mentor, Dr. Sade Ali-Khan, encouraged me to apply.\n\n## Qualifications\n- BSc Information Management, University of Fictionville, 2009\n"
+        }
+      ],
+      "target": "My name is [PERSON] and I live at [ADDRESS]. You can reach me on [PHONE] or at [EMAIL].\n\nI have worked as Health Records Assistant at CivicDesk District Clinic since 2017, where I maintained registers for 3 clinics.\n\nMy mentor, Dr. [PERSON], encouraged me to apply.\n\n## Qualifications\n- BSc Information Management, University of Fictionville, 2009\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Priya Mohammed-Gray",
+          "start": 11,
+          "end": 30
+        },
+        {
+          "type": "ADDRESS",
+          "text": "32 Seagrape Crescent, Yarnborough",
+          "start": 45,
+          "end": 78
+        },
+        {
+          "type": "PHONE",
+          "text": "868 554 6349",
+          "start": 100,
+          "end": 112
+        },
+        {
+          "type": "EMAIL",
+          "text": "priya.mohamm@mailbox.test",
+          "start": 119,
+          "end": 144
+        },
+        {
+          "type": "PERSON",
+          "text": "Sade Ali-Khan",
+          "start": 290,
+          "end": 303
+        }
+      ],
+      "keep": [
+        "Health Records Assistant at CivicDesk District Clinic since 2017",
+        "maintained registers for 3 clinics",
+        "BSc Information Management, University of Fictionville, 2009"
+      ],
+      "form": {
+        "name": "Priya Mohammed-Gray",
+        "email": "priya.mohamm@mailbox.test",
+        "phone": "868 554 6349"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-05",
+      "layout": "repeated_identifiers",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Sade Gobin\nEmail: sade.gobin@civicdesk.test\nPhone: 868-554-9158\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2012-2017: maintained registers for 3 clinics.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2014\n\n## Contact\nFor references, write to sade.gobin@civicdesk.test or call 868-554-9158.\n"
+        }
+      ],
+      "target": "# [PERSON]\nEmail: [EMAIL]\nPhone: [PHONE]\n\n## Experience\n- Health Records Assistant, CivicDesk District Clinic, 2012-2017: maintained registers for 3 clinics.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2014\n\n## Contact\nFor references, write to [EMAIL] or call [PHONE].\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Sade Gobin",
+          "start": 2,
+          "end": 12
+        },
+        {
+          "type": "EMAIL",
+          "text": "sade.gobin@civicdesk.test",
+          "start": 20,
+          "end": 45
+        },
+        {
+          "type": "PHONE",
+          "text": "868-554-9158",
+          "start": 53,
+          "end": 65
+        },
+        {
+          "type": "EMAIL",
+          "text": "sade.gobin@civicdesk.test",
+          "start": 301,
+          "end": 326
+        },
+        {
+          "type": "PHONE",
+          "text": "868-554-9158",
+          "start": 335,
+          "end": 347
+        }
+      ],
+      "keep": [
+        "Health Records Assistant, CivicDesk District Clinic, 2012-2017",
+        "maintained registers for 3 clinics",
+        "Diploma in Records Management, Mockton Technical Institute, 2014"
+      ],
+      "form": {
+        "name": "Sade Gobin",
+        "email": "sade.gobin@civicdesk.test",
+        "phone": "868-554-9158"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-06",
+      "layout": "standard",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Vernon Baptiste-Rose\nEmail: vernon.baptis@mailbox.test | Phone: (868) 554 1473\nAddress: 51 Nutmeg Close, Yarnborough\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2016-2018: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2012\n"
+        }
+      ],
+      "target": "# [PERSON]\nEmail: [EMAIL] | Phone: [PHONE]\nAddress: [ADDRESS]\n\n## Experience\n- ICT Support Officer, CivicDesk Trade Unit, 2016-2018: closed 85% of tickets within two days.\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2012\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Vernon Baptiste-Rose",
+          "start": 2,
+          "end": 22
+        },
+        {
+          "type": "EMAIL",
+          "text": "vernon.baptis@mailbox.test",
+          "start": 30,
+          "end": 56
+        },
+        {
+          "type": "PHONE",
+          "text": "(868) 554 1473",
+          "start": 66,
+          "end": 80
+        },
+        {
+          "type": "ADDRESS",
+          "text": "51 Nutmeg Close, Yarnborough",
+          "start": 90,
+          "end": 118
+        }
+      ],
+      "keep": [
+        "ICT Support Officer, CivicDesk Trade Unit, 2016-2018",
+        "closed 85% of tickets within two days",
+        "Diploma in Records Management, Mockton Technical Institute, 2012"
+      ],
+      "form": {
+        "name": "Vernon Baptiste-Rose",
+        "email": "vernon.baptis@mailbox.test",
+        "phone": "(868) 554 1473"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-07",
+      "layout": "referee_dob_id",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Curriculum vitae: Clem Persad\nDate of birth: 10/11/1988\nNational ID: TR-ID-1988-723\nEmail: clem.persad@mailbox.test | Phone: +1 (868) 554-9242\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2017: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2016\n\n## Referees\n- Mala Dindial, Former Supervisor, CivicDesk Finance Unit, 868 554 9008, mala.dindia@civicdesk.test\n"
+        }
+      ],
+      "target": "# Curriculum vitae: [PERSON]\nDate of birth: [DOB]\nNational ID: [ID]\nEmail: [EMAIL] | Phone: [PHONE]\n\n## Experience\n- Accounts Officer, CivicDesk Finance Unit, 2015-2017: reconciled 600 supplier invoices a quarter.\n\n## Education\n- BSc Information Management, University of Fictionville, 2016\n\n## Referees\n- [PERSON], Former Supervisor, CivicDesk Finance Unit, [PHONE], [EMAIL]\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Clem Persad",
+          "start": 20,
+          "end": 31
+        },
+        {
+          "type": "DOB",
+          "text": "10/11/1988",
+          "start": 47,
+          "end": 57
+        },
+        {
+          "type": "ID",
+          "text": "TR-ID-1988-723",
+          "start": 71,
+          "end": 85
+        },
+        {
+          "type": "EMAIL",
+          "text": "clem.persad@mailbox.test",
+          "start": 93,
+          "end": 117
+        },
+        {
+          "type": "PHONE",
+          "text": "+1 (868) 554-9242",
+          "start": 127,
+          "end": 144
+        },
+        {
+          "type": "PERSON",
+          "text": "Mala Dindial",
+          "start": 351,
+          "end": 363
+        },
+        {
+          "type": "PHONE",
+          "text": "868 554 9008",
+          "start": 408,
+          "end": 420
+        },
+        {
+          "type": "EMAIL",
+          "text": "mala.dindia@civicdesk.test",
+          "start": 422,
+          "end": 448
+        }
+      ],
+      "keep": [
+        "Accounts Officer, CivicDesk Finance Unit, 2015-2017",
+        "reconciled 600 supplier invoices a quarter",
+        "BSc Information Management, University of Fictionville, 2016",
+        "Former Supervisor, CivicDesk Finance Unit"
+      ],
+      "form": {
+        "name": "Clem Persad",
+        "email": "clem.persad@mailbox.test",
+        "phone": "+1 (868) 554-9242"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-08",
+      "layout": "first_name_in_prose",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "Name: Gita Roopnarine\nContact: 868 554 5507 / gita.roopna@mailbox.test\nAddress: 64 Nutmeg Close, Storybridge\n\n## Profile\nGita processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2016-2018\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2013\n"
+        }
+      ],
+      "target": "Name: [PERSON]\nContact: [PHONE] / [EMAIL]\nAddress: [ADDRESS]\n\n## Profile\n[PERSON] processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office.\n\n## Experience\n- Lands Clerk, CivicDesk Lands Office, 2016-2018\n\n## Education\n- Diploma in Records Management, Mockton Technical Institute, 2013\n",
+      "spans": [
+        {
+          "type": "PERSON",
+          "text": "Gita Roopnarine",
+          "start": 6,
+          "end": 21
+        },
+        {
+          "type": "PHONE",
+          "text": "868 554 5507",
+          "start": 31,
+          "end": 43
+        },
+        {
+          "type": "EMAIL",
+          "text": "gita.roopna@mailbox.test",
+          "start": 46,
+          "end": 70
+        },
+        {
+          "type": "ADDRESS",
+          "text": "64 Nutmeg Close, Storybridge",
+          "start": 80,
+          "end": 108
+        },
+        {
+          "type": "PERSON",
+          "text": "Gita",
+          "start": 121,
+          "end": 125
+        }
+      ],
+      "keep": [
+        "Lands Clerk, CivicDesk Lands Office, 2016-2018",
+        "processed 40 survey requests a month as Lands Clerk at CivicDesk Lands Office",
+        "Diploma in Records Management, Mockton Technical Institute, 2013"
+      ],
+      "form": {
+        "name": "Gita Roopnarine",
+        "email": "gita.roopna@mailbox.test",
+        "phone": "868 554 5507"
+      },
+      "problem": null
+    },
+    {
+      "id": "VA-09",
+      "layout": "no_pii",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2025-448-6189\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: Associate Degree in Office Administration, Sampleton College or equivalent; two years' experience.\n"
+        }
+      ],
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2025-448-6189\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: Associate Degree in Office Administration, Sampleton College or equivalent; two years' experience.\n",
+      "spans": [],
+      "keep": [
+        "Vacancy ref: CD-TR-2025-448-6189",
+        "Records Officer, CivicDesk Central Registry",
+        "indexed 9,500 files a year"
+      ],
+      "form": null,
+      "problem": null
+    },
+    {
+      "id": "VA-10",
+      "layout": "no_pii",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You redact personal data from CVs. Replace each of these with its placeholder: names of private individuals [PERSON], email addresses including spelled-out ones [EMAIL], phone numbers [PHONE], home addresses [ADDRESS], dates of birth [DOB], ID numbers [ID]. Keep employer and institution names, job titles, dates of employment, qualifications, skills and reference numbers exactly as written. Change nothing else. Return only the redacted text."
+        },
+        {
+          "role": "user",
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2023-748-5081\nPosition: ICT Support Officer, CivicDesk Trade Unit\nDuties: closed 85% of tickets within two days.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n"
+        }
+      ],
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2023-748-5081\nPosition: ICT Support Officer, CivicDesk Trade Unit\nDuties: closed 85% of tickets within two days.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n",
+      "spans": [],
+      "keep": [
+        "Vacancy ref: CD-TR-2023-748-5081",
+        "ICT Support Officer, CivicDesk Trade Unit",
+        "closed 85% of tickets within two days"
+      ],
+      "form": null,
+      "problem": null
+    }
+  ],
+  "sha256": "b0f8aa565d2de2213147916fca515bd085e6610ab9959c18cae8782cf95034c7"
+}

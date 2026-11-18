@@ -29,18 +29,34 @@ COUNTING_CONVENTION = (
 _GEN_LOCK = threading.Lock()
 
 
+def _from_pretrained(model_id: str, dtype, trust_remote_code: bool, **extra):
+    """dtype= is transformers 4.51+; older wheels still want torch_dtype=."""
+    kwargs = dict(trust_remote_code=trust_remote_code, **extra)
+    try:
+        return AutoModelForCausalLM.from_pretrained(model_id, dtype=dtype, **kwargs)
+    except TypeError:
+        return AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype, **kwargs)
+
+
 def load(model_id: str):
     tok = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     dtype = torch.float16 if torch.cuda.is_available() else getattr(
         torch, os.environ.get("CIVICDESK_CPU_DTYPE", "float32")
     )
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id,
-        trust_remote_code=True,
-        torch_dtype=dtype,
-        device_map="auto" if torch.cuda.is_available() else None,
-        low_cpu_mem_usage=True,
-    )
+    extra = {
+        "device_map": "auto" if torch.cuda.is_available() else None,
+        "low_cpu_mem_usage": True,
+    }
+    # Phi-4-mini's Hub modeling_phi3.py imports LossKwargs from transformers.utils.
+    # That name was removed in transformers 4.54+. The in-library Phi3 class loads
+    # the same /models/phi weights. Try that first; keep remote code as fallback.
+    try:
+        model = _from_pretrained(model_id, dtype, trust_remote_code=False, **extra)
+        print("loaded in-library architecture (trust_remote_code=False)")
+    except Exception as exc:
+        print("in-library load failed:", type(exc).__name__, exc)
+        print("retrying with trust_remote_code=True")
+        model = _from_pretrained(model_id, dtype, trust_remote_code=True, **extra)
     if not torch.cuda.is_available():
         model = model.to("cpu")
     model.eval()
@@ -257,11 +273,20 @@ def main() -> None:
     p.add_argument("--model", required=True)
     p.add_argument("--port", type=int, default=8000)
     p.add_argument("--host", default="0.0.0.0")
+    p.add_argument("--adapter", default="", help="optional LoRA directory; omit for the Day 1 base path")
+    p.add_argument("--served-name", default="", help="id returned by /v1/models when an adapter is loaded")
     args = p.parse_args()
     print("loading", args.model)
     tok, model = load(args.model)
+    served = args.served_name or args.model
+    if args.adapter:
+        from peft import PeftModel
+
+        print("applying adapter", args.adapter, "as", served)
+        model = PeftModel.from_pretrained(model, args.adapter)
+        model.eval()
     print("serving on", args.host, args.port)
-    httpd = ThreadingHTTPServer((args.host, args.port), make_handler(args.model, tok, model))
+    httpd = ThreadingHTTPServer((args.host, args.port), make_handler(served, tok, model))
     httpd.serve_forever()
 
 

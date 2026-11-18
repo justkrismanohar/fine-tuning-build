@@ -54,12 +54,7 @@ ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 
 # Install PyTorch (CUDA) + updated Transformers after downloading weights
 RUN pip install --no-cache-dir torch \
-    && pip install --no-cache-dir "transformers>=4.49.0" accelerate sentencepiece protobuf jinja2==3.1.6
-
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-supervisor \
-&& rm -rf /var/lib/apt/lists/*
+    && pip install --no-cache-dir "transformers==4.53.3" accelerate sentencepiece protobuf jinja2==3.1.6
 
 # Notebooks and helpers — changing these does not redo the download layer.
 COPY . /opt/civicdesk

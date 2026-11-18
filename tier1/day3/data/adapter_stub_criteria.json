@@ -1,0 +1,17 @@
+{
+  "notice": "Headline Day 3 adapter card (résumé criteria). The instructor LoRA directory is not in this checkout. A measured run would fill counts from training_report.json. Rollback = stop loading that directory, rerun the held-out criteria set.",
+  "name": "olmo-criteria-lora-v1",
+  "base_model": "allenai/OLMo-2-0425-1B-Instruct",
+  "base_revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+  "method": "LoRA rank 8 alpha 16 on q_proj, v_proj",
+  "trainable_count": 1048576,
+  "training_data_version": "criteria/train_v1.json",
+  "held_out": "heldout/cases.py (do not train on it)",
+  "licence_note": "Adapter licence = base licence + every training row. CivicDesk fiction only. No ministry CVs.",
+  "rollback": "Stop loading this directory, rerun the frozen criteria set with the same prompt.",
+  "does_not_do": [
+    "Hire, shortlist, or publish a grade",
+    "Turn silence into does_not_meet",
+    "Look up a live HR register"
+  ]
+}

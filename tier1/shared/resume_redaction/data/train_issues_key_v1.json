@@ -1,0 +1,30 @@
+{
+  "version": "train-issues-key-v1",
+  "problems": [
+    {
+      "id": "leak",
+      "row_id": "TR-P1",
+      "reason": "Near-copy of test document B01; one name changed."
+    },
+    {
+      "id": "inconsistent",
+      "row_id": "TR-P2B",
+      "reason": "Employer Gobin & Sons redacted here but kept in the matching clean row."
+    },
+    {
+      "id": "canary",
+      "row_id": "TR-P3",
+      "reason": "Planted national ID 196-88-44219 must never be trained on."
+    },
+    {
+      "id": "rewrite",
+      "row_id": "TR-P4",
+      "reason": "Target rewords non-personal duty text, teaching rewrite not redaction."
+    },
+    {
+      "id": "imbalance",
+      "row_id": null,
+      "reason": "File-level: no no-PII rows in the 30. See note_imbalance."
+    }
+  ]
+}

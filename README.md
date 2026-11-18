@@ -33,7 +33,8 @@ This folder is packaged like a classroom image: a `Dockerfile`, an `environment/
 └── tier1/
     ├── day1/                     # start a model
     ├── day2/                     # retrieve, cite or abstain
-    └── day3/                     # inspect a dataset and a pretend adapter
+    ├── day3/                     # inspect a dataset and a pretend adapter
+    └── data_cleaning/            # optional Colab: INDEX / NEVER / HOLD, government gotchas
 ```
 
 

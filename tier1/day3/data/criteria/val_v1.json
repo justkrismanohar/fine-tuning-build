@@ -1,0 +1,294 @@
+{
+  "name": "val",
+  "n": 12,
+  "sha256": "44229c705be5f9c24e4900bdad375fc601c3cfa2b1ae8b8a9f60ce7a4710e955",
+  "labels": {
+    "human_review": 6,
+    "meets": 3,
+    "does_not_meet": 3
+  },
+  "hr_subtypes": {
+    "absent": 3,
+    "in-progress": 3
+  },
+  "seed": 20261117,
+  "prompt": "criteria-one-v1",
+  "rows": [
+    {
+      "id": "CR-V-001",
+      "split": "val",
+      "hr_subtype": "absent",
+      "criterion_type": "F1",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nDear Sir/Madam,\nI am Andre Nanton.\nBachelor of Social Work, 2018\nLibrarian, Yarnborough Public Library, 2015 to 2026\n\nYours,\nAndre Nanton\n\nCriterion:\nF1: Holds a valid forklift operator licence."
+        }
+      ],
+      "target": "{\"id\": \"F1\", \"result\": \"human_review\", \"evidence\": \"\"}",
+      "target_obj": {
+        "id": "F1",
+        "result": "human_review",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "CR-V-002",
+      "split": "val",
+      "hr_subtype": null,
+      "criterion_type": "F1",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nSKILLS-FIRST CV\nBachelor of Social Work, 2018\nLibrarian, Yarnborough Public Library, 2015 to 2026\nI hold a valid forklift operator licence.\nSigned Daryl Parris-Chen | 868-554-2601\n\nCriterion:\nF1: Holds a valid forklift operator licence."
+        }
+      ],
+      "target": "{\"id\": \"F1\", \"result\": \"meets\", \"evidence\": \"I hold a valid forklift operator licence.\"}",
+      "target_obj": {
+        "id": "F1",
+        "result": "meets",
+        "evidence": "I hold a valid forklift operator licence."
+      }
+    },
+    {
+      "id": "CR-V-003",
+      "split": "val",
+      "hr_subtype": null,
+      "criterion_type": "F2",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nDaryl Telesford\n23 Coconut Walk, Parable Heights\nHours: shift 06:00-14:00\nBachelor of Social Work, 2018\nLibrarian, Yarnborough Public Library, 2015 to 2026\nI have two years of cashier experience.\n\nCriterion:\nF2: At least five years of cashier experience."
+        }
+      ],
+      "target": "{\"id\": \"F2\", \"result\": \"does_not_meet\", \"evidence\": \"I have two years of cashier experience.\"}",
+      "target_obj": {
+        "id": "F2",
+        "result": "does_not_meet",
+        "evidence": "I have two years of cashier experience."
+      }
+    },
+    {
+      "id": "CR-V-004",
+      "split": "val",
+      "hr_subtype": "in-progress",
+      "criterion_type": "F4",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nCover note\nPlease find my CV.\n---\nNalini Nanton · nalini.nanton@mailbox.test\nDiploma in Public Administration, CivicDesk Evening College, 2019\nCashier, Fableton Market Unit, 2014 to 2026 (12 years)\nDiploma in Public Administration (in progress, due 2028)\n\nCriterion:\nF4: Degree in Public Administration or Social Work."
+        }
+      ],
+      "target": "{\"id\": \"F4\", \"result\": \"human_review\", \"evidence\": \"Diploma in Public Administration (in progress, due 2028)\"}",
+      "target_obj": {
+        "id": "F4",
+        "result": "human_review",
+        "evidence": "Diploma in Public Administration (in progress, due 2028)"
+      }
+    },
+    {
+      "id": "CR-V-005",
+      "split": "val",
+      "hr_subtype": "absent",
+      "criterion_type": "F1",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nDear Sir/Madam,\nI am Winston Ollivierre.\nDiploma in Public Administration, CivicDesk Evening College, 2019\nCashier, Fableton Market Unit, 2014 to 2026 (12 years)\n\nYours,\nWinston Ollivierre\n\nCriterion:\nF1: Holds a valid forklift operator licence."
+        }
+      ],
+      "target": "{\"id\": \"F1\", \"result\": \"human_review\", \"evidence\": \"\"}",
+      "target_obj": {
+        "id": "F1",
+        "result": "human_review",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "CR-V-006",
+      "split": "val",
+      "hr_subtype": null,
+      "criterion_type": "F1",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nSKILLS-FIRST CV\nPMP certification, 2022\nTranslator (Spanish), Storybridge Council Secretariat, 2018 to 2026\nI hold a valid forklift operator licence.\nSigned Stefan Villaroel | 868-554-2531\n\nCriterion:\nF1: Holds a valid forklift operator licence."
+        }
+      ],
+      "target": "{\"id\": \"F1\", \"result\": \"meets\", \"evidence\": \"I hold a valid forklift operator licence.\"}",
+      "target_obj": {
+        "id": "F1",
+        "result": "meets",
+        "evidence": "I hold a valid forklift operator licence."
+      }
+    },
+    {
+      "id": "CR-V-007",
+      "split": "val",
+      "hr_subtype": null,
+      "criterion_type": "F2",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nQuincy Unnamed-Rowe\n13 Coconut Walk, Parable Heights\nHours: shift 06:00-14:00\nBachelor of Social Work, 2018\nLibrarian, Yarnborough Public Library, 2015 to 2026\nI have two years of cashier experience.\n\nCriterion:\nF2: At least five years of cashier experience."
+        }
+      ],
+      "target": "{\"id\": \"F2\", \"result\": \"does_not_meet\", \"evidence\": \"I have two years of cashier experience.\"}",
+      "target_obj": {
+        "id": "F2",
+        "result": "does_not_meet",
+        "evidence": "I have two years of cashier experience."
+      }
+    },
+    {
+      "id": "CR-V-008",
+      "split": "val",
+      "hr_subtype": "in-progress",
+      "criterion_type": "F4",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nCover note\nPlease find my CV.\n---\nVerna Mahabir-Cross · verna.mahabir-cross@mailbox.test\nDiploma in Public Administration, CivicDesk Evening College, 2019\nCashier, Fableton Market Unit, 2014 to 2026 (12 years)\nDiploma in Public Administration (in progress, due 2028)\n\nCriterion:\nF4: Degree in Public Administration or Social Work."
+        }
+      ],
+      "target": "{\"id\": \"F4\", \"result\": \"human_review\", \"evidence\": \"Diploma in Public Administration (in progress, due 2028)\"}",
+      "target_obj": {
+        "id": "F4",
+        "result": "human_review",
+        "evidence": "Diploma in Public Administration (in progress, due 2028)"
+      }
+    },
+    {
+      "id": "CR-V-009",
+      "split": "val",
+      "hr_subtype": "absent",
+      "criterion_type": "F1",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nDear Sir/Madam,\nI am Winston Dolly-King.\nBachelor of Social Work, 2018\nLibrarian, Yarnborough Public Library, 2015 to 2026\n\nYours,\nWinston Dolly-King\n\nCriterion:\nF1: Holds a valid forklift operator licence."
+        }
+      ],
+      "target": "{\"id\": \"F1\", \"result\": \"human_review\", \"evidence\": \"\"}",
+      "target_obj": {
+        "id": "F1",
+        "result": "human_review",
+        "evidence": ""
+      }
+    },
+    {
+      "id": "CR-V-010",
+      "split": "val",
+      "hr_subtype": null,
+      "criterion_type": "F1",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nSKILLS-FIRST CV\nCertificate in First Aid, 2024\nStores Clerk, Harbour CivicDesk Unit, 2012 to 2024\nI hold a valid forklift operator licence.\nSigned Yasmin Seepersad-Moon | 868-554-2402\n\nCriterion:\nF1: Holds a valid forklift operator licence."
+        }
+      ],
+      "target": "{\"id\": \"F1\", \"result\": \"meets\", \"evidence\": \"I hold a valid forklift operator licence.\"}",
+      "target_obj": {
+        "id": "F1",
+        "result": "meets",
+        "evidence": "I hold a valid forklift operator licence."
+      }
+    },
+    {
+      "id": "CR-V-011",
+      "split": "val",
+      "hr_subtype": null,
+      "criterion_type": "F2",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nFitzroy Parris-Chen\n85 Cedar Grove, Storybridge\nHours: shift 06:00-14:00\nPMP certification, 2022\nTranslator (Spanish), Storybridge Council Secretariat, 2018 to 2026\nI have two years of cashier experience.\n\nCriterion:\nF2: At least five years of cashier experience."
+        }
+      ],
+      "target": "{\"id\": \"F2\", \"result\": \"does_not_meet\", \"evidence\": \"I have two years of cashier experience.\"}",
+      "target_obj": {
+        "id": "F2",
+        "result": "does_not_meet",
+        "evidence": "I have two years of cashier experience."
+      }
+    },
+    {
+      "id": "CR-V-012",
+      "split": "val",
+      "hr_subtype": "in-progress",
+      "criterion_type": "F4",
+      "layout": "synthetic",
+      "messages": [
+        {
+          "role": "system",
+          "content": "You assist a government HR unit with first-pass résumé screening. You never make the hiring decision; an HR officer checks every result.\n\nFor this one criterion, give exactly one result:\n- \"meets\": the résumé text clearly shows the criterion is satisfied. Quote the exact words that show it.\n- \"does_not_meet\": the résumé text itself clearly shows the criterion is NOT satisfied (for example it states fewer years than required, says a certificate has expired, or says the person does not hold the item). Quote the exact words that show it.\n- \"human_review\": anything else. Use this when the résumé does not mention the criterion at all, when the evidence is partial or ambiguous, when a qualification is in progress, or when you would have to guess.\n\nMost important rule: missing evidence is NOT a failure. If the résumé says nothing about a criterion, the result is \"human_review\", never \"does_not_meet\". Not listing something is not the same as stating it is absent.\n\nOther rules:\n- Evidence must be copied word for word from the résumé. If the result is \"human_review\" because nothing is mentioned, the evidence is \"\" (empty string).\n- Today's date is November 2026. \"to present\" means up to November 2026.\n- Judge only what is written. Do not assume anything about the person.\n\nReturn only JSON, no other text, keys in this order:\n{\"id\": \"C1\", \"result\": \"meets|does_not_meet|human_review\", \"evidence\": \"exact quote or empty\"}\n\nExample résumé:\nAccounts Clerk, Khan & Sons Ltd, 2015 to 2020\nBSc Accounting (final year, graduating 2027)\nI have three years of supervisory experience.\n\nExample criterion:\nC3: Proficiency in QuickBooks.\n\nExample output:\n{\"id\": \"C3\", \"result\": \"human_review\", \"evidence\": \"\"}\n"
+        },
+        {
+          "role": "user",
+          "content": "Résumé:\nCover note\nPlease find my CV.\n---\nOrson Sampleton · orson.sampleton@mailbox.test\nCertificate in First Aid, 2024\nStores Clerk, Harbour CivicDesk Unit, 2012 to 2024\nDiploma in Public Administration (in progress, due 2028)\n\nCriterion:\nF4: Degree in Public Administration or Social Work."
+        }
+      ],
+      "target": "{\"id\": \"F4\", \"result\": \"human_review\", \"evidence\": \"Diploma in Public Administration (in progress, due 2028)\"}",
+      "target_obj": {
+        "id": "F4",
+        "result": "human_review",
+        "evidence": "Diploma in Public Administration (in progress, due 2028)"
+      }
+    }
+  ]
+}
