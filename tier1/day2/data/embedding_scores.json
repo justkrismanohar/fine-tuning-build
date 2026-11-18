@@ -1,0 +1,171 @@
+{
+  "model": "sentence-transformers/all-MiniLM-L6-v2",
+  "Q-ATTACH": [
+    {
+      "id": "HB-ATTACH-04",
+      "cosine": 0.8244
+    },
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.6728
+    },
+    {
+      "id": "HB-CLASS-01",
+      "cosine": 0.3213
+    }
+  ],
+  "Q-C2": [
+    {
+      "id": "HB-VAC-C2",
+      "cosine": 0.6972
+    },
+    {
+      "id": "HB-EDMS-ACC",
+      "cosine": 0.2849
+    },
+    {
+      "id": "HB-OPR-07",
+      "cosine": 0.2411
+    }
+  ],
+  "Q-PWD": [
+    {
+      "id": "HB-ICT-PWD",
+      "cosine": 0.3861
+    },
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.2552
+    },
+    {
+      "id": "HB-CAB-X",
+      "cosine": 0.1371
+    }
+  ],
+  "Q-MISSING": [
+    {
+      "id": "HB-CAB-X",
+      "cosine": 0.352
+    },
+    {
+      "id": "HB-ASSET-Q",
+      "cosine": 0.2674
+    },
+    {
+      "id": "HB-CLASS-01",
+      "cosine": 0.235
+    }
+  ],
+  "Q-CAB": [
+    {
+      "id": "HB-CAB-X",
+      "cosine": 0.6147
+    },
+    {
+      "id": "HB-MIN-02",
+      "cosine": 0.3772
+    },
+    {
+      "id": "HB-EDMS-ACC",
+      "cosine": 0.3537
+    }
+  ],
+  "Q-CAB-RO": [
+    {
+      "id": "HB-CAB-X",
+      "cosine": 0.6147
+    },
+    {
+      "id": "HB-MIN-02",
+      "cosine": 0.3772
+    },
+    {
+      "id": "HB-EDMS-ACC",
+      "cosine": 0.3537
+    }
+  ],
+  "Q-PARAPHRASE": [
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.6439
+    },
+    {
+      "id": "HB-ATTACH-04",
+      "cosine": 0.5153
+    },
+    {
+      "id": "HB-ICT-PWD",
+      "cosine": 0.1604
+    }
+  ],
+  "Q-FALSE-PREMISE": [
+    {
+      "id": "HB-ATTACH-04",
+      "cosine": 0.5587
+    },
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.4984
+    },
+    {
+      "id": "HB-VAC-C2",
+      "cosine": 0.1489
+    }
+  ],
+  "Q-THRESHOLD": [
+    {
+      "id": "HB-OPR-07",
+      "cosine": 0.4459
+    },
+    {
+      "id": "HB-VAC-C2",
+      "cosine": 0.1946
+    },
+    {
+      "id": "HB-CAB-X",
+      "cosine": 0.1535
+    }
+  ],
+  "Q-STALE": [
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.7493
+    },
+    {
+      "id": "HB-ATTACH-04",
+      "cosine": 0.4933
+    },
+    {
+      "id": "HB-EDMS-ACC",
+      "cosine": 0.2331
+    }
+  ],
+  "Q-SCAN": [
+    {
+      "id": "HB-EDMS-ACC",
+      "cosine": 0.3233
+    },
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.3125
+    },
+    {
+      "id": "HB-NOTICE-N1",
+      "cosine": 0.2674
+    }
+  ],
+  "Q-INJECT": [
+    {
+      "id": "HB-ATTACH-03",
+      "cosine": 0.5102
+    },
+    {
+      "id": "HB-ATTACH-04",
+      "cosine": 0.3485
+    },
+    {
+      "id": "HB-NOTICE-N1",
+      "cosine": 0.2133
+    }
+  ]
+}
