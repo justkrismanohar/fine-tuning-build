@@ -1,7 +1,7 @@
-"""Day 3 fine-tune literacy helper. Inspect rows, compare runs, optional live redactor.
+"""Day 3 helper: inspect rows, pre-flight, compare measured runs, in-process redactor.
 
-Demo functions stay as labelled stand-ins. Live generation uses civicdesk_lab.chat.
-Never treat demo or fallback text as a measured run.
+Live base-vs-adapter comparison lives in ft_train.compare_live (disable_adapter).
+BACKEND=demo and missing GPU paths use RECORDED files only — never demo stand-in scores.
 """
 from __future__ import annotations
 
@@ -121,43 +121,11 @@ def dataset_report(rows: list[dict] | None = None) -> dict:
 
 
 def base_reply(user: str) -> str:
+    """Literacy stand-in only. Prefer ft_train.compare_live for measured work."""
     return (
-        "[base / no adapter demo] I can give a general CivicDesk-sounding answer. "
-        "I may miss the C2 'not automatically equivalent' clause. I still must not hire."
+        "[base stand-in] Use ft_train.compare_live for a measured base-vs-adapter run. "
+        "I still must not hire, grade, award, or reset a password."
     )
-
-
-def adapter_reply(user: str) -> str:
-    u = user.lower()
-    if "999-00-1111" in u or "maya reid" in u:
-        return "[adapter demo] REFUSE. Canary PII. Stop."
-    if "library" in u:
-        return (
-            "[adapter demo] Human review required. Quoted span: 'diploma in library studies'. "
-            "C2 is records management or equivalent; library studies is not automatic equivalent. Do not hire."
-        )
-    if "password" in u:
-        return "[adapter demo] I will not reset a password. Draft ticket fields only. Human identity check."
-    if "warranty" in u or "printer" in u:
-        return "[adapter demo] No register table in the prompt. I will not invent serials."
-    if "award" in u or "tender" in u:
-        return "[adapter demo] I must not award. Human review. OPR Note 07."
-    if "attachment" in u or "overnight" in u:
-        return "[adapter demo] I have no handbook in this prompt. I will not invent a circular. That is RAG, not an adapter."
-    return (
-        "[adapter demo] I will quote a CivicDesk span if one is in the prompt. "
-        "I am not a database. Human review for consequential acts."
-    )
-
-
-def compare_base_adapter(user: str) -> None:
-    print("USER:", user)
-    print("--- base (frozen) ---")
-    print(base_reply(user))
-    print("--- pretend adapter ---")
-    print(adapter_reply(user))
-    print("The adapter is not RAG and not the register. It only changes how the frozen model continues text.")
-    print(NOT_SCORED)
 
 
 def tool_gate(action: str) -> str:
@@ -176,28 +144,27 @@ def tool_gate(action: str) -> str:
     return banned.get(key, "Unknown action. If it *does* something in a live system, treat as banned until listed.")
 
 
-def load_adapter_card() -> dict:
-    report = HERE / "adapters" / "olmo-resume-redact-lora-v1" / "training_report.json"
-    if report.is_file():
-        return card_from_report(json.loads(report.read_text(encoding="utf-8")))
-    path = DATA / "adapter_stub.json"
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
 def card_from_report(rep: dict) -> dict:
     return {
-        "notice": "Adapter card from training_report.json. Rollback = stop loading this directory, rerun the benchmark.",
-        "name": rep.get("adapter_name") or "olmo-resume-redact-lora-v1",
+        "notice": "Adapter card from training_report.json. Rollback = stop loading this directory, rerun the held-out set.",
+        "name": rep.get("adapter_name"),
+        "task": rep.get("task"),
         "base_model": rep.get("base_model"),
         "base_revision": rep.get("base_revision"),
         "method": f"LoRA rank {rep.get('rank')} alpha {rep.get('alpha')} on {rep.get('targets')}",
         "trainable_count": rep.get("trainable_count"),
-        "file_size": rep.get("adapter_file_size"),
+        "n_updates": rep.get("n_updates"),
+        "last_train_loss": rep.get("last_train_loss"),
+        "last_val_loss": rep.get("last_val_loss"),
         "training_data_version": rep.get("training_data_version"),
         "training_sha256": rep.get("training_sha256"),
         "validation_sha256": rep.get("validation_sha256"),
+        "gpu": rep.get("gpu"),
+        "date": rep.get("date"),
+        "status": rep.get("status"),
+        "measured": rep.get("measured"),
         "licence_note": "Adapter licence = base licence + every training row. CivicDesk fiction is classroom-only.",
-        "rollback": "Stop loading this directory, rerun the benchmark.",
+        "rollback": "Stop loading this directory (or disable_adapter()), rerun the held-out set.",
         "does_not_do": [
             "Look up a live register",
             "Retrieve a handbook paragraph unless that text is in the prompt",
@@ -206,13 +173,35 @@ def card_from_report(rep: dict) -> dict:
     }
 
 
-def print_adapter_card() -> None:
-    card = load_adapter_card()
+def load_adapter_card(adapter: str | Path | None = None) -> dict:
+    """Read training_report.json from an adapter directory. No stub cards."""
+    candidates: list[Path] = []
+    if adapter:
+        p = Path(adapter)
+        candidates.append(p if p.is_absolute() else HERE / p)
+    last = LOGS / "last_adapter.json"
+    if last.is_file():
+        blob = json.loads(last.read_text(encoding="utf-8"))
+        candidates.append(HERE / blob["adapter"])
+    for name in (
+        "olmo-criteria-lora-v1",
+        "olmo-tickets-lora-v1",
+        "olmo-resume-redact-lora-v1",
+        "my_criteria_run",
+    ):
+        candidates.append(HERE / "adapters" / name)
+    for path in candidates:
+        report = path / "training_report.json"
+        if report.is_file():
+            return card_from_report(json.loads(report.read_text(encoding="utf-8")))
+    raise FileNotFoundError(
+        "No training_report.json found. Train with TrainSession.save(...) or bake a prebuilt adapter on a GPU."
+    )
+
+
+def print_adapter_card(adapter: str | Path | None = None) -> None:
+    card = load_adapter_card(adapter)
     _print_card(card)
-    crit = DATA / "adapter_stub_criteria.json"
-    if crit.is_file():
-        print("--- criteria adapter (headline task) ---")
-        _print_card(json.loads(crit.read_text(encoding="utf-8")))
 
 
 def _print_card(card: dict) -> None:
@@ -292,20 +281,26 @@ def lora_param_count(targets, r, config=None) -> int:
     return total
 
 
-def inspect_training_rows(path: str | Path | None = None) -> list[dict]:
+def inspect_training_rows(path: str | Path | None = None, preview: int = 12) -> list[dict]:
+    """Compact preview for the hunt. Does not print problem labels or imbalance notes."""
     p = Path(path) if path else RR_DATA / "train_inspect_v1.json"
-    if not p.is_file():
+    if not p.is_file() and path:
         p = RR_DATA / Path(str(path)).name
     blob = json.loads(p.read_text(encoding="utf-8"))
     rows = blob.get("rows") or blob
     print("file:", p)
     print("n:", len(rows))
-    if blob.get("note_imbalance"):
-        print("NOTE:", blob["note_imbalance"])
-    print(f"{'id':8} {'layout':24} {'problem':12} user")
-    for row in rows:
+    print("Full source:", p.resolve())
+    print("This score grades your data inspection, not the model.")
+    print(f"{'id':8} {'layout':24} user (first 70 chars)")
+    for row in rows[:preview]:
         user = row["messages"][1]["content"].replace("\n", " ")[:70]
-        print(f"{row['id']:8} {str(row.get('layout')):24} {str(row.get('problem')):12} {user}")
+        layout = row.get("layout") or row.get("category") or ""
+        print(f"{row['id']:8} {str(layout):24} {user}")
+    if len(rows) > preview:
+        print(f"... {len(rows) - preview} more in the file above")
+    print('FOUND format example (format only, not an answer): {"leak": "TR-07", ...}')
+    print("Use None for a problem that belongs to the whole set, not one row.")
     return rows
 
 
@@ -313,7 +308,7 @@ def score_hunt(found: dict) -> dict:
     key = json.loads((RR_DATA / "train_issues_key_v1.json").read_text(encoding="utf-8"))
     by = {p["id"]: p for p in key["problems"]}
     n_ok = 0
-    print("hunt vs answer key")
+    print("hunt vs answer key (grades your inspection, not the model)")
     for kind in ("leak", "inconsistent", "canary", "rewrite", "imbalance"):
         gold = by[kind]
         got = found.get(kind)
@@ -329,7 +324,10 @@ def adapter_run_path() -> Path:
     measured = RR_BASE / "olmo_adapter_v1.json"
     if measured.is_file():
         return measured
-    return DEMO / "olmo_adapter_demo_v1.json"
+    raise FileNotFoundError(
+        f"Missing {measured}. Bake the redaction adapter on a GPU (Part B) and write a measured run. "
+        "Demo stand-ins are no longer on the main route."
+    )
 
 
 def baseline_run_path() -> Path:
@@ -430,45 +428,43 @@ def compare_runs(base_path, adapter_path) -> dict:
 
 
 def load_redactor(adapter_dir=None):
-    """Live redact(text, use_adapter). Raises if no GPU/weights; notebook then uses run files."""
-    lab = _day1()
+    """In-process redact(text, use_adapter) via ft_train.load_adapter + disable_adapter."""
+    import ft_train
+
+    path = adapter_dir or "prebuilt"
+    bundle = ft_train.load_adapter(path, task="redact")
     R = _rr()
-    choice = active_backend()
-    if choice == "demo":
-        raise RuntimeError("BACKEND=demo: no live redactor. Read the run files.")
 
     def redact(text: str, use_adapter: bool = False) -> str:
+        call = {"system": R.SYSTEM_PROMPT, "user": text, "max_tokens": 256}
+        model = bundle["model"]
         if use_adapter:
-            served = os.environ.get("CIVICDESK_ADAPTER_SERVED_NAME", "olmo-redact-lora")
-            model = served
-        else:
-            model = _day3_backend.get("model") or lab.resolve_model("olmo" if choice != "phi" else "phi")
-        msgs = [{"role": "system", "content": R.SYSTEM_PROMPT}, {"role": "user", "content": text}]
-        res = lab.chat(msgs, model=model, timeout=20)
-        if res.get("mode") != "live":
-            raise RuntimeError(f"live redactor unavailable: {res.get('error') or res.get('mode')}")
-        return res["text"]
+            return ft_train._generate(bundle, call["system"], call["user"], call["max_tokens"])
+        with model.disable_adapter():
+            return ft_train._generate(bundle, call["system"], call["user"], call["max_tokens"])
 
     return redact
 
 
 def docs_from_runs(doc_ids: list[str], base_run: str = "olmo_baseline_v1", adapter_run: str | None = None) -> None:
-    """Print two-or-three documents from run files when live is down."""
+    """Print two-or-three documents from measured run files when live is down."""
     R = _rr()
     bench = R.load_benchmark()
     by = {d["id"]: d for d in bench["docs"]}
     base = json.loads(_run_path(base_run).read_text(encoding="utf-8"))
-    ad_name = adapter_run
-    if ad_name is None:
-        if (RR_BASE / "olmo_adapter_v1.json").is_file():
-            ad_name = str(RR_BASE / "olmo_adapter_v1.json")
-        else:
-            ad_name = str(DEMO / "olmo_adapter_demo_v1.json")
-    ad = json.loads(Path(ad_name).read_text(encoding="utf-8") if Path(ad_name).is_file() else _run_path(ad_name).read_text(encoding="utf-8"))
-    label = "from the run files"
-    if not ad.get("measured"):
-        label = "from the run files (demo adapter file; " + NOT_SCORED + ")"
-    print(label)
+    if adapter_run is None:
+        ad_path = adapter_run_path()
+    else:
+        ad_path = Path(adapter_run)
+        if not ad_path.is_file():
+            ad_path = _run_path(str(adapter_run))
+    ad = json.loads(ad_path.read_text(encoding="utf-8"))
+    when = ad.get("date") or "unknown date"
+    gpu = ad.get("gpu") or ad.get("model") or "unknown GPU"
+    if ad.get("measured"):
+        print(f"RECORDED run from {when} on {gpu}, not this session.")
+    else:
+        print("Run file is not measured.", NOT_SCORED)
     for did in doc_ids:
         doc = by[did]
         print("=" * 60, did, doc.get("category"))
@@ -559,7 +555,7 @@ def inspect_ticket_rows(path: str | Path | None = None) -> list[dict]:
 
 
 def show_failure(case_id: str = "R2-criteria") -> dict:
-    """Print one teaching failure. Live pre-flight output wins; else the labelled CPU card."""
+    """Print one teaching failure. LIVE only when this exact case is in this session's pre-flight."""
     E, RESUMES, TICKETS, MINUTES = _tasks()
     cards = {c["id"]: c for c in E.load_failure_cards().get("cards") or []}
     live_path = LOGS / "preflight_latest.json"
@@ -568,19 +564,27 @@ def show_failure(case_id: str = "R2-criteria") -> dict:
     if card is None:
         raise KeyError(f"unknown failure card {case_id}; try R2-criteria, T1, M1")
     raw = card["raw"]
-    source = card.get("source") or E.load_failure_cards().get("notice")
+    live_hit = False
     if live and live.get("measured"):
         outs = live.get("outputs") or {}
-        if case_id == "R2-criteria":
-            raw = (outs.get("criteria_multi") or {}).get("R2") or raw
-            source = "this session pre-flight (measured)"
+        if case_id == "R2-criteria" and (outs.get("criteria_multi") or {}).get("R2"):
+            raw = outs["criteria_multi"]["R2"]
+            live_hit = True
         elif case_id in (outs.get("tickets") or {}):
             raw = outs["tickets"][case_id]
-            source = "this session pre-flight (measured)"
+            live_hit = True
         elif case_id in (outs.get("minutes") or {}):
             raw = outs["minutes"][case_id]
-            source = "this session pre-flight (measured)"
-    print("source:", source)
+            live_hit = True
+        elif case_id in (outs.get("criteria") or {}):
+            raw = outs["criteria"][case_id]
+            live_hit = True
+    if live_hit:
+        print("LIVE, this session")
+    else:
+        notice = E.load_failure_cards()
+        when = notice.get("date") or card.get("date") or "recorded CPU run"
+        print(f"RECORDED run from {when}, not this session.")
     print("scenario:", card["scenario"])
     print("--- input ---")
     print(card["input"])
@@ -588,11 +592,16 @@ def show_failure(case_id: str = "R2-criteria") -> dict:
     print(card["gold"])
     print("--- raw output ---")
     print(raw)
-    print("--- why ---")
-    print(card["why_one_line"])
+    if live_hit and raw.strip() != (card.get("raw") or "").strip():
+        print("--- Why it failed in the recorded run ---")
+        print(card["why_one_line"])
+        print("Check whether the same failure happened live in the raw output above.")
+    else:
+        print("--- why ---")
+        print(card["why_one_line"])
     print("--- cue ---")
     print(card["cue"])
-    return {"id": case_id, "raw": raw, "source": source}
+    return {"id": case_id, "raw": raw, "live": live_hit}
 
 
 def _chat(system: str, user: str, max_tokens: int) -> dict:
@@ -785,20 +794,43 @@ def print_redaction_floor(doc_id: str = "R2") -> None:
     print("leaked spans:", sc["n_leaked"], "of", sc["n_spans"], "keep lost:", sc["keep_lost"])
 
 
-def still_wrong_criteria(record: dict | None = None, n: int = 3) -> list[dict]:
+def still_wrong_criteria(compare: dict | None = None, n: int = 3, which: str = "adapter") -> list[dict]:
+    """List wrong criteria from a compare_live / recorded compare dict, or fall back to pre-flight."""
     E, *_ = _tasks()
-    if record is None:
-        path = LOGS / "preflight_latest.json"
-        if not path.is_file():
-            print("No pre-flight file.")
-            return []
-        record = json.loads(path.read_text(encoding="utf-8"))
+    if compare is None:
+        for path in (LOGS / "live_criteria_compare.json", LOGS / "recorded" / "criteria_compare_v1.json"):
+            if path.is_file():
+                compare = json.loads(path.read_text(encoding="utf-8"))
+                print("from", path)
+                break
+    if compare and compare.get("rows"):
+        by_item = {i["id"]: i for i in E.criterion_items()}
+        wrong = []
+        for row in compare["rows"]:
+            item = by_item.get(row["id"])
+            if not item:
+                continue
+            text = row["adapter"] if which == "adapter" else row["base"]
+            sc = E.score_one_criterion(item, text)
+            if not sc["correct"]:
+                wrong.append(sc)
+        print(f"{len(wrong)} incorrect of {len(compare['rows'])} ({which})")
+        for row in wrong[:n]:
+            print(f"  {row['id']}  gold={row['gold']} pred={row['pred']} harmful={row['harmful']}")
+            print(f"    evidence={row['evidence'][:80]!r}")
+        print('STILL_WRONG format example: [{"id": "R2-C3", "cause": "label rule"}]')
+        return wrong[:n]
+    path = LOGS / "preflight_latest.json"
+    if not path.is_file():
+        print("No compare or pre-flight file.")
+        return []
+    record = json.loads(path.read_text(encoding="utf-8"))
     if not record.get("measured"):
         print("No measured rows. List three cases from the teaching cards instead.")
         return []
     scored = E.score_run(record)
     wrong = [r for r in scored["criteria_rows"] if not r["correct"]]
-    print(f"{len(wrong)} incorrect of {len(scored['criteria_rows'])}")
+    print(f"{len(wrong)} incorrect of {len(scored['criteria_rows'])} (base pre-flight)")
     for row in wrong[:n]:
         print(f"  {row['id']}  gold={row['gold']} pred={row['pred']} harmful={row['harmful']}")
         print(f"    evidence={row['evidence'][:80]!r}")

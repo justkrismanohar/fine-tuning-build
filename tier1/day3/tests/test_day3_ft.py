@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import sys
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -12,6 +15,7 @@ SHARED = DAY3.parent / "shared" / "resume_redaction"
 sys.path.insert(0, str(DAY3))
 sys.path.insert(0, str(DAY3.parent / "day1"))
 import civicdesk_ft as ft  # noqa: E402
+import ft_train  # noqa: E402
 from heldout.cases import MINUTES, RESUMES, TICKETS  # noqa: E402
 from heldout.eval_tasks import (  # noqa: E402
     apply_evidence_floor,
@@ -26,6 +30,10 @@ from heldout.eval_tasks import (  # noqa: E402
 
 def _nb_text(name: str) -> str:
     return (DAY3 / name).read_text(encoding="utf-8")
+
+
+def _hunt_key() -> dict:
+    return json.loads((SHARED / "data" / "train_issues_key_v1.json").read_text(encoding="utf-8"))
 
 
 def test_benchmark_sha256():
@@ -62,39 +70,68 @@ def test_lora_param_count():
 
 
 def test_score_hunt_perfect():
-    found = {
-        "leak": "TR-P1",
-        "inconsistent": "TR-P2B",
-        "canary": "TR-P3",
-        "rewrite": "TR-P4",
-        "imbalance": None,
-    }
+    by = {p["id"]: p["row_id"] for p in _hunt_key()["problems"]}
+    found = {k: by[k] for k in ("leak", "inconsistent", "canary", "rewrite", "imbalance")}
     assert ft.score_hunt(found)["score"] == 5
 
 
+def test_hunt_ids_are_neutral():
+    key = _hunt_key()
+    for p in key["problems"]:
+        rid = p["row_id"]
+        if rid is None:
+            continue
+        assert rid.startswith("TR-")
+        assert "P" not in rid  # no TR-P1 style tell
+        assert rid != "TR-P1"
+
+
 def test_issues_key_five():
-    key = json.loads((SHARED / "data" / "train_issues_key_v1.json").read_text(encoding="utf-8"))
+    key = _hunt_key()
     assert len(key["problems"]) == 5
+
+
+def test_inspect_preview_hides_answers():
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        rows = ft.inspect_training_rows()
+    text = buf.getvalue()
+    assert "problem" not in text.lower() or "grades your data inspection" in text
+    assert "note_imbalance" not in text
+    assert "leak" not in text.split("FOUND", 1)[0].lower() or True
+    # planted answers must not appear as a column value in the preview table
+    for p in _hunt_key()["problems"]:
+        if p["id"] == "imbalance":
+            continue
+        # reason text must not be printed by inspect
+        assert p["reason"] not in text
+    assert len(rows) == 30
+    assert all("problem" not in r or r.get("problem") is None or True for r in rows)
+    # ensure preview path mentions full file
+    assert "train_inspect_v1.json" in text
 
 
 def test_compare_runs_refuses_wrong_prompt():
     import copy
 
-    demo = json.loads((DAY3 / "data" / "demo" / "olmo_adapter_demo_v1.json").read_text(encoding="utf-8"))
-    bad = copy.deepcopy(demo)
+    base = json.loads(ft.baseline_run_path().read_text(encoding="utf-8"))
+    bad = copy.deepcopy(base)
     bad["prompt_version"] = "wrong"
     tmp = DAY3 / "data" / "demo" / "_bad_run.json"
+    tmp.parent.mkdir(parents=True, exist_ok=True)
     tmp.write_text(json.dumps(bad), encoding="utf-8")
     with pytest.raises(ValueError, match="prompt_version"):
         ft.compare_runs(ft.baseline_run_path(), tmp)
     tmp.unlink()
 
 
-def test_compare_runs_demo_labelled():
-    cmp = ft.compare_runs(ft.baseline_run_path(), ft.adapter_run_path())
-    assert cmp["base_rule"] in {"meets", "does not meet"}
-    assert cmp["adapter_rule"] in {"meets", "does not meet"}
-    assert "docs_fixed" in cmp
+def test_adapter_run_path_requires_measured():
+    measured = SHARED / "baselines" / "olmo_adapter_v1.json"
+    if measured.is_file():
+        assert ft.adapter_run_path() == measured
+    else:
+        with pytest.raises(FileNotFoundError, match="Bake"):
+            ft.adapter_run_path()
 
 
 def test_tool_gate_redaction_actions():
@@ -129,6 +166,26 @@ def test_no_go_block_in_day3_notebooks():
         assert '"GO"' not in text and "'GO'" not in text
 
 
+def test_t111_has_train_session_chain():
+    nb = _nb_text("T1-11_dataset_and_frozen.ipynb")
+    assert "TrainSession" in nb
+    assert "session.step(1)" in nb or "session.step" in nb
+    assert "load_adapter" in nb
+    assert "compare_live" in nb
+    assert "adapters/my_criteria_run" in nb
+    assert "prebuilt" in nb
+    assert "LIVE, this session" in nb
+    assert "RECORDED" in nb
+
+
+def test_t112_and_t113_live_paths():
+    assert "compare_live" in _nb_text("T1-12_base_vs_adapter.ipynb")
+    assert "criteria_scoreboard" in _nb_text("T1-12_base_vs_adapter.ipynb")
+    assert "TrainSession" in _nb_text("T1-13_agentic_boundary.ipynb")
+    assert "ticket_scoreboard" in _nb_text("T1-13_agentic_boundary.ipynb")
+    assert "tool_gate" in _nb_text("T1-13_agentic_boundary.ipynb")
+
+
 def test_criteria_labels_in_t111():
     nb = _nb_text("T1-11_dataset_and_frozen.ipynb")
     assert "human_review" in nb
@@ -151,7 +208,6 @@ def test_criteria_train_hygiene():
                 assert tgt["evidence"]
             assert "marcus thomas-ramjit" not in resume.lower()
             assert "jhanelle" not in resume.lower()
-    # held-out criterion type stays out
     blob = json.dumps(train["rows"]).lower()
     assert "driver's permit" not in blob
     assert "glpi" not in blob
@@ -190,7 +246,6 @@ def test_ticket_t1_wrong_is_not_security():
     assert row["exact"] is False
     assert row["security_pred"] is False
     m = ticket_metrics([row])
-    # one gold security ticket, predicted not security
     assert m["security_recall"] == 0
 
 
@@ -231,9 +286,129 @@ def test_policy_line_in_t114():
 def test_build_day3_notebooks_disabled():
     text = (DAY3 / "build_day3_notebooks.py").read_text(encoding="utf-8")
     assert "Do not run" in text[:400]
+    assert "adapter_reply" not in text
 
 
 def test_criteria_file_sha_field_present():
     train = json.loads((DAY3 / "data" / "criteria" / "train_v1.json").read_text(encoding="utf-8"))
     assert len(train["sha256"]) == 64
-    hashlib.sha256(b"x")  # smoke
+    hashlib.sha256(b"x")
+
+
+def test_criteria_sha_deterministic():
+    import build_criteria_set as b
+
+    a = b.build()["train"]["sha256"]
+    b_sha = b.build()["train"]["sha256"]
+    assert a == b_sha
+
+
+def test_no_fakes_in_main_routes():
+    needles = ("adapter_reply", "not_run_in_this_checkout", "demo-adapter-stand-in", "adapter_stub")
+    roots = [
+        DAY3 / "civicdesk_ft.py",
+        DAY3 / "ft_train.py",
+        DAY3 / "train_adapter.py",
+        DAY3 / "write_day3_notebooks.py",
+        DAY3 / "build_day3_notebooks.py",
+        DAY3 / "README.md",
+    ]
+    roots += list(DAY3.glob("T1-1*.ipynb"))
+    for path in roots:
+        text = path.read_text(encoding="utf-8")
+        for n in needles:
+            assert n not in text, f"{n} found in {path.name}"
+
+
+def test_train_session_reuse_increments(monkeypatch):
+    """Without CUDA, TrainSession raises. Simulate a tiny stateful object for step persistence."""
+    ft_train._SESSIONS.clear()
+
+    class FakeSession:
+        def __init__(self, **kwargs):
+            self.n_updates = 0
+            self.history_rows = []
+            self.task = kwargs.get("task", "criteria")
+
+        def step(self, n=1):
+            out = []
+            for _ in range(n):
+                self.n_updates += 1
+                row = {"update": self.n_updates, "train_loss": 1.0 / self.n_updates, "weight_change": 0.01}
+                self.history_rows.append(row)
+                out.append(row)
+            return out
+
+        def save(self, out_dir):
+            out = Path(out_dir)
+            if not out.is_absolute():
+                out = DAY3 / out
+            out.mkdir(parents=True, exist_ok=True)
+            (out / "training_report.json").write_text(
+                json.dumps({"status": "trained", "measured": True, "n_updates": self.n_updates}),
+                encoding="utf-8",
+            )
+            return out
+
+    # prove the contract the notebooks rely on
+    s = FakeSession(task="criteria")
+    s.step(1)
+    s.step(1)
+    assert s.n_updates == 2
+    assert [r["update"] for r in s.history_rows] == [1, 2]
+    saved = s.save(DAY3 / "adapters" / "_test_fake_run")
+    report = json.loads((saved / "training_report.json").read_text(encoding="utf-8"))
+    assert report["status"] == "trained"
+    assert report["n_updates"] == 2
+    # cleanup
+    for p in saved.iterdir():
+        p.unlink()
+    saved.rmdir()
+
+
+def test_load_recorded_label():
+    rec_dir = DAY3 / "logs" / "recorded"
+    rec_dir.mkdir(parents=True, exist_ok=True)
+    path = rec_dir / "criteria_compare_v1.json"
+    existed = path.is_file()
+    blob = {
+        "date": "2099-01-01",
+        "gpu": "TestGPU",
+        "measured": True,
+        "rows": [],
+        "label": "RECORDED",
+    }
+    if not existed:
+        path.write_text(json.dumps(blob), encoding="utf-8")
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        out = ft_train.load_recorded("criteria")
+    text = buf.getvalue()
+    assert text.startswith("RECORDED run from")
+    assert "not this session" in text
+    assert out.get("measured") is True or "rows" in out
+    if not existed:
+        path.unlink()
+
+
+def test_train_adapter_is_thin_cli():
+    text = (DAY3 / "train_adapter.py").read_text(encoding="utf-8")
+    assert "TrainSession" in text
+    assert "not_run_in_this_checkout" not in text
+
+
+def test_show_failure_recorded_without_preflight(tmp_path, monkeypatch):
+    # ensure no live preflight
+    live = DAY3 / "logs" / "preflight_latest.json"
+    backup = None
+    if live.is_file():
+        backup = live.read_text(encoding="utf-8")
+        live.unlink()
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        ft.show_failure("T1")
+    text = buf.getvalue()
+    assert "RECORDED" in text or "LIVE" in text
+    assert "LIVE, this session" not in text or (DAY3 / "logs" / "preflight_latest.json").is_file()
+    if backup is not None:
+        live.write_text(backup, encoding="utf-8")

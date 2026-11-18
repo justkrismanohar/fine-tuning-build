@@ -7,7 +7,7 @@ Two copies of the same course:
 | **Docker / local** | [`tier1/`](../tier1/) + [course README](../README.md) | Yes, if you start the servers |
 | **Colab (this folder)** | Open the badges below | No. Chat cells use **scripted** `[OLMo demo]` / `[Phi-4-mini demo]` replies |
 
-Days 2–3 never needed a model. Day 1 hosting (T1-01a) is **walked through with simulated output** so you still see check → weights → API door, without downloading GB of weights.
+Day 2 works without a model. Day 3 notebooks now include real `TrainSession` cells; on free Colab CPU those cells skip with a clear message and load **RECORDED** compares when present. For live train/compare use a T4 runtime or the Docker course image. Day 1 hosting (T1-01a) is still walked through with simulated output.
 
 **Runtime → CPU → Run all.** First cell clones this repo (or uses the folder if it is already on the machine).
 

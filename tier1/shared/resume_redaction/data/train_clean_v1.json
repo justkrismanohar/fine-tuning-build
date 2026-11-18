@@ -1498,7 +1498,7 @@
       "problem": null
     },
     {
-      "id": "TR-P2A",
+      "id": "TR-TMP-P2OK",
       "layout": "family_business_employer",
       "messages": [
         {
@@ -1543,7 +1543,7 @@
       "problem": null
     },
     {
-      "id": "TR-P2B",
+      "id": "TR-FIX-INCON",
       "layout": "family_business_employer",
       "messages": [
         {
@@ -1588,7 +1588,7 @@
       "problem": null
     },
     {
-      "id": "TR-P4",
+      "id": "TR-FIX-REWRITE",
       "layout": "standard",
       "messages": [
         {
@@ -1642,13 +1642,13 @@
         },
         {
           "role": "user",
-          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2019-322-1558\nPosition: Data Entry Clerk, CivicDesk Permits Office\nDuties: keyed 250 permit forms a week.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n"
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2021-703-6925\nPosition: Data Entry Clerk, CivicDesk Permits Office\nDuties: keyed 250 permit forms a week.\nRequirements: Associate Degree in Office Administration, Sampleton College or equivalent; two years' experience.\n"
         }
       ],
-      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2019-322-1558\nPosition: Data Entry Clerk, CivicDesk Permits Office\nDuties: keyed 250 permit forms a week.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n",
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2021-703-6925\nPosition: Data Entry Clerk, CivicDesk Permits Office\nDuties: keyed 250 permit forms a week.\nRequirements: Associate Degree in Office Administration, Sampleton College or equivalent; two years' experience.\n",
       "spans": [],
       "keep": [
-        "Vacancy ref: CD-TR-2019-322-1558",
+        "Vacancy ref: CD-TR-2021-703-6925",
         "Data Entry Clerk, CivicDesk Permits Office",
         "keyed 250 permit forms a week"
       ],
@@ -1665,15 +1665,15 @@
         },
         {
           "role": "user",
-          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2024-570-7276\nPosition: Accounts Officer, CivicDesk Finance Unit\nDuties: reconciled 600 supplier invoices a quarter.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n"
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2022-283-3180\nPosition: Health Records Assistant, CivicDesk District Clinic\nDuties: maintained registers for 3 clinics.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n"
         }
       ],
-      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2024-570-7276\nPosition: Accounts Officer, CivicDesk Finance Unit\nDuties: reconciled 600 supplier invoices a quarter.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2022-283-3180\nPosition: Health Records Assistant, CivicDesk District Clinic\nDuties: maintained registers for 3 clinics.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
       "spans": [],
       "keep": [
-        "Vacancy ref: CD-TR-2024-570-7276",
-        "Accounts Officer, CivicDesk Finance Unit",
-        "reconciled 600 supplier invoices a quarter"
+        "Vacancy ref: CD-TR-2022-283-3180",
+        "Health Records Assistant, CivicDesk District Clinic",
+        "maintained registers for 3 clinics"
       ],
       "form": null,
       "problem": null
@@ -1688,15 +1688,15 @@
         },
         {
           "role": "user",
-          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2025-221-5837\nPosition: Lands Clerk, CivicDesk Lands Office\nDuties: processed 40 survey requests a month.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n"
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2023-230-6727\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n"
         }
       ],
-      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2025-221-5837\nPosition: Lands Clerk, CivicDesk Lands Office\nDuties: processed 40 survey requests a month.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2023-230-6727\nPosition: Records Officer, CivicDesk Central Registry\nDuties: indexed 9,500 files a year.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n",
       "spans": [],
       "keep": [
-        "Vacancy ref: CD-TR-2025-221-5837",
-        "Lands Clerk, CivicDesk Lands Office",
-        "processed 40 survey requests a month"
+        "Vacancy ref: CD-TR-2023-230-6727",
+        "Records Officer, CivicDesk Central Registry",
+        "indexed 9,500 files a year"
       ],
       "form": null,
       "problem": null
@@ -1711,15 +1711,15 @@
         },
         {
           "role": "user",
-          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2024-841-7176\nPosition: Accounts Officer, CivicDesk Finance Unit\nDuties: reconciled 600 supplier invoices a quarter.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n"
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2026-980-5853\nPosition: ICT Support Officer, CivicDesk Trade Unit\nDuties: closed 85% of tickets within two days.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n"
         }
       ],
-      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2024-841-7176\nPosition: Accounts Officer, CivicDesk Finance Unit\nDuties: reconciled 600 supplier invoices a quarter.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2026-980-5853\nPosition: ICT Support Officer, CivicDesk Trade Unit\nDuties: closed 85% of tickets within two days.\nRequirements: BSc Information Management, University of Fictionville or equivalent; two years' experience.\n",
       "spans": [],
       "keep": [
-        "Vacancy ref: CD-TR-2024-841-7176",
-        "Accounts Officer, CivicDesk Finance Unit",
-        "reconciled 600 supplier invoices a quarter"
+        "Vacancy ref: CD-TR-2026-980-5853",
+        "ICT Support Officer, CivicDesk Trade Unit",
+        "closed 85% of tickets within two days"
       ],
       "form": null,
       "problem": null
@@ -1734,19 +1734,19 @@
         },
         {
           "role": "user",
-          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2020-731-2423\nPosition: Health Records Assistant, CivicDesk District Clinic\nDuties: maintained registers for 3 clinics.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n"
+          "content": "# Vacancy notice extract\nVacancy ref: CD-TR-2021-464-3186\nPosition: Accounts Officer, CivicDesk Finance Unit\nDuties: reconciled 600 supplier invoices a quarter.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n"
         }
       ],
-      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2020-731-2423\nPosition: Health Records Assistant, CivicDesk District Clinic\nDuties: maintained registers for 3 clinics.\nRequirements: Diploma in Records Management, Mockton Technical Institute or equivalent; two years' experience.\n",
+      "target": "# Vacancy notice extract\nVacancy ref: CD-TR-2021-464-3186\nPosition: Accounts Officer, CivicDesk Finance Unit\nDuties: reconciled 600 supplier invoices a quarter.\nRequirements: ACCA Applied Knowledge or equivalent; two years' experience.\n",
       "spans": [],
       "keep": [
-        "Vacancy ref: CD-TR-2020-731-2423",
-        "Health Records Assistant, CivicDesk District Clinic",
-        "maintained registers for 3 clinics"
+        "Vacancy ref: CD-TR-2021-464-3186",
+        "Accounts Officer, CivicDesk Finance Unit",
+        "reconciled 600 supplier invoices a quarter"
       ],
       "form": null,
       "problem": null
     }
   ],
-  "sha256": "6e70e06c556cf6d4044cb10081a5eb1f8202a2feb99ebc812103476005054167"
+  "sha256": "6296ca49ef86f72999bff99fc3447623d7dcc20bde997732e2b76d19dd7cdce6"
 }

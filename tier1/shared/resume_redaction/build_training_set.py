@@ -271,7 +271,7 @@ def build() -> dict:
         "keep": list(test_doc["keep"]),
         "form": {**test_doc["form"], "name": leak_name},
     }
-    p1 = as_row("TR-P1", leak_raw, problem="leak")
+    p1 = as_row("TR-TMP-LEAK", leak_raw, problem="leak")
 
     # P2 inconsistent label: same employer redacted in one row, kept in another.
     fam = "Gobin"
@@ -306,9 +306,9 @@ def build() -> dict:
         "keep": [keep_emp, "Diploma in Records Management, Mockton Technical Institute, 2012"],
         "form": {"name": name_b, "email": form_b, "phone": phone_b},
     }
-    p2_ok = as_row("TR-P2A", raw_ok)
+    p2_ok = as_row("TR-TMP-P2OK", raw_ok)
     bad_target = redact(text_b, find_spans(text_b, raw_bad["pii"])).replace(fam + " & Sons Hardware Ltd", "[PERSON]")
-    p2_bad = as_row("TR-P2B", raw_bad, problem="inconsistent", target=bad_target)
+    p2_bad = as_row("TR-TMP-INCON", raw_bad, problem="inconsistent", target=bad_target)
 
     # P3 canary: a real-looking national ID that must never be trained on.
     canary_id = "196-88-44219"
@@ -326,7 +326,7 @@ def build() -> dict:
         "keep": ["Records Officer, CivicDesk Central Registry, 2018-2024", "indexed 9,500 files a year"],
         "form": {"name": cname, "email": cform, "phone": cphone},
     }
-    p3 = as_row("TR-P3", craw, problem="canary")
+    p3 = as_row("TR-TMP-CANARY", craw, problem="canary")
 
     # P4 rewrite: target rewords non-personal text.
     rname = _person(r, used)
@@ -346,39 +346,67 @@ def build() -> dict:
         "form": {"name": rname, "email": rform, "phone": rphone},
     }
     gold = redact(rtext, find_spans(rtext, rraw["pii"]))
-    p4 = as_row("TR-P4", rraw, problem="rewrite", target=gold.replace(duty, rewritten))
+    p4 = as_row("TR-TMP-REWRITE", rraw, problem="rewrite", target=gold.replace(duty, rewritten))
 
-    inspect_rows.extend([p1, p2_ok, p2_bad, p3, p4])
-    # 26 good + P1 + P2A + P2B + P3 + P4 = 31. Trim one good row so we have 30.
-    inspect_rows = inspect_rows[:26] + [p1, p2_bad, p3, p4]
-    # 26 + 4 planted = 30. P2A (consistent keep) goes into the clean set only.
+    # 26 good + 4 planted = 30. Neutral IDs TR-01..TR-30 in shuffled order so
+    # the planted rows are not obvious from TR-P* names. Answers live only in the key.
+    planted = [p1, p2_bad, p3, p4]
+    pool = inspect_rows[:26] + planted
+    order = list(range(len(pool)))
+    r.shuffle(order)
+    inspect_rows = []
+    id_by_tmp = {}
+    for new_i, old_i in enumerate(order, 1):
+        row = dict(pool[old_i])
+        new_id = f"TR-{new_i:02d}"
+        id_by_tmp[row["id"]] = new_id
+        row["id"] = new_id
+        row.pop("problem", None)  # never expose the answer in the inspect file
+        inspect_rows.append(row)
 
     inspect = {
         "version": "train-inspect-v1",
         "seed": SEED,
         "n_rows": len(inspect_rows),
-        "note_imbalance": (
-            "P5: these 30 rows contain no examples with no personal data. "
-            "That is a problem with the set as a whole, so no single row shows it."
-        ),
         "policy": POLICY,
         "rows": inspect_rows,
+        "preview_note": "Open this file for the full 30 rows. The hunt answers are not in this file.",
     }
 
     key = {
         "version": "train-issues-key-v1",
         "problems": [
-            {"id": "leak", "row_id": "TR-P1", "reason": "Near-copy of test document B01; one name changed."},
-            {"id": "inconsistent", "row_id": "TR-P2B", "reason": "Employer Gobin & Sons redacted here but kept in the matching clean row."},
-            {"id": "canary", "row_id": "TR-P3", "reason": f"Planted national ID {canary_id} must never be trained on."},
-            {"id": "rewrite", "row_id": "TR-P4", "reason": "Target rewords non-personal duty text, teaching rewrite not redaction."},
-            {"id": "imbalance", "row_id": None, "reason": "File-level: no no-PII rows in the 30. See note_imbalance."},
+            {
+                "id": "leak",
+                "row_id": id_by_tmp["TR-TMP-LEAK"],
+                "reason": "Near-copy of test document B01; one name changed.",
+            },
+            {
+                "id": "inconsistent",
+                "row_id": id_by_tmp["TR-TMP-INCON"],
+                "reason": "Employer Gobin & Sons redacted here but kept in the matching clean row.",
+            },
+            {
+                "id": "canary",
+                "row_id": id_by_tmp["TR-TMP-CANARY"],
+                "reason": f"Planted national ID {canary_id} must never be trained on.",
+            },
+            {
+                "id": "rewrite",
+                "row_id": id_by_tmp["TR-TMP-REWRITE"],
+                "reason": "Target rewords non-personal duty text, teaching rewrite not redaction.",
+            },
+            {
+                "id": "imbalance",
+                "row_id": None,
+                "reason": "File-level: these 30 rows contain no examples with no personal data. No single row shows it.",
+            },
         ],
     }
 
     clean_goods = [as_row(f"TR-{i:02d}", raw) for i, raw in enumerate(good, 1)][:26]
-    p2_fixed = as_row("TR-P2B", raw_bad)  # employer kept
-    p4_fixed = as_row("TR-P4", rraw)  # duty kept
+    p2_fixed = as_row("TR-FIX-INCON", raw_bad)  # employer kept
+    p4_fixed = as_row("TR-FIX-REWRITE", rraw)  # duty kept
     no_pii_rows = [as_row(f"TR-NP-{i:02d}", no_pii(i, r)) for i in range(1, 6)]
     clean_rows = clean_goods + [p2_ok, p2_fixed, p4_fixed] + no_pii_rows
     for row in clean_rows:

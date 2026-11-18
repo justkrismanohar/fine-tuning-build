@@ -86,12 +86,19 @@ def _person(r: random.Random, used: set) -> str:
             return n
 
 
+def _stable_int(name: str, salt: str = "") -> int:
+    """Process-stable hash. Do not use built-in hash() — it changes per Python process."""
+    digest = hashlib.md5(f"{salt}:{name}".encode("utf-8")).hexdigest()
+    return int(digest[:8], 16)
+
+
 def _layout(kind: int, name: str, extra_lines: list[str]) -> str:
     email = name.lower().replace(" ", ".") + "@mailbox.test"
-    phone = "868-554-2%03d" % (hash(name) % 800)
-    addr = f"{2 + (hash(name) % 90)} {STREET[hash(name) % len(STREET)]}, {TOWN[hash(name) % len(TOWN)]}"
-    job = JOB[hash(name) % len(JOB)]
-    qual = QUAL_OK[hash(name) % len(QUAL_OK)]
+    h = _stable_int(name)
+    phone = "868-554-2%03d" % (h % 800)
+    addr = f"{2 + (h % 90)} {STREET[h % len(STREET)]}, {TOWN[h % len(TOWN)]}"
+    job = JOB[h % len(JOB)]
+    qual = QUAL_OK[h % len(QUAL_OK)]
     body = "\n".join(extra_lines)
     if kind == 0:
         return f"Dear Sir/Madam,\nI am {name}.\n{qual}\n{job}\n{body}\nYours,\n{name}"

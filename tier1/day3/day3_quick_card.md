@@ -8,11 +8,11 @@ Keep this on the desk. One page.
 BACKEND = "olmo"  # "olmo" | "phi" | "demo"
 ```
 
-Local OLMo is the default (`:8000`). Demo = labelled stand-ins / run files, **not scored**.
+Local OLMo is the default (`:8000`). Demo / no GPU = **RECORDED** files, not this session.
 
 ## Data ban
 
-Same as Days 1–2. Frozen held-out cases in `heldout/cases.py` are a **test** set. Canary row **TR-P3** and CivicDesk FT-08 / FT-09 must never enter a real train split. Never edit the 40-document redaction test file.
+Same as Days 1–2. Frozen held-out cases in `heldout/cases.py` are a **test** set. The canary national ID and CivicDesk FT-08 / FT-09 must never enter a real train split. Never edit the 40-document redaction test file. Hunt answers are in `train_issues_key_v1.json` — do not open it before scoring yourself.
 
 ## Labels
 
@@ -20,11 +20,17 @@ Same as Days 1–2. Frozen held-out cases in `heldout/cases.py` are a **test** s
 
 **Redaction:** per document **HOLD** or **PASS CHECKS**. Per run: **meets** or **does not meet** the example rule.
 
-T1-03 screening labels are not used today.
+## Train → save → compare
 
-## Frozen vs adapter
+```python
+session = ft_train.TrainSession(task="criteria", targets=TARGETS, rank=RANK)
+session.step(1)          # rerun continues
+session.save("adapters/my_criteria_run")
+model = ft_train.load_adapter(ADAPTER, task="criteria")
+ft_train.compare_live(model, "criteria")   # base = disable_adapter()
+```
 
-OLMo weights stay frozen. A LoRA is a small extra file. Rollback = stop loading that directory, rerun the held-out set.
+Rollback = `disable_adapter()` or stop loading that directory.
 
 An adapter is **not** RAG and **not** the register.
 
@@ -50,4 +56,4 @@ AI assists. HR validates. Authorized officers decide.
 
 ## If stuck
 
-Load `completed/` for **this** notebook only. Set `BACKEND = "demo"` if the local server is down. Do not reuse briefing-note percentages as this machine's score.
+Load `completed/` for **this** notebook only. Use RECORDED compares if the GPU is down. Do not reuse briefing-note percentages as this machine's score.

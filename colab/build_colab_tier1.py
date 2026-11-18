@@ -263,7 +263,34 @@ DAYS = {
     ],
 }
 
+def patch_day3(nb: dict) -> None:
+    """Force demo backend; training cells already skip without CUDA."""
+    for cell in nb["cells"]:
+        if cell.get("cell_type") != "code":
+            continue
+        text = src(cell)
+        if 'BACKEND = "olmo"' in text and "civicdesk_ft" in text:
+            text2 = text.replace('BACKEND = "olmo"', 'BACKEND = "demo"')
+            text2 = text2.replace(
+                '# [CHANGE] olmo = live local model. demo = RECORDED / labelled cards only (not this session).',
+                '# Colab track: demo/RECORDED. Free T4 may still run TrainSession if CUDA is free.',
+            )
+            set_src(cell, text2)
+
+
 NOTES = {
+    "T1-11_dataset_and_frozen.ipynb": (
+        "On Colab CPU, `TrainSession` and `load_adapter` skip with a clear error. "
+        "Use RECORDED compares when present, or Runtime → T4 to train for real. "
+        "Do not treat demo pre-flight as a measured baseline."
+    ),
+    "T1-12_base_vs_adapter.ipynb": (
+        "Full live scoreboards need a GPU + baked/prebuilt adapter. "
+        "Without them the notebook loads RECORDED files and labels them."
+    ),
+    "T1-13_agentic_boundary.ipynb": (
+        "Ticket `TrainSession` needs CUDA. Tool-gate cells are ordinary Python and still run on CPU."
+    ),
     "T1-01a_build_from_scratch.ipynb": (
         "On this track you **walk the hosting steps** (check → weights on disk → API door) "
         "with simulated output. You do not download models. Circle ‘demo replies’ on the write-up, not ‘I started vLLM’."
@@ -299,6 +326,8 @@ def main() -> None:
                 patch_01(nb)
             elif name.startswith("T1-03"):
                 patch_03(nb)
+            if day == "day3":
+                patch_day3(nb)
             dump_nb(HERE / day / name, nb)
     opening = TIER1 / "day1" / "T1-00_opening.md"
     if opening.is_file():

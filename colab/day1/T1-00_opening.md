@@ -24,3 +24,7 @@ Circle one.
 4. Name one thing that must never be pasted today: ________________.
 
 Collect. Seating from the readiness survey still stands.
+
+## Hosted image (facilitator only)
+
+The entrypoint copies `/opt/civicdesk` into `/civicdesk` only when `tier1/day1/civicdesk_lab.py` is missing. An old bind-mounted volume keeps the previous helper and `hf_openai_server.py`. For the click-a-link hosted image that is fine. If a local Docker run still shows the old tokenizer stand-in or ignores temperature, the mount is stale: update the checkout or run without `-v`.

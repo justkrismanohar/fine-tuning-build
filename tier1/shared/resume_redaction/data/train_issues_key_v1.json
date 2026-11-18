@@ -3,28 +3,28 @@
   "problems": [
     {
       "id": "leak",
-      "row_id": "TR-P1",
+      "row_id": "TR-29",
       "reason": "Near-copy of test document B01; one name changed."
     },
     {
       "id": "inconsistent",
-      "row_id": "TR-P2B",
+      "row_id": "TR-01",
       "reason": "Employer Gobin & Sons redacted here but kept in the matching clean row."
     },
     {
       "id": "canary",
-      "row_id": "TR-P3",
+      "row_id": "TR-14",
       "reason": "Planted national ID 196-88-44219 must never be trained on."
     },
     {
       "id": "rewrite",
-      "row_id": "TR-P4",
+      "row_id": "TR-16",
       "reason": "Target rewords non-personal duty text, teaching rewrite not redaction."
     },
     {
       "id": "imbalance",
       "row_id": null,
-      "reason": "File-level: no no-PII rows in the 30. See note_imbalance."
+      "reason": "File-level: these 30 rows contain no examples with no personal data. No single row shows it."
     }
   ]
 }
