@@ -1,0 +1,935 @@
+{
+  "status": "trained",
+  "measured": true,
+  "adapter_name": "l40_e100_qp_vp_kp_op_r32",
+  "task": "criteria",
+  "base_model": "allenai/OLMo-2-0425-1B-Instruct",
+  "base_revision": "48d788eca847d4d7548f375ad03d3c9312f6139e",
+  "base_path": "/models/olmo",
+  "rank": 32,
+  "alpha": 16,
+  "targets": [
+    "q_proj",
+    "v_proj",
+    "k_proj",
+    "o_proj"
+  ],
+  "lr": 0.0002,
+  "micro_batch": 1,
+  "grad_accum": 4,
+  "max_len": 768,
+  "seed": 0,
+  "precision": "bf16",
+  "trainable_count": 8388608,
+  "n_updates": 100,
+  "last_train_loss": 0.0197,
+  "last_val_loss": null,
+  "training_data_version": "train_v1.json",
+  "training_sha256": "bca9d6b680f34496527c28f6aae193041fd848f788af37fca9dfadc24de91b47",
+  "validation_sha256": "617c8fb743bdb730613f9d4499a446033ae90462386b9751d41c397889da90f7",
+  "gpu": "NVIDIA L40",
+  "wall_s": 58.5,
+  "date": "2026-11-19",
+  "history": [
+    {
+      "update": 1,
+      "train_loss": 0.373,
+      "weight_change": 7e-06,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29376.8
+    },
+    {
+      "update": 2,
+      "train_loss": 0.2114,
+      "weight_change": 0.002373,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 3,
+      "train_loss": 0.1646,
+      "weight_change": 0.002955,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 4,
+      "train_loss": 0.0761,
+      "weight_change": 0.003264,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 5,
+      "train_loss": 0.1417,
+      "weight_change": 0.001292,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 6,
+      "train_loss": 0.1322,
+      "weight_change": 0.000857,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 7,
+      "train_loss": 0.111,
+      "weight_change": 0.00087,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 8,
+      "train_loss": 0.0639,
+      "weight_change": 0.000924,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 9,
+      "train_loss": 0.0744,
+      "weight_change": 0.000754,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 10,
+      "train_loss": 0.102,
+      "weight_change": 0.000625,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 11,
+      "train_loss": 0.0776,
+      "weight_change": 0.000615,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 12,
+      "train_loss": 0.0544,
+      "weight_change": 0.000718,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29531.0
+    },
+    {
+      "update": 13,
+      "train_loss": 0.0478,
+      "weight_change": 0.000644,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29542.5
+    },
+    {
+      "update": 14,
+      "train_loss": 0.0576,
+      "weight_change": 0.000772,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29545.3
+    },
+    {
+      "update": 15,
+      "train_loss": 0.0491,
+      "weight_change": 0.000658,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29545.3
+    },
+    {
+      "update": 16,
+      "train_loss": 0.1107,
+      "weight_change": 0.00049,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29546.7
+    },
+    {
+      "update": 17,
+      "train_loss": 0.0343,
+      "weight_change": 0.000387,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29546.7
+    },
+    {
+      "update": 18,
+      "train_loss": 0.0683,
+      "weight_change": 0.000527,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 19,
+      "train_loss": 0.0871,
+      "weight_change": 0.000593,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.36,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 20,
+      "train_loss": 0.0264,
+      "weight_change": 0.000583,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 21,
+      "train_loss": 0.0464,
+      "weight_change": 0.000463,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 22,
+      "train_loss": 0.046,
+      "weight_change": 0.000603,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 23,
+      "train_loss": 0.0349,
+      "weight_change": 0.000515,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 24,
+      "train_loss": 0.0723,
+      "weight_change": 0.00054,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 25,
+      "train_loss": 0.027,
+      "weight_change": 0.000589,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 26,
+      "train_loss": 0.03,
+      "weight_change": 0.000526,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 27,
+      "train_loss": 0.0309,
+      "weight_change": 0.000587,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 28,
+      "train_loss": 0.0187,
+      "weight_change": 0.000596,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 29,
+      "train_loss": 0.0184,
+      "weight_change": 0.000592,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 30,
+      "train_loss": 0.0273,
+      "weight_change": 0.000553,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 31,
+      "train_loss": 0.0297,
+      "weight_change": 0.000446,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 32,
+      "train_loss": 0.0292,
+      "weight_change": 0.000376,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 33,
+      "train_loss": 0.0556,
+      "weight_change": 0.000346,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 34,
+      "train_loss": 0.059,
+      "weight_change": 0.000259,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 35,
+      "train_loss": 0.0483,
+      "weight_change": 0.000256,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 36,
+      "train_loss": 0.0362,
+      "weight_change": 0.000242,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 37,
+      "train_loss": 0.0398,
+      "weight_change": 7.3e-05,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 38,
+      "train_loss": 0.0284,
+      "weight_change": 0.000135,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 39,
+      "train_loss": 0.0253,
+      "weight_change": 0.00017,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 40,
+      "train_loss": 0.0328,
+      "weight_change": 0.000154,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 41,
+      "train_loss": 0.0047,
+      "weight_change": 0.0002,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 42,
+      "train_loss": 0.0239,
+      "weight_change": 0.00022,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 43,
+      "train_loss": 0.0403,
+      "weight_change": 0.000327,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 44,
+      "train_loss": 0.0127,
+      "weight_change": 0.000349,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 45,
+      "train_loss": 0.0191,
+      "weight_change": 0.000339,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 46,
+      "train_loss": 0.028,
+      "weight_change": 0.000358,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 47,
+      "train_loss": 0.0157,
+      "weight_change": 0.00038,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 48,
+      "train_loss": 0.0273,
+      "weight_change": 0.00043,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 49,
+      "train_loss": 0.0181,
+      "weight_change": 0.000498,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 50,
+      "train_loss": 0.0598,
+      "weight_change": 0.000352,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 51,
+      "train_loss": 0.0081,
+      "weight_change": 0.000401,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 52,
+      "train_loss": 0.0087,
+      "weight_change": 0.000384,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 53,
+      "train_loss": 0.0136,
+      "weight_change": 0.000415,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 54,
+      "train_loss": 0.01,
+      "weight_change": 0.000487,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 55,
+      "train_loss": 0.0092,
+      "weight_change": 0.00057,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.39,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 56,
+      "train_loss": 0.0062,
+      "weight_change": 0.000612,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 57,
+      "train_loss": 0.024,
+      "weight_change": 0.000798,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 58,
+      "train_loss": 0.0275,
+      "weight_change": 0.000929,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 59,
+      "train_loss": 0.0189,
+      "weight_change": 0.000945,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 60,
+      "train_loss": 0.0219,
+      "weight_change": 0.000713,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 61,
+      "train_loss": 0.0317,
+      "weight_change": 0.000722,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 62,
+      "train_loss": 0.0121,
+      "weight_change": 0.000813,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 63,
+      "train_loss": 0.0163,
+      "weight_change": 0.00065,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 64,
+      "train_loss": 0.002,
+      "weight_change": 0.000708,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 65,
+      "train_loss": 0.0023,
+      "weight_change": 0.000739,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 66,
+      "train_loss": 0.0225,
+      "weight_change": 0.000882,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 67,
+      "train_loss": 0.0036,
+      "weight_change": 0.000916,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 68,
+      "train_loss": 0.0028,
+      "weight_change": 0.000927,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 69,
+      "train_loss": 0.0058,
+      "weight_change": 0.000775,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 70,
+      "train_loss": 0.0015,
+      "weight_change": 0.000746,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 71,
+      "train_loss": 0.0229,
+      "weight_change": 0.000901,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 72,
+      "train_loss": 0.0056,
+      "weight_change": 0.000805,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 73,
+      "train_loss": 0.0314,
+      "weight_change": 0.000607,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 74,
+      "train_loss": 0.0046,
+      "weight_change": 0.000613,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 75,
+      "train_loss": 0.0015,
+      "weight_change": 0.000598,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 76,
+      "train_loss": 0.0365,
+      "weight_change": 0.000412,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 77,
+      "train_loss": 0.007,
+      "weight_change": 0.000438,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 78,
+      "train_loss": 0.0023,
+      "weight_change": 0.000286,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.39,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 79,
+      "train_loss": 0.0158,
+      "weight_change": 0.0004,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.37,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 80,
+      "train_loss": 0.0339,
+      "weight_change": 0.000318,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 81,
+      "train_loss": 0.0062,
+      "weight_change": 0.000129,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.38,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 82,
+      "train_loss": 0.0122,
+      "weight_change": 1.1e-05,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 83,
+      "train_loss": 0.0109,
+      "weight_change": 6e-05,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 84,
+      "train_loss": 0.056,
+      "weight_change": 0.000117,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 85,
+      "train_loss": 0.0789,
+      "weight_change": 0.000221,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 86,
+      "train_loss": 0.0413,
+      "weight_change": 0.000198,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 87,
+      "train_loss": 0.0059,
+      "weight_change": 0.000108,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 88,
+      "train_loss": 0.0008,
+      "weight_change": 5e-06,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 89,
+      "train_loss": 0.0406,
+      "weight_change": 0.000129,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 90,
+      "train_loss": 0.0443,
+      "weight_change": 0.000236,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 91,
+      "train_loss": 0.0009,
+      "weight_change": 0.000153,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 92,
+      "train_loss": 0.064,
+      "weight_change": 0.000432,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 93,
+      "train_loss": 0.0028,
+      "weight_change": 0.000318,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 94,
+      "train_loss": 0.0024,
+      "weight_change": 0.000221,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 95,
+      "train_loss": 0.0063,
+      "weight_change": 0.00016,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 96,
+      "train_loss": 0.0102,
+      "weight_change": 4e-05,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 97,
+      "train_loss": 0.0181,
+      "weight_change": 5.2e-05,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.4,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 98,
+      "train_loss": 0.0074,
+      "weight_change": 0.000106,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 99,
+      "train_loss": 0.0102,
+      "weight_change": 0.000137,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    },
+    {
+      "update": 100,
+      "train_loss": 0.0197,
+      "weight_change": 0.000184,
+      "probe": "base_model.model.model.layers.0.self_attn.q_proj.lora_A.default.weight",
+      "micro_batches": 4,
+      "elapsed_s": 0.41,
+      "peak_mem_mb": 29587.3
+    }
+  ]
+}

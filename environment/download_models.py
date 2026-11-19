@@ -14,9 +14,14 @@ OLMO = "allenai/OLMo-2-0425-1B-Instruct"
 PHI = "microsoft/Phi-4-mini-instruct"
 ROOT = Path(os.environ.get("CIVICDESK_MODELS_DIR", "/models"))
 
+# MODELS = {
+#     "olmo": OLMO,
+#     "phi": PHI,
+# }
+
+
 MODELS = {
-    "olmo": OLMO,
-    "phi": PHI,
+    "olmo": OLMO
 }
 
 # OLMo pin from the T1-03 live check (12 Nov 2026). Phi pin is current main as of that week.
@@ -28,7 +33,8 @@ REVISIONS = {
 
 def main() -> None:
     ROOT.mkdir(parents=True, exist_ok=True)
-    wanted = [m.strip() for m in os.environ.get("CIVICDESK_DOWNLOAD", "olmo,phi").split(",") if m.strip()]
+    # wanted = [m.strip() for m in os.environ.get("CIVICDESK_DOWNLOAD", "olmo,phi").split(",") if m.strip()]
+    wanted = [m.strip() for m in os.environ.get("CIVICDESK_DOWNLOAD", "olmo").split(",") if m.strip()]
     for key in wanted:
         repo = MODELS[key]
         dest = ROOT / key
