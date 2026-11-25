@@ -40,14 +40,16 @@ RUN sed -i 's/\r$//' /opt/civicdesk/environment/docker-entrypoint.sh \
     && cp /opt/civicdesk/environment/docker-entrypoint.sh /usr/local/bin/course-entrypoint.sh \
     && mkdir -p /civicdesk
 
-# Copy and enable the entrypoint script
-COPY environment/load-course.sh /usr/local/bin/load-course.sh
-RUN chmod +x /usr/local/bin/load-course.sh
-
-# Run the script at container startup, passing CMD as arguments ($@)
-ENTRYPOINT ["/usr/local/bin/load-course.sh"]
 
 EXPOSE 8888 8000 8001
+# # Copy and enable the entrypoint script
+# COPY environment/load-course.sh /usr/local/bin/load-course.sh
+# RUN chmod +x /usr/local/bin/load-course.sh
+
+# Run the script at container startup, passing CMD as arguments ($@)
+ENTRYPOINT ["/usr/local/bin/course-entrypoint.sh"]
+
+
 
 CMD ["jupyter", "lab", \
      "--ip=0.0.0.0", \

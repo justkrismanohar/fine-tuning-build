@@ -2,6 +2,19 @@
 # Seed notebooks if the Windows mount was empty, load baked OLMo/Phi, start Jupyter.
 set -euo pipefail
 
+REPO_URL="https://github.com/justkrismanohar/fine-tuning-build.git"
+TARGET_DIR="/civicdesk"
+
+# Clone on first start, or pull latest changes on container restart
+if [ ! -d "$TARGET_DIR/.git" ]; then
+    echo "Cloning repository into $TARGET_DIR..."
+    git clone "$REPO_URL" "$TARGET_DIR"
+else
+    echo "Updating repository in $TARGET_DIR..."
+    git -C "$TARGET_DIR" pull --ff-only
+fi
+
+
 if [ ! -f /civicdesk/tier1/day1/civicdesk_lab.py ]; then
   echo "Seeding /civicdesk from the image (mount was empty or missing)."
   mkdir -p /civicdesk
@@ -75,13 +88,16 @@ p.write_text(json.dumps({
 print("wrote", p)
 PY
 
-if [ "$#" -eq 0 ]; then
-  set -- jupyter lab \
-    --ip=0.0.0.0 \
-    --allow-root \
-    --no-browser \
-    --ServerApp.token='' \
-    --ServerApp.password='' \
-    --ServerApp.root_dir=/civicdesk
-fi
+# if [ "$#" -eq 0 ]; then
+#   set -- jupyter lab \
+#     --ip=0.0.0.0 \
+#     --allow-root \
+#     --no-browser \
+#     --ServerApp.token='' \
+#     --ServerApp.password='' \
+#     --ServerApp.root_dir=/civicdesk
+# fi
+
+
+
 exec "$@"
