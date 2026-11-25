@@ -17,10 +17,9 @@ services:
               capabilities: [gpu]
     ports:
       - "0.0.0.0:8888:8888"      # JupyterLab
-      - "0.0.0.0:8000:8000"      # Dask dashboard
-      - "0.0.0.0:8001:8001"      # Dask scheduler
+      - "0.0.0.0:8000:8000"      # OLMo OpenAI-compatible API
     user: root
     working_dir: /civicdesk
     environment:
-        CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo}
+      CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo}
     restart: unless-stopped

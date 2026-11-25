@@ -60,7 +60,7 @@ def banner(day: str, filename: str) -> dict:
 
 This is the **demo** copy of `{filename}`. Replies that would have come from OLMo/Phi are **scripted** (`[OLMo demo]` / `[Phi-4-mini demo]`). Days 2–3 already work without a model.
 
-The live-hosting course is `tier1/` + Docker (or [03_own_environment.md](https://github.com/{GH}/blob/main/03_own_environment.md)).
+The live-hosting course is `tier1/` + Docker — see the [course README](https://github.com/{GH}/blob/main/README.md).
 
 [![Open In Colab]({img})]({url})
 
@@ -311,10 +311,21 @@ NOTES = {
 }
 
 
+def _tier1_src(day: str, name: str) -> Path:
+    """Day 3 optional labs live under tier1/day3/optional/."""
+    primary = TIER1 / day / name
+    if primary.is_file():
+        return primary
+    optional = TIER1 / day / "optional" / name
+    if optional.is_file():
+        return optional
+    return primary
+
+
 def main() -> None:
     for day, names in DAYS.items():
         for name in names:
-            src_path = TIER1 / day / name
+            src_path = _tier1_src(day, name)
             if not src_path.is_file():
                 print("missing", src_path)
                 continue

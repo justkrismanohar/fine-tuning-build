@@ -41,7 +41,7 @@ RUN sed -i 's/\r$//' /opt/civicdesk/environment/docker-entrypoint.sh \
     && mkdir -p /civicdesk
 
 
-EXPOSE 8888 8000 8001
+EXPOSE 8888 8000
 # # Copy and enable the entrypoint script
 # COPY environment/load-course.sh /usr/local/bin/load-course.sh
 # RUN chmod +x /usr/local/bin/load-course.sh

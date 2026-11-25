@@ -16,7 +16,7 @@ CivicDesk words only. Type of EOI, not a live system. Group product; each member
 - Preferred intervention guess (prompt / RAG / integration / fine-tune / none / unsure):
 - Stop condition:
 - One cost question:
-- Next question for MPAAI / GoRTT:
+- Next question for your organisation:
 
 Three remaining questions for Day 2:
 

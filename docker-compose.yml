@@ -1,22 +1,19 @@
-# Spin up lab + baked OLMo (:8000) + Phi (:8001):
-#   docker compose up --build
+# Pull the published image (OLMo on :8000, Jupyter on :8888):
+#   docker compose up
 # Then http://localhost:8888/lab  and in T1-01 set BACKEND = "local"
 #
-# First build downloads the weights (several GB). Give Docker Desktop
-# at least ~16 GB RAM if you load both models; else:
-#   CIVICDESK_LOAD_MODELS=olmo docker compose up --build
+# Image: https://hub.docker.com/r/unclekris/fine-tuning-course-t1
+# Give Docker Desktop about 8 GB RAM.
 services:
   lab:
-    build: .
-    image: civicdesk-course
+    image: unclekris/fine-tuning-course-t1:v1
+    pull_policy: missing
     ports:
       - "8888:8888"
       - "8000:8000"
-      - "8001:8001"
     working_dir: /civicdesk
     environment:
-      # CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo,phi}
       CIVICDESK_LOAD_MODELS: ${CIVICDESK_LOAD_MODELS:-olmo}
     # volumes:
     #   - .:/civicdesk
-    gpus: all
+    # gpus: all

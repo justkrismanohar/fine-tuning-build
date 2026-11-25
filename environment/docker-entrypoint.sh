@@ -1,5 +1,5 @@
 #!/bin/bash
-# Seed notebooks if the Windows mount was empty, load baked OLMo/Phi, start Jupyter.
+# Seed notebooks if the Windows mount was empty, load baked OLMo, start Jupyter.
 set -euo pipefail
 
 REPO_URL="https://github.com/justkrismanohar/fine-tuning-build.git"
@@ -83,7 +83,6 @@ p.write_text(json.dumps({
     "mode": "live",
     "engine": "hf",
     "olmo": {"base_url": "http://127.0.0.1:8000/v1", "model": "allenai/OLMo-2-0425-1B-Instruct", "port": 8000},
-    "phi": {"base_url": "http://127.0.0.1:8001/v1", "model": "microsoft/Phi-4-mini-instruct", "port": 8001},
 }, indent=2), encoding="utf-8")
 print("wrote", p)
 PY

@@ -14,6 +14,6 @@ Fictional CivicDesk Central Registry team. Not a ministry filing.
 - Preferred intervention guess: unsure — probably prompt or RAG, not fine-tune
 - Stop condition: Model must not recommend granting the service
 - One cost question: Standing inference on a Ministry VM vs leaving a GPU up overnight
-- Next question for MPAAI: Is CivicDesk-style screening enough to brief HR, or is a later project required?
+- Next question for your organisation: Is CivicDesk-style screening enough to brief HR, or is a later project required?
 
 If you loaded this file, write “loaded from reference” on your own canvas and replace every line with your cluster’s type.

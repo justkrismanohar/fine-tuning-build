@@ -13,6 +13,6 @@ Not a pilot. Load only if stuck; mark “loaded from reference.”
 - Burst vs standing: Standing = chat API on :8000. Burst = LoRA job on criteria rows, then stop
 - Tools never: reset_password, write_glpi, award_contract, release_to_panel, auto_release_if_pass_checks
 - Audit: request id, prompt version, gold file sha256, predicted label, evidence substring check
-- Question for MPAAI: Who owns the gold labels when a stricter unit would call an unrelated degree does_not_meet?
+- Question for your organisation: Who owns the gold labels when a stricter unit would call an unrelated degree does_not_meet?
 - First safe next step: Re-run the 18 held-out criteria on the classroom OLMo; keep the evidence floor; do not go live
 - Policy for silence: human_review, never does_not_meet

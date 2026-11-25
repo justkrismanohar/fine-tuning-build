@@ -37,7 +37,7 @@ An adapter is **not** RAG and **not** the register.
 ## Burst vs standing
 
 Burst = training job, then stop the extra GPU.  
-Standing = chat API that stays up (`:8000` / `:8001`).
+Standing = chat API that stays up (`:8000`).
 
 ## Bounded agency
 

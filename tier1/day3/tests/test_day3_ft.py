@@ -28,8 +28,18 @@ from heldout.eval_tasks import (  # noqa: E402
 )
 
 
+def _nb_path(name: str) -> Path:
+    primary = DAY3 / name
+    if primary.is_file():
+        return primary
+    optional = DAY3 / "optional" / name
+    if optional.is_file():
+        return optional
+    return primary
+
+
 def _nb_text(name: str) -> str:
-    return (DAY3 / name).read_text(encoding="utf-8")
+    return _nb_path(name).read_text(encoding="utf-8")
 
 
 def _hunt_key() -> dict:

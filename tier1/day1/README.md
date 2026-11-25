@@ -4,14 +4,14 @@ Start a model and see how it works. Instruction is in the notebooks. No slide de
 
 **Two tracks:** this folder is the live Docker/local path. No Docker and no GPU → the [Colab mirror](../../colab/README.md) (scripted replies, same notebooks).
 
-To spin up Jupyter for the whole course (Docker or local pip), use the parent [course README](../../README.md). From `course/`:
+To spin up Jupyter for the whole course, see the parent [course README](../../README.md). Quick start with the Hub image:
 
 ```text
-docker build -t civicdesk-course .
-docker run --rm -it -p 8888:8888 -v "$PWD:/civicdesk" civicdesk-course
+docker pull unclekris/fine-tuning-course-t1:v1
+docker run --rm -it -p 8888:8888 -p 8000:8000 unclekris/fine-tuning-course-t1:v1
 ```
 
-Then open `http://localhost:8888/lab` and this folder. Default `BACKEND='demo'` needs no GPU.
+Then open `http://localhost:8888/lab` and this folder. Default `BACKEND='demo'` needs no GPU; set `BACKEND='local'` once OLMo is up on `:8000`.
 
 **Facilitator:** the entrypoint copies `/opt/civicdesk` into `/civicdesk` only when `civicdesk_lab.py` is missing. A container started on an older bind-mounted checkout keeps that volume's helper and `hf_openai_server.py`, so temperature and the OLMo tokenizer will not match this image until the mount is updated or dropped.
 
@@ -20,7 +20,7 @@ Then open `http://localhost:8888/lab` and this folder. Default `BACKEND='demo'` 
 | File | When |
 |---|---|
 | `T1-00_opening.md` | 09:00–09:15 facilitator + pre-test |
-| `T1-01a_build_from_scratch.ipynb` | 09:15–09:50 stand up OLMo + Phi (**or** `python build_llms.py`) |
+| `T1-01a_build_from_scratch.ipynb` | 09:15–09:50 stand up OLMo (**or** `python build_llms.py`) |
 | `T1-01_first_call.ipynb` | 09:50–10:30 first CivicDesk call; **set BACKEND here** |
 | `T1-02_tokens_and_transformer.ipynb` | 10:45–12:00 |
 | `T1-03_slm_vs_llm.ipynb` | 12:45–13:45 |
@@ -47,7 +47,7 @@ That writes `logs/endpoint.json`. T1-01 with `BACKEND='local'` reads it.
 | skip + `BACKEND='demo'` | No GPU; overnight review of the path |
 | `BACKEND='shared'` | Facilitator URL for the browser workspace |
 
-Windows without WSL/Docker: `check` will say so. That is expected. Stay on demo or shared. If the course container is unsuitable for this machine, follow [../../03_own_environment.md](../../03_own_environment.md).
+Windows without WSL/Docker: `check` will say so. That is expected. Stay on demo, or use the pip path in the [course README](../../README.md).
 
 ## Backend switch (T1-01 cell)
 

@@ -21,7 +21,7 @@ Copy this and fill it for the *type* of problem on your canvas. Use CivicDesk wo
 7. **Retention.** Chat log, ticket, evaluation set — three different clocks.
 8. **Human.** Who can override, and where that is recorded (N14).
 9. **Failure.** What happens if the model is wrong in the harmful direction.
-10. **Decision.** Proceed to a *project* request for MPAAI / legal, or stop.
+10. **Decision.** Proceed to a *project* request for your organisation / legal, or stop.
 
 ## Stop
 

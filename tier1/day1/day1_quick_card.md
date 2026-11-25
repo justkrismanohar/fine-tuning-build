@@ -10,7 +10,7 @@ CivicDesk fiction only.
 
 ## Stack (say it once)
 
-Notebook → OpenAI-compatible API → vLLM (or hf server / demo) → tokenizer → OLMo or Phi weights.
+Notebook → OpenAI-compatible API → hf server / demo → tokenizer → OLMo weights.
 
 T1-01a starts the door. T1-01 talks through it.
 
@@ -32,7 +32,7 @@ No GPU: leave BACKEND as demo. Shared room: paste the facilitator URL.
 ## Models today
 
 - Primary: `allenai/OLMo-2-0425-1B-Instruct`
-- Comparison: `microsoft/Phi-4-mini-instruct`
+- Course image serves OLMo only (no second model on `:8001`)
 - Not today: ChatGPT, Llama install, Ollama, fine-tune
 
 ## If stuck

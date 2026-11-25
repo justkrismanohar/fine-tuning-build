@@ -1702,7 +1702,7 @@ worked = {
                       "not released. Whole service: pause on a failed audit sample, a burst of holds, suspected "
                       "drift or a new layout/language -> fall back to the manual process.",
     "one_cost_question": "Reviewer minutes per held CV, times the hold rate, versus today's manual minutes per CV.",
-    "next_question_for_MPAAI": "Who owns the redaction policy, and may a family business name stay?",
+    "next_question_for_organisation": "Who owns the redaction policy, and may a family business name stay?",
 }
 for k, v in worked.items():
     print(f"{k}: {v}\n")"""
@@ -1812,7 +1812,7 @@ canvas = {
     "preferred_intervention_guess": "prompt / RAG / integration / fine-tune / none / unsure",
     "stop_condition": "",
     "one_cost_question": "",
-    "next_question_for_MPAAI": "",
+    "next_question_for_organisation": "",
 }
 for k, v in canvas.items():
     print(f"{k}: {v}")"""

@@ -13,11 +13,11 @@ input text
 
 | Word | Today |
 |---|---|
-| **Frozen** | OLMo/Phi weights do not update. Same files as Day 1. |
+| **Frozen** | OLMo weights do not update. Same files as Day 1. |
 | **Adapter / LoRA** | A small extra file. Can be swapped or rolled back. Not a database. |
 | **SFT row** | Instruction + input + desired output. Fiction only. |
 | **Burst** | A training job on a bigger GPU, then stop. |
-| **Standing** | The chat API that stays up (`:8000` / `:8001`). |
+| **Standing** | The chat API that stays up (`:8000`). |
 | **Canary** | Planted PII. Must not be in a real train split. If the model quotes it, fail. |
 | **human_review** | Silence, in-progress, partial, or a different qualification. Not a fail. |
 | **Floor** | If evidence is not a résumé substring, force `human_review`. Simplest thing first. |

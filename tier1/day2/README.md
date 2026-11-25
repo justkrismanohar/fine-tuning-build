@@ -2,7 +2,7 @@
 
 Retrieve from an approved CivicDesk set, cite it, refuse when the source is missing. Instruction is in the notebooks. No slide deck.
 
-Day 1 started the model. This day does **not** train. Each notebook has a **Backend** cell: set `BACKEND = "demo"` (default, no GPU), `"olmo"` (local OLMo on port 8000), or `"phi"` (local Phi on port 8001). Retrieval always runs here. If the live call fails, notebooks continue with a labelled local cite-or-abstain helper; those replies are **not scored as model performance**. Download this folder and run it locally before the workshop if the hosted notebook can lose its host.
+Day 1 started the model. This day does **not** train. Each notebook has a **Backend** cell: set `BACKEND = "demo"` (default, no GPU) or `"olmo"` (local OLMo on port 8000). Retrieval always runs here. If the live call fails, notebooks continue with a labelled local cite-or-abstain helper; those replies are **not scored as model performance**. Download this folder and run it locally before the workshop if the hosted notebook can lose its host.
 
 ## Order of play
 

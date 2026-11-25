@@ -35,8 +35,9 @@ def nb(cells: list[dict]) -> dict:
 
 def write(name: str, cells: list[dict]) -> None:
     path = HERE / name
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(nb(cells), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print("wrote", path.name)
+    print("wrote", path.relative_to(HERE).as_posix())
 
 
 BANNER = """
@@ -700,7 +701,7 @@ ft.save_log("T1-12b_risks", CELLS)
 # T1-13
 # ---------------------------------------------------------------------------
 write(
-    "T1-13_agentic_boundary.ipynb",
+    "optional/T1-13_agentic_boundary.ipynb",
     [
         md(
             """# T1-13 Agentic boundary + ticket routing (Track A)
@@ -865,7 +866,7 @@ print(ACTION, ft.tool_gate(ACTION))
 # T1-14
 # ---------------------------------------------------------------------------
 write(
-    "T1-14_defence_and_transfer.ipynb",
+    "optional/T1-14_defence_and_transfer.ipynb",
     [
         md(
             """# T1-14 Defence + EOI transfer card
@@ -981,7 +982,7 @@ CARD = {
     "burst_vs_standing": "",
     "tools_never": "reset_password, write_glpi, award_contract, release_to_panel",
     "audit": "request id, prompt version, gold file sha256, predicted label",
-    "question_for_mpaai": "",
+    "question_for_organisation": "",
     "first_safe_next_step": "",
     "day1_baseline_rule": "meets or does not meet (redaction example rule)",
     "day3_adapter_rule": "from today's scoreboard, or not measured",

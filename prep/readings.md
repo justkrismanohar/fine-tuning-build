@@ -78,12 +78,12 @@ This is the pack for “point us at cleaning and metadata basics.” One-pager: 
 
 - Hugging Face “Fine-tuning” [first screen](https://huggingface.co/docs/transformers/training) — a small extra file can sit on frozen weights; it is not a database. You will **not** train.
 
-If the course **Docker image will not run** on your machine, technical staff should bookmark [Own environment](../03_own_environment.md) (pip/venv, CPU serve, WSL/vLLM, ministry VM). Do that **after** PREP-00b, not instead of it.
+If the course **Docker image will not run** on your machine, use the pip / Colab sections in the [course README](../README.md). Do that **after** PREP-00b, not instead of it.
 
 **For technical staff** (where models come from):
 
 - [Hugging Face model cards](https://huggingface.co/docs/hub/model-cards) — who published it, licence, intended use. T1-04 reads excerpts; this is the live guide.
-- [Hugging Face Hub security](https://huggingface.co/docs/hub/security) — official org vs a random fork; why you pin a revision. The course pins OLMo and Phi for you; you should still know the question.
+- [Hugging Face Hub security](https://huggingface.co/docs/hub/security) — official org vs a random fork; why you pin a revision. The course image pins OLMo for you; you should still know the question.
 
 **For IT and policy staff** (security and governance) — skim, do not implement:
 

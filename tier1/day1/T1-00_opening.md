@@ -6,7 +6,7 @@ People who had never used a notebook were pointed at `course/prep/` (Google Cola
 
 ## Safe use (say out loud)
 
-1. This is training. It is not a GoRTT pilot and not approval to connect Cabinet, GLPI, LMS, GIS, or a patrol system.
+1. This is training. It is not a pilot and not approval to connect Cabinet, GLPI, LMS, GIS, or a patrol system.
 2. **CivicDesk only.** If it came from work, it does not go in a notebook.
 3. The model does not hire, grade, award a contract, issue a licence, reset a password, or deploy an asset.
 4. Mixed tables. No-code people run cells. Occasional-code people change marked lines. Deep-code people do not drive someone else’s notebook.

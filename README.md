@@ -1,104 +1,73 @@
-# CivicDesk SLM course notebooks
+# CivicDesk SLM course
 
-Hands-on materials for **UNDP-TTO-00212** (open-source SLM/LLM training for GoRTT / MPAAI). Instruction lives in the notebooks. There is no slide deck for the labs.
+This is a three-day, notebook-first course on using a small open language model for desk work — without treating the model as a system of record. Over the week you stand up a local chat API (OLMo), send a first CivicDesk request, and get clear on tokens, licences, and what “open” actually means. You then decide when to use a prompt, retrieval (RAG), a system integration, or a fine-tune; classify what may enter an index and what must stay out; build a small retrieve-then-cite path; and practise abstaining when the handbook is missing or the role is not allowed to see the hit. On the last day you prove that a careful prompt still fails on frozen cases, inspect training data, train a small LoRA adapter, compare base vs adapter on held-out work, and write down the risks (overfitting, rollback, tools the model must never call). The teaching lives in the notebooks. There is no slide deck for the labs.
 
-This folder is packaged like a classroom image: a `Dockerfile`, an `environment/` with Python deps, and the notebooks. The layout follows the same idea as the [NVIDIA DLI Fundamentals of Deep Learning course content](https://github.com/NVDLI/fundamentals-of-deep-learning/tree/main/course_content) — build once, open JupyterLab, run the labs — adapted for CivicDesk (synthetic ministry-style tickets, not MNIST).
+Everything here uses **CivicDesk fiction** (synthetic tickets, résumés, handbook chunks). Do not paste real CVs, case files, passwords, or live system extracts into a cell.
 
-**CivicDesk only.** No real CVs, Cabinet/EDMS exports, case files, health records, burgess applications, patrol notes, passwords, or live GLPI/GIS extracts go in a cell.
+## Ways to run
 
-**Two tracks**
-
-| Track | Use when | Live model? |
+| Track | Where | Live model? |
 |---|---|---|
-| **Docker / local** (`tier1/`) | Classroom machine, or [own environment](03_own_environment.md) | Yes, if you start OLMo/Phi |
-| **Colab demo** ([`colab/`](colab/README.md)) | No Docker, no GPU | No — scripted `[OLMo demo]` replies |
+| **Brev (cloud GPU)** | [Launchable link](https://brev.nvidia.com/launchable/deploy?launchableID=env-3MJyQ68mgwiJAcIJraeobJF3GoB) | Yes — course image on a T4 |
+| **Docker / local** | `tier1/` on your machine | Yes — OLMo on `:8000`, if you have a GPU |
+| **Colab** | [`colab/`](colab/README.md) | Scripted demo replies on CPU. Free T4 can train on Day 3. |
 
-## Repository contents
+No local GPU? Use **Brev** for the full live-model experience, or **Colab** for the ideas with demo replies. Have a GPU laptop? Use **Docker**.
 
-```text
-.
-├── Dockerfile
-├── docker-compose.yml
-├── environment/
-│   ├── entrypoint.sh             # local Jupyter
-│   ├── docker-entrypoint.sh      # seed notebooks, load OLMo/Phi, start lab
-│   ├── download_models.py        # used at image build to bake weights
-│   ├── requirements.txt          # Jupyter + demo path (no GPU)
-│   └── requirements-gpu.txt      # optional vLLM / transformers
-├── 00_common_needs_from_eois.md
-├── 01_tier1_day_by_day_plan.md
-├── prep/                         # no-code Colab pre-work (2–3 evenings)
-├── colab/                        # Tier 1 Colab mirror (demo replies, no Docker/GPU)
-├── auxiliary/                    # self-taught workshops (no GPU)
-└── tier1/
-    ├── day1/                     # start a model
-    ├── day2/                     # retrieve, cite or abstain
-    ├── day3/                     # inspect a dataset and a pretend adapter
-    └── data_cleaning/            # optional Colab: INDEX / NEVER / HOLD, government gotchas
-```
+### About the GPU
 
+Running the live model needs a **GPU**.
 
+- **Brev:** a cloud T4 is already part of the launchable. You pay for the instance while it is on (about **US$0.60 per hour** for that class of GPU — check Brev for the current rate).
+- **Colab, no GPU:** you can still do the notebooks. Chat cells use scripted demo replies. You are not running OLMo from the Docker image inside Colab.
+- **Docker, no GPU:** you can still open Jupyter and work through every notebook. Set `BACKEND = "demo"`. The labs run; you just are not talking to the live model.
+- **Docker, with a GPU:** pull the Hub image, start the container, set `BACKEND = "local"`, and use OLMo on `:8000`.
 
-### `Dockerfile`
+So: no GPU on your laptop does not block the course. Use Brev for a live model in the cloud, or Colab/demo for notebooks without one.
 
-Builds a JupyterLab environment from `python:3.11-slim`, installs PyTorch (CPU) and transformers, and **downloads OLMo and Phi into `/models` during `docker build`**. On start it loads those weights and serves:
+---
 
-- Jupyter on `:8888`
-- OLMo on `:8000/v1`
-- Phi on `:8001/v1`
+## Run on Brev (cloud GPU)
 
-In T1-01 set `BACKEND = "local"`. First build needs network and several GB of disk. Loading **both** models on CPU wants roughly 16 GB RAM for the Docker engine; to load OLMo only: `CIVICDESK_LOAD_MODELS=olmo`.
+If you do not have a GPU at home, you can still run the full course experience in the cloud. The Brev launchable is set up for a **T4** GPU and loads the same course stack you would get from the Docker image.
 
-### `environment/`
+1. Create an account at [brev.nvidia.com](https://brev.nvidia.com/) and top it up with some credit (USD).
+2. Log in, then open this launchable:  
+   [Deploy CivicDesk Tier 1 on Brev](https://brev.nvidia.com/launchable/deploy?launchableID=env-3MJyQ68mgwiJAcIJraeobJF3GoB)
+3. Wait while Brev provisions the machine. **First load can take about 15 minutes.** That is normal.
+4. When it is ready, open Jupyter from the Brev console and work through `tier1/` as usual. Set `BACKEND = "local"` once OLMo is up.
 
-- `requirements.txt` — JupyterLab and the packages the demo notebooks import.
-- `requirements-gpu.txt` — extra packages for `build_llms.py serve --engine vllm` on Linux+CUDA.
-- `entrypoint.sh` — JupyterLab startup script (Docker and local `sh`).
+Stop the instance when you are done so you are not charged while idle. Pricing is roughly **US$0.60 per hour** for this T4 setup; confirm the current rate on Brev before you leave it running.
 
+---
 
+## Install Docker (if you need it)
 
-### `tier1/day1/`
+You need [Docker](https://docs.docker.com/get-docker/) installed and running.
 
-Day 1 labs. Open them in order. Each notebook has the teaching text; do not paste ministry files.
+- **Windows:** [Docker Desktop for Windows](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 required; the installer walks you through it)
+- **Mac:** [Docker Desktop for Mac](https://docs.docker.com/desktop/setup/install/mac-install/)
+- **Linux:** [Engine install](https://docs.docker.com/engine/install/) (or Desktop)
 
+After install, open Docker Desktop (Windows/Mac) and wait until it says it is running. Give it about **8 GB** memory under **Settings → Resources**.
 
-| File                                 | When        | What they do                                                                                      |
-| ------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------- |
-| `T1-00_opening.md`                   | 09:00–09:15 | Data ban, pre-test                                                                                |
-| `T1-01a_build_from_scratch.ipynb`    | 09:15–09:50 | Check host; fetch OLMo/Phi weights; start an OpenAI-compatible API — **or** skip and stay on demo |
-| `T1-01_first_call.ipynb`             | 09:50–10:30 | `BACKEND` + `WHICH_MODEL`; system vs user; one CivicDesk request                                  |
-| `T1-02_tokens_and_transformer.ipynb` | 10:45–12:00 | Tokens and the architecture card                                                                  |
-| `T1-03_slm_vs_llm.ipynb`             | 12:45–13:45 | Two small models, frozen screening set, scorecard + cost                                          |
-| `T1-04_openness_licences_gpu.ipynb`  | 13:45–14:20 | Licence scavenger hunt (Llama 3.2 vs Apache), scenario labels, GPU card                           |
-| `T1-05_usecase_canvas.ipynb`         | 14:20–14:55 | Worked redaction canvas, frozen baseline, group experiment design + gold pairs                    |
+---
 
+## Run with Docker (easiest)
 
-### `tier1/day2/`
+The course image is on Docker Hub:  
+[unclekris/fine-tuning-course-t1](https://hub.docker.com/r/unclekris/fine-tuning-course-t1)
 
-Retrieve from an approved CivicDesk pile. No GPU. Open in order: T1-06 (intervention map) → T1-07 (index vs never) → T1-08 (RAG) → T1-09 (prompt vs RAG) → T1-10 (access) → T1-10b (decision card). Executed reference copies live in `day2/completed/`.
+It already has JupyterLab, the notebooks, and **OLMo** baked in. You do not need to build from this repo unless you are changing the image.
 
-### `tier1/day3/`
+A **GPU** is needed for the live model. Without one, still start the container and use the notebooks with `BACKEND = "demo"`.
 
-Inspect an SFT set and a pretend adapter. Do **not** train. Open in order: T1-11 → T1-12 → T1-12b → T1-13 → T1-14. Executed copies in `day3/completed/`.
-
-### `prep/`
-
-Optional **no-code** pre-work (about 4–5 hours over two or three evenings). Google Colab; no Python install. Start at [`prep/README.md`](prep/README.md). PREP-00 is how to click Run; **PREP-00b** is the very basic Python needed to follow a `# [CHANGE]` line; **PREP-02b** is cleaning/metadata literacy (INDEX / NEVER / HOLD). Send with the repo: [`prep/data_cleaning_and_metadata.md`](prep/data_cleaning_and_metadata.md). Readings (Hugging Face ch. 1, OSI, Dublin Core, dataset cards, optional OWASP/NIST/Tesseract headings) are in [`prep/readings.md`](prep/readings.md). People who already use notebooks can skip PREP-00; skip 00b only if you already read Python.
-
-Auxiliary workshops are in `auxiliary/` and are self-taught (no GPU).
-
-## Run with Docker
-
-From **this** directory (`course/`):
+**Pull and run:**
 
 ```bash
-docker build -t civicdesk-course .
-```
+docker pull unclekris/fine-tuning-course-t1:v1
 
-Start JupyterLab **and** the two model servers:
-
-```bash
-docker run --rm -it -p 8888:8888 -p 8000:8000 -p 8001:8001 civicdesk-course
+docker run --rm -it -p 8888:8888 -p 8000:8000 unclekris/fine-tuning-course-t1:v1
 ```
 
 Then open:
@@ -107,115 +76,139 @@ Then open:
 http://localhost:8888/lab
 ```
 
-The file browser root is `/civicdesk`. Open `tier1/day1/T1-01_first_call.ipynb` and set **`BACKEND = "local"`**. The container already loaded the weights that were baked in at build.
+Start at `tier1/day1/T1-01_first_call.ipynb`. With a GPU, set `BACKEND = "local"` and wait until the logs say OLMo is up on `:8000`. Without a GPU, leave `BACKEND = "demo"` and keep going.
 
-Wait until the logs say `olmo is up on :8000` (and Phi on `:8001`) before you send a live call. First start can take several minutes while the models load into RAM.
-
-**Do not bind-mount** a OneDrive / “Other computers” path over `/civicdesk`. Docker Desktop often mounts that as an empty folder, which hides the notebooks that were copied into the image. Compose no longer mounts by default. If `/civicdesk` looks empty, rebuild and run **without** `-v`.
-
-To edit live, copy the `course` folder to a local disk Docker can share (for example `C:\civicdesk`) and then:
-
-```bash
-docker run --rm -it -p 8888:8888 -v "C:/civicdesk:/civicdesk" civicdesk-course
-```
-
-If that mount is still empty, the container copies the baked-in files from `/opt/civicdesk` into `/civicdesk` at start. The copy runs only when `/civicdesk/tier1/day1/civicdesk_lab.py` is missing, so an older mounted checkout keeps its helper and `hf_openai_server.py` instead of the image copies.
-
-PowerShell (no mount — use the files in the image):
+### Windows (PowerShell)
 
 ```powershell
-docker build -t civicdesk-course .
-docker run --rm -it -p 8888:8888 -p 8000:8000 -p 8001:8001 civicdesk-course
+docker pull unclekris/fine-tuning-course-t1:v1
+docker run --rm -it -p 8888:8888 -p 8000:8000 unclekris/fine-tuning-course-t1:v1
 ```
 
-Give Docker Desktop enough memory (Settings → Resources). Both models on CPU need a large engine; OLMo-only is lighter:
+### Compose
 
-```powershell
-docker run --rm -it -e CIVICDESK_LOAD_MODELS=olmo -p 8888:8888 -p 8000:8000 civicdesk-course
-```
-
-If port `8888` is already in use, map another local port:
+From this `course/` folder (uses the Hub image):
 
 ```bash
-docker run --rm -it -p 8890:8888 civicdesk-course
-```
-
-Then open `http://localhost:8890/lab`.
-
-### Compose (same thing)
-
-```bash
-docker compose up --build
+docker compose up
 ```
 
 Stop with `Ctrl+C`, then `docker compose down`.
 
-If Docker is the **wrong object** (no Docker on the laptop, Windows without WSL, ministry VM, approved GPU cloud, RAM too small, or a server you already host), use **[03_own_environment.md](03_own_environment.md)** — decision table, pip/venv, CPU `hf` serve, WSL/vLLM, shared/custom URL, and a provenance row to fill.
+### Tips
 
-## Run locally with `pip`
+- Port `8888` busy? Use `-p 8890:8888` and open `http://localhost:8890/lab`.
+- **Do not bind-mount** a OneDrive / “Other computers” path over `/civicdesk` — Docker often mounts that empty and hides the notebooks. Prefer the image as shipped.
+- To edit files live, copy `course` to a normal local folder (for example `C:\civicdesk`) and mount that:
+
+```bash
+docker run --rm -it -p 8888:8888 -p 8000:8000 -v "C:/civicdesk:/civicdesk" unclekris/fine-tuning-course-t1:v1
+```
+
+### Build from source (maintainers)
+
+Only if you are changing the Dockerfile or baked weights:
+
+```bash
+docker build -t civicdesk-course .
+docker run --rm -it -p 8888:8888 -p 8000:8000 civicdesk-course
+```
+
+The build downloads OLMo only (`allenai/OLMo-2-0425-1B-Instruct`). That layer is several GB and needs network the first time.
+
+---
+
+## Run in Colab
+
+No Docker, or no GPU on your laptop? Use the Colab copies.
+
+Colab does **not** run the Docker Hub image. On a CPU runtime you will not get a live local OLMo — chat cells use scripted demo replies, and that is fine for learning the ideas. For the live model from the image, use Docker on a machine that has a GPU.
+
+1. Open [`colab/README.md`](colab/README.md).
+2. Click an **Open in Colab** link for the notebook you want (Day 1–3 are listed there).
+3. In Colab: **Runtime → Run all**. The first cell finds or clones the course.
+
+What to expect:
+
+- Day 1 chat cells use scripted demo replies on CPU.
+- Day 2 does not need a model.
+- Day 3 training needs a GPU. On free Colab those cells skip with a clear message, or switch **Runtime → T4** to train for real.
+
+Prep notebooks: [`prep/`](prep/README.md). Optional data-cleaning labs: [`tier1/data_cleaning/`](tier1/data_cleaning/README.md).
+
+---
+
+## Run locally with pip (no Docker)
 
 Python 3.11+ recommended. From this directory:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+python -m venv .venv
+# Windows:
+.venv\Scripts\activate
+# Mac/Linux:
+# source .venv/bin/activate
+
 python -m pip install --upgrade pip
 python -m pip install -r environment/requirements.txt
-```
-
-Start JupyterLab:
-
-```bash
 jupyter lab
 ```
 
-or:
+Open `tier1/day1/` and keep `BACKEND = "demo"` unless you have already started a local model server.
 
-```bash
-sh environment/entrypoint.sh
+---
+
+## What’s in the repo
+
+```text
+.
+├── Dockerfile
+├── docker-compose.yml
+├── environment/          # Python deps, entrypoint, model download at build
+├── prep/                 # short Colab pre-work
+├── colab/                # Colab mirror of Tier 1
+├── auxiliary/            # optional self-taught notes
+└── tier1/
+    ├── day1/             # start a model, tokens, licences, use-case canvas
+    ├── day2/             # classify sources, RAG, access, decision card
+    ├── day3/             # prove the prompt fails, train a LoRA, compare
+    └── data_cleaning/    # optional INDEX / NEVER / HOLD practice
 ```
 
-Jupyter prints a local URL. Open it, then open `tier1/day1/`.
+### Day 1 (`tier1/day1/`)
 
-Windows without Docker: this pip path is the usual option. `build_llms.py check` will say if there is no NVIDIA GPU. Stay on `BACKEND='demo'` or use the course shared URL. Full decision tree and GPU/VM steps: [03_own_environment.md](03_own_environment.md).
+| File | Roughly | Topic |
+|---|---|---|
+| `T1-00_opening.md` | start | data ban, pre-test |
+| `T1-01a_build_from_scratch.ipynb` | morning | check host / fetch weights / start API — or stay on demo |
+| `T1-01_first_call.ipynb` | morning | first CivicDesk call (`BACKEND`) |
+| `T1-02_tokens_and_transformer.ipynb` | mid | tokens and the architecture card |
+| `T1-03_slm_vs_llm.ipynb` | afternoon | model size / scorecard |
+| `T1-04_openness_licences_gpu.ipynb` | afternoon | licences and GPU questions |
+| `T1-05_usecase_canvas.ipynb` | end | redaction canvas + gold pairs |
 
-## Live models
+### Day 2 (`tier1/day2/`)
 
-The course image **already contains** OLMo and Phi (`/models/olmo`, `/models/phi`). You do not run `build_llms.py download` inside it unless you skipped that layer.
+No GPU required. Order: T1-06 → T1-07 → T1-08 → T1-09 → T1-10 → T1-10b. Reference copies in `day2/completed/`.
 
-On start the entrypoint loads those folders with `hf_openai_server.py` (CPU; GPU if the container sees CUDA). T1-01a is still there so learners can see the steps; if `/models/olmo` exists, `download` reports “already in image”.
+### Day 3 (`tier1/day3/`)
 
-`BACKEND='demo'` still works (canned text, no model). For a real call in this image use `BACKEND='local'`.
+Prove the base model fails on held-out cases, inspect training data, train a LoRA with `TrainSession`, save an adapter, compare base vs adapter. Main path: T1-11 → T1-12 → T1-12b. Optional if time: `optional/T1-13`, `optional/T1-14`. Needs a GPU for live training; otherwise notebooks fall back to RECORDED runs when those files exist.
 
-Faster GPU serve (Linux + NVIDIA + nvidia-container-toolkit), after the image is built:
+### Model in the Docker image
 
-```bash
-docker run --rm -it --gpus all -p 8888:8888 -p 8000:8000 -p 8001:8001 civicdesk-course
-```
+- **OLMo** on **:8000** — `allenai/OLMo-2-0425-1B-Instruct`
 
-Then in a lab terminal you can stop the CPU servers and use vLLM if you installed `environment/requirements-gpu.txt`. The classroom default in this Dockerfile is the baked HF servers, not vLLM.
+`BACKEND = "demo"` still works anywhere (canned text, no model). For a live call in the image, use `BACKEND = "local"` or `BACKEND = "olmo"`.
 
-
-| Engine                  | Use when                                                                       |
-| ----------------------- | ------------------------------------------------------------------------------ |
-| skip + `BACKEND='demo'` | Canned replies; no need to wait for :8000 / :8001                              |
-| `vllm`                  | Linux+CUDA, vLLM installed                                                     |
-| `docker`                | GPU + Docker, no local vLLM pip (`python build_llms.py serve --engine docker`) |
-| `hf`                    | `hf_openai_server.py`; smoke test; slow on CPU                                 |
-| `BACKEND='shared'`      | Facilitator pastes the course workspace URL                                    |
-
-
-OLMo is served on port **8000**, Phi on **8001**. Primary id: `allenai/OLMo-2-0425-1B-Instruct`. Comparison: `microsoft/Phi-4-mini-instruct`.
+---
 
 ## Data ban
 
-If it came from a ministry system, it does not go in a cell. Use the CivicDesk fiction in `tier1/day1/data/`. A planted secret in a prompt is a fail for the exercise.
+If it came from a real workplace system, it does not go in a cell. Use the CivicDesk fiction under `tier1/`. A planted secret in a prompt is a fail for the exercise.
 
-## Notes
+## If you get stuck
 
-- `docker build` downloads OLMo + Phi into the image. That layer is several GB and needs Hugging Face network access. **Notebook-only edits do not re-download** — the weights layer sits *before* `COPY . /opt/civicdesk`. You still run `docker compose up --build`; Docker reuses `/models` and only copies the new notebooks. You re-download only if `download_models.py`, the pip lines, or the base image change.
-- Loading both models on CPU is RAM-heavy. If the container is killed on start, use `CIVICDESK_LOAD_MODELS=olmo` or raise Docker Desktop memory.
-- CPU replies are slow. That is expected. vLLM on a GPU is the faster classroom path later.
-- Stop JupyterLab with `Ctrl+C` in the terminal where it is running.
-- Git is not required in the room. If stuck, load `tier1/day1/completed/` for **that** notebook only and mark it as loaded from reference.
+Load `completed/` for **that** notebook only and mark it as loaded from reference. Git is not required in the room.
 
+CPU replies are slow. That is normal. Stop Jupyter with `Ctrl+C` in the terminal where it is running.

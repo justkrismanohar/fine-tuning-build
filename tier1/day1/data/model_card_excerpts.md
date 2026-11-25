@@ -1,6 +1,6 @@
 # Model card excerpts (classroom copy)
 
-Frozen for this course, subject to UNDP / MPAAI confirmation. Read the live card before any later project. These lines are enough for T1-04.
+Frozen for this course. Always read the live model card before a later project. These lines are enough for T1-04.
 
 ## allenai/OLMo-2-0425-1B-Instruct (primary)
 
