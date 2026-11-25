@@ -2,7 +2,7 @@ version: '1.0'
 
 services:
   backend:
-    image: unclekris/finetuning-course:v1
+    image: unclekris/fine-tuning-course-t1:v1
     pull_policy: always
     ulimits:
       memlock: -1
